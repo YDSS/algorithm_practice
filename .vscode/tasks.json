@@ -4,13 +4,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "compile",
+            "label": "exec",
             "type": "shell",
-            "command": "gcc",
+            "command": "node -v",
             "args": [
-                "-o",
-                "${workspaceFolder}/tmp/${fileBasenameNoExtension}.out",
-                "${file}"
+                // "${file}"
             ],
             "group": {
                 "kind": "build",
