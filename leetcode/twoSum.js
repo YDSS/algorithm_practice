@@ -1,5 +1,6 @@
 /**
- * @file 
+ * @file twoSum problem is actually a search problem, the key is how to find a proper
+ *  search solution which has less time complexity. In this case, hash map is best
  * @author YDSS
  */
 
@@ -10,6 +11,7 @@ let { binarySearchR } = require('../data_structure/search/binarySearch');
  * @param {number} target
  * @return {number[]}
  * 
+ * @condition not working when nums not ordered
  * @complexity T(n) = O(n*n) S(n) = O(1)
  */
 let twoSum = function(nums, target) {
@@ -32,7 +34,7 @@ let twoSum = function(nums, target) {
  * @param {number} target
  * @return {number[]}
  * 
- * @conditions nums must be ordered
+ * @condition not working when nums not ordered
  * @complexity T(n) = O(n*log2n) S(n) = O(1)
  */
 let twoSum2 = function (nums, target) {
@@ -57,6 +59,71 @@ let twoSum2 = function (nums, target) {
     return ret;
 }
 
-let nums = [3, 2, 4];
-let ret = twoSum2(nums, 6); 
+/**
+ * use hash table to reduce look up for complement to O(1),
+ *  but create this hash table first
+ * 
+ * T(n) = O(2n) = O(n), create hash table (O(n)) + traverse nums (O(n)) 
+ * S(n) = O(n)
+ * @param {*} nums 
+ * @param {*} target 
+ */
+let twoSum3 = function (nums, target) {
+    let ret = [];
+    let map = {};
+
+    // create two-way hash table
+    for (let i = 0; i < nums.length; i++) {
+        map[nums[i]] = i;
+    }
+    // walk nums, find the complement of cur num
+    let i = 0;
+    while (i < nums.length) {
+        let complement = target - nums[i];
+        if (map[complement] != null && map[complement] !== i) {
+            ret[0] = i;
+            ret[1] = map[complement];
+            
+            break;
+        }
+
+        i++;
+    }
+
+    return ret;
+}
+
+/**
+ * 
+ * like twoSum3, but only traverse nums once, while we iterate nums and insert num into hash map,
+ *  we also look back to check if current element's complement already exits in hash map
+ * 
+ * T(n) = O(n) 
+ * S(n) = O(n)
+ * 
+ * @param {*} nums 
+ * @param {*} target 
+ */
+let twoSum4 = function (nums, target) {
+    let ret = [];
+    let map = {};
+    let i = 0;
+    while (i < nums.length) {
+        let addend = target - nums[i];
+        if (map[addend] != null) {
+            ret[1] = i;
+            ret[0] = map[addend];
+
+            break;
+        }
+
+        map[nums[i]] = i;
+        i++;
+    }
+
+    return ret;
+}
+
+let nums = [3, 2, 6, 2, 5];
+let ret = twoSum3(nums, 4); 
 console.log(ret);
