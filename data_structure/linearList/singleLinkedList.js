@@ -5,28 +5,39 @@
 
 /**
  * 单链表
- * 
- * @constructor
+ *
  */
 class SingleLinkedList {
-    
-    constructor() {
+    /**
+     * @constructor
+     * @param {Array?} arr array will transform to linkedlist, set null will create a empty linkedlist
+     * @param {String?} createWay 'head' as default to create from head, 'tail' to create from tail
+     * @param {_Node?} head head node
+     */
+    constructor(arr, createWay = "head", head) {
+        this.way = createWay;
+        this.head = head;
+        this.origin = (arr && arr.length) ? arr : null;
 
+        return this.way === "head"
+            ? this.createFromHead(this.origin, head)
+            : this.createFromTail(this.origin, head);
     }
 
     /**
      * 头插法
-     * 
+     *
      * @param {Array} arr 原始数组
-     * 
-     * @return {SingleLinkedListNode} head
+     * @param {_Node?} head
+     *
+     * @return {Node} head
      */
-    static createFromHead(arr) {
-        let head = new SingleLinkedListNode(null, null);
-        
+    createFromHead(arr, head) {
+        head = head || new _Node(null, null);
+
         for (let val of arr) {
-            let headNext = head.next; 
-            let node = new SingleLinkedListNode(val, headNext);
+            let headNext = head.next;
+            let node = new _Node(val, headNext);
 
             head.next = node;
         }
@@ -36,17 +47,18 @@ class SingleLinkedList {
 
     /**
      * 尾插法
-     * 
-     * @param {Array} arr 
-     * 
-     * @return {SingleLinkedListNode} head
+     *
+     * @param {Array} arr
+     * @param {_Node?} head
+     *
+     * @return {_Node} head
      */
-    static createFromTail(arr) {
-        let head = new SingleLinkedListNode(null, null);
+    createFromTail(arr, head) {
+        head = head || new _Node(null, null);
         let tail = head;
 
         for (let val of arr) {
-            let node = new SingleLinkedListNode(val, null);
+            let node = new _Node(val, null);
             tail.next = node;
 
             tail = node;
@@ -57,8 +69,8 @@ class SingleLinkedList {
 
     /**
      * 从头遍历单链表
-     * 
-     * @param {SingleLinkedList} head 
+     *
+     * @param {SingleLinkedList} head
      */
     static walk(head) {
         let cur = head.next;
@@ -70,25 +82,16 @@ class SingleLinkedList {
     }
 }
 
-class SingleLinkedListNode {
+class _Node {
     constructor(data, next) {
         this.data = data;
         this.next = next;
     }
-
-    // set next(node) {
-    //     if (node instanceof SingleLinkedListNode || node == null) {
-    //         this.next = node;
-    //     }
-    //     else {
-    //         throw new Error('next can only be type Node or Null');
-    //     }
-    // }
 }
 
 function test() {
     let arr = [7, 3, 8, 1, 9, 0];
-    let head = SingleLinkedList.createFromTail(arr); 
+    let head = new SingleLinkedList(arr, 'tail', null);
 
     SingleLinkedList.walk(head);
 }
