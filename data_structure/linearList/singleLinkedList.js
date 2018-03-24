@@ -82,6 +82,8 @@ class SingleLinkedList {
     }
 }
 
+module.exports = SingleLinkedList;
+
 class _Node {
     constructor(data, next) {
         this.data = data;
@@ -96,4 +98,4 @@ function test() {
     SingleLinkedList.walk(head);
 }
 
-test();
+// test();
