@@ -16,12 +16,12 @@ class SingleLinkedList {
      */
     constructor(arr, createWay = "head", head) {
         this.way = createWay;
-        this.head = head;
+        this.head = ( head === null ) ? null : new _Node(null, null);
         this.origin = (arr && arr.length) ? arr : null;
 
         return this.way === "head"
-            ? this.createFromHead(this.origin, head)
-            : this.createFromTail(this.origin, head);
+            ? this.createFromHead(this.origin, this.head)
+            : this.createFromTail(this.origin, this.head);
     }
 
     /**
@@ -33,13 +33,25 @@ class SingleLinkedList {
      * @return {Node} head
      */
     createFromHead(arr, head) {
-        head = head || new _Node(null, null);
+        let headless = false;
+        if (head === null) {
+            head = new _Node(null, null);
+            headless = true; 
+        }
 
         for (let val of arr) {
             let headNext = head.next;
             let node = new _Node(val, headNext);
 
             head.next = node;
+        }
+
+        if (headless) {
+            // remove head
+            let next = head.next;
+            head.next = null;
+
+            return next;
         }
 
         return head;
@@ -54,7 +66,11 @@ class SingleLinkedList {
      * @return {_Node} head
      */
     createFromTail(arr, head) {
-        head = head || new _Node(null, null);
+        let headless = false;
+        if (head === null) {
+            head = new _Node(null, null);
+            headless = true; 
+        }
         let tail = head;
 
         for (let val of arr) {
@@ -62,6 +78,14 @@ class SingleLinkedList {
             tail.next = node;
 
             tail = node;
+        }
+
+        if (headless) {
+            // remove head
+            let next = head.next;
+            head.next = null;
+
+            return next;
         }
 
         return head;
@@ -73,8 +97,7 @@ class SingleLinkedList {
      * @param {SingleLinkedList} head
      */
     static walk(head) {
-        let cur = head.next;
-        console.log(`head`);
+        let cur = head;
         while (cur != null) {
             console.log(` --> Node(:${cur.data})`);
             cur = cur.next;
@@ -91,11 +114,8 @@ class _Node {
     }
 }
 
-function test() {
-    let arr = [7, 3, 8, 1, 9, 0];
-    let head = new SingleLinkedList(arr, 'tail', null);
-
-    SingleLinkedList.walk(head);
-}
-
 // test();
+// function test() {
+//     let l = new SingleLinkedList([1, 3, 4], 'head');
+//     SingleLinkedList.walk(l);
+// }
