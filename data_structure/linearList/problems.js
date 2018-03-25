@@ -37,4 +37,41 @@ function test_sorByAesc() {
     SingleLinkedList.walk(head);
 }
 
-test_sorByAesc();
+// test_sorByAesc();
+
+/**
+ * @desc delete all nodes those data equal `x` 
+ *  in a headless single linked list by recursion
+ * 
+ * @problem what if the first node's data equal `x`, if we delete it, 
+ *  the list will be broken. this function can't return head node.
+ * 
+ * @param {*} x
+ * @param {_Node} pre previous node of current node
+ * @param {_Node} cur 
+ */
+function recurseDeleteNode(x, pre, cur) {
+    if (cur == null) {
+        return;
+    }
+
+    let next = cur.next;
+    if (cur.data === x) {
+        // remove current node
+        pre.next = next;
+
+        return recurseDeleteNode(x, pre, next);
+    }
+    
+    recurseDeleteNode(x, cur, next);
+}
+
+function test_recurseDeleteNode() {
+    let head = new SingleLinkedList([1, 3, 2, 4, 1, 5,1,2, 5], 'tail', null);
+    // SingleLinkedList.walk(head);
+
+    recurseDeleteNode(1, head, head.next);
+    SingleLinkedList.walk(head);
+}
+
+test_recurseDeleteNode();
