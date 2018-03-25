@@ -10,7 +10,7 @@ function sortByAesc(head) {
     //   leave the first node to the new list
     let oldListHead = head.next.next;
     // make a new list with head and the first node with data
-    head.next = null;
+    head.next.next = null;
 
     let newListPre;
     let oldListNext;
