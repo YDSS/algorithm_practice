@@ -1,6 +1,5 @@
 /**
  * @file implementation of circular sequence queue
- *  there wiil be lack of one space compare with maxSize in circular sequence queue
  * @author YDSS
  *
  * Created on Tue Mar 27 2018
@@ -30,6 +29,9 @@ module.exports = class SequenceQueue {
         }
 
         this.maxSize = maxSize;
+        // there wiil be lack of one space compare with maxSize 
+        // in circular sequence queue, so add 1 to make the queue right
+        this._realMaxSize = maxSize + 1;
         this._queue = [];
         this.front = 0;
         this.rear = 0;
@@ -40,7 +42,7 @@ module.exports = class SequenceQueue {
     }
 
     isFull() {
-        return (this.rear + 1) % this.maxSize === this.front;
+        return (this.rear + 1) % this._realMaxSize === this.front;
     }
 
     enter(item) {
@@ -49,7 +51,7 @@ module.exports = class SequenceQueue {
         }
 
         this._queue[this.rear] = item;
-        this.rear = ( this.rear + 1 ) % this.maxSize;
+        this.rear = ( this.rear + 1 ) % this._realMaxSize;
     }
 
     leave() {
@@ -59,7 +61,7 @@ module.exports = class SequenceQueue {
 
         let item = this._queue[this.front];
         delete this._queue[this.front];
-        this.front = ( this.front + 1 ) % this.maxSize;
+        this.front = ( this.front + 1 ) % this._realMaxSize;
 
         return item;
     }

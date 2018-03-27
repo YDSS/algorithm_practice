@@ -14,10 +14,12 @@ test('enter and leave', () => {
     expect(queue.rear).to.equal(0);
 
     queue.enter(123);
+    queue.enter(234);
     expect(queue.isFull()).to.be.true;
     expect(() => queue.enter(23)).to.throw('the queue is full');
 
     expect(queue.leave()).to.equal(123);
+    queue.leave();
     expect(queue.isEmpty()).to.be.true;
     expect(() => queue.leave()).to.throw('the queue is empty');
 })
