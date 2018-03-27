@@ -1,0 +1,28 @@
+{
+  "name": "algorithm_practice",
+  "version": "1.0.0",
+  "description": "practice basic algorithm by js and c",
+  "main": "index.js",
+  "dependencies": {
+    "jest": "^22.4.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2"
+  },
+  "scripts": {
+    "test": "jest -t ./data_structure/stack/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YDSS/algorithm_practice.git"
+  },
+  "jest": {
+    "verbose": true
+  },
+  "author": "YDSS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YDSS/algorithm_practice/issues"
+  },
+  "homepage": "https://github.com/YDSS/algorithm_practice#readme"
+}

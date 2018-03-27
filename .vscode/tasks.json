@@ -15,6 +15,16 @@
                 "isDefault": true
             }
         },
+        {
+            "label": "testcase",
+            "type": "shell",
+            "command": "jest",
+            "args": [
+                // "--findRelatedTests",
+                // "${file}"
+                "${relativeFile}"
+            ],
+        }
         // {
         //     "label": "run",
         //     "type": "shell",
