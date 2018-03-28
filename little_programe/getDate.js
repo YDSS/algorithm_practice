@@ -22,31 +22,27 @@ function getDateFromDay(year, day) {
     ];
     let month;
     let dayOfMonth; 
+    let daysRemain = day - daysOfMonth[0]; 
+    let i = 0;
 
-    daysOfMonth.reduce((pre, cur, index) => {
-        console.log(`${pre}, ${cur}`)
-        let daysSoFar = pre + cur;
+    while (daysRemain > 0) {
+        i++; 
+        daysRemain -= daysOfMonth[i];
+    }
+    if (daysRemain === 0) {
+        month = i + 1; 
+        dayOfMonth = daysOfMonth[i];
+    }
+    else {
+        month = i + 1;
+        dayOfMonth = daysRemain + daysOfMonth[i];
+    }
 
-        if (daysSoFar < day) {
-            return daysSoFar;
-        } 
-
-        let remain= daysSoFar - day;
-        if (dayOfMonth === 0) {
-            month = index + 1; 
-            dayOfMonth = cur;
-        }
-        else {
-            month = index + 2;
-            dayOfMonth = remain;
-        }
-    }, 0);
-
-    return `${month} ${dayOfMonth}, ${year}`
+    return `${year}-${month}-${dayOfMonth}`
 }
 
 function test() {
-    console.log(getDateFromDay(2018, 61));
+    console.log(getDateFromDay(2018, 365));
 }
 
 test();
