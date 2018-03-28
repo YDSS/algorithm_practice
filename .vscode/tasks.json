@@ -6,9 +6,10 @@
         {
             "label": "exec",
             "type": "shell",
-            "command": "node -v",
+            "command": "node",
             "args": [
                 // "${file}"
+                "${relativeFile}"
             ],
             "group": {
                 "kind": "build",
