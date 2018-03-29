@@ -20,6 +20,11 @@ function getDateFromDay(year, day) {
         30,
         31
     ];
+
+    if (day > (year % 4 === 0 ? 366: 365)) {
+        throw new RangeError(`the year of ${year} can not have ${day} days`);
+    }
+
     let month;
     let dayOfMonth; 
     let daysRemain = day - daysOfMonth[0]; 
@@ -29,20 +34,14 @@ function getDateFromDay(year, day) {
         i++; 
         daysRemain -= daysOfMonth[i];
     }
-    if (daysRemain === 0) {
-        month = i + 1; 
-        dayOfMonth = daysOfMonth[i];
-    }
-    else {
-        month = i + 1;
-        dayOfMonth = daysRemain + daysOfMonth[i];
-    }
+    month = i + 1;
+    dayOfMonth = daysRemain + daysOfMonth[i];
 
     return `${year}-${month}-${dayOfMonth}`
 }
 
 function test() {
-    console.log(getDateFromDay(2018, 365));
+    console.log(getDateFromDay(2018, 364));
 }
 
 test();
