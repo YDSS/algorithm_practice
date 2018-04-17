@@ -16,13 +16,16 @@ class BinaryTree {
      * f g l    h
      */
     static mock() {
-        let f = new BinaryTreeNode('f', null, null);
-        let g = new BinaryTreeNode('g', null, null);
-        let l = new BinaryTreeNode('l', null, null);
-        let h = new BinaryTreeNode('h', null, null);
-        let c = new BinaryTreeNode('c', f, g);
-        let d = new BinaryTreeNode('d', l, null);
-        let e = new BinaryTreeNode('e', null, h);
+        // let f = new BinaryTreeNode('f', null, null);
+        // let g = new BinaryTreeNode('g', null, null);
+        // let l = new BinaryTreeNode('l', null, null);
+        // let h = new BinaryTreeNode('h', null, null);
+        // let c = new BinaryTreeNode('c', f, g);
+        let c = new BinaryTreeNode('c', null, null);
+        let d = new BinaryTreeNode('d', null, null);
+        // let d = new BinaryTreeNode('d', l, null);
+        // let e = new BinaryTreeNode('e', null, h);
+        let e = new BinaryTreeNode('e', null, null);
         let a = new BinaryTreeNode('a', c, d);
         let b = new BinaryTreeNode('b', e, null);
         

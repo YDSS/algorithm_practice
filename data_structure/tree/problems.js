@@ -6,7 +6,6 @@
  */
 const { BinaryTreeNode, BinaryTree } = require('./BinaryTree');
 
-let height = 1;
 /**
  * get hight of a binary tree
  */
@@ -15,8 +14,8 @@ function getBinaryTreeHeight(root) {
         return 0;
     }
     
-    let lHeight;
-    let rHeight;
+    let lHeight = 0;
+    let rHeight = 0;
 
     if (root.lchild) {
         lHeight = getBinaryTreeHeight(root.lchild);
@@ -25,5 +24,11 @@ function getBinaryTreeHeight(root) {
         rHeight = getBinaryTreeHeight(root.rchild);
     }
 
-    return Math.max(lHeight, rHeight);
+    return Math.max(lHeight, rHeight) + 1;
 }
+
+function testGetBinaryTreeHeight() {
+    let root = BinaryTree.mock(); 
+    console.log(getBinaryTreeHeight(root));
+}
+testGetBinaryTreeHeight();
