@@ -16,57 +16,107 @@ function ListNode(val) {
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-    // add head for l1, l2, which make traverse more natural
-    // remove head when traverse over
-    var head1 = new ListNode(null);
-    head1.next = l1;
-    var head2 = new ListNode(null);
-    head2.next = l2;
+    var p = l1;
+    var q = l2;
     // result list
     var ret = new ListNode(null);
-    var retCur = ret;
-    var retNext = null;
-    // carray flag
-    var carrayFlag = false;
+    var retPrev = ret;
+    var retCur = null;
+    // carry flag
+    var carryFlag = false;
 
-    while (head1.next || head2.next) {
-        var l1Val;
-        var l2Val;
-        if (head1.next) {
-            l1Val = +head1.next.val;
-        }
-        else {
-            l1Val = 0;
-        }
-        if (head2.next) {
-            l2Val = +head2.next.val;
-        }
-        else {
-            l2Val = 0;
-        }
+    function generateRetNode(val) {
+        retCur = new ListNode(val);
+        retPrev.next = retCur;
+        retPrev = retCur;
+    }
 
-        console.log(l1Val, l2Val);
-        var sum = l1Val + l2Val + (carrayFlag ? 1 : 0);
-        carrayFlag = false;
-        if (sum > 9) {
-            carrayFlag = true;
-            sum -= 10;
+    function handleCarry(val) {
+        if (carryFlag) {
+            val += 1;
+            carryFlag = false;
+        } 
+
+        if (val > 9) {
+            val -= 10;
+            carryFlag = true;
         }
 
-        retCur.val = sum;
-        retNext = new ListNode(null);
-        retCur.next = retNext;
-        retCur = retNext;
+        return val;
+    }
 
-        head1 = head1.next;
-        head2 = head2.next;
+    while (p && q) {
+        var l1Val = +p.val;
+        var l2Val = +q.val;
+
+        var sum = l1Val + l2Val;
+        sum = handleCarry(sum);
+
+        generateRetNode(sum);
+
+        p = p.next;
+        q = q.next;
     }    
 
-    return ret;
+    while (p) {
+        var val = +p.val;
+        val = handleCarry(val);
+
+        generateRetNode(val);
+
+        p = p.next;
+    }
+
+    while (q) {
+        var val = +q.val;
+        val = handleCarry(val);
+
+        generateRetNode(val);
+
+        q = q.next;
+    }
+
+    if (carryFlag) {
+        retCur = new ListNode(1);
+        retPrev.next = retCur;
+    }
+
+    return transLinkedListToArray(ret.next);
 };
 
-function generateLinkedList(numstr) {
-    var nums = numstr.split('').reverse();
+function addTwoNumbers2(l1, l2) {
+    var p = l1;
+    var q = l2;
+    var dumphead = new ListNode(0);
+    var cur = dumphead;
+    var carryFlag = false;
+    
+    while (p || q) {
+        var val1 = p == null ? 0 : p.val;
+        var val2 = q == null ? 0 : q.val;
+        var sum = val1 + val2 + (carryFlag ? 1: 0);
+        carryFlag = sum > 9;
+        sum = sum % 10;
+
+        cur.next = new ListNode(sum);
+        cur = cur.next;
+
+        if (p) {
+            p = p.next;
+        }
+        if (q) {
+            q = q.next;
+        }
+    }
+
+    if (carryFlag) {
+        cur.next = new ListNode(1);
+    }
+
+    return transLinkedListToArray(dumphead.next);
+}
+
+function transArrayToLinkedList(nums) {
     var root = new ListNode(null);
     var cur = root;
     var next = null; 
@@ -84,12 +134,21 @@ function generateLinkedList(numstr) {
     return root;
 }
 
+function transLinkedListToArray(root) {
+    let ret = [];
+    while (root) {
+        ret.push(root.val);
+        root = root.next;
+    }
+    return ret;
+}
+
 function printLinkedList(root) {
     var print_str = root.val;
     var cur = root.next;
 
     while (cur) {
-        print_str += '-> ' + cur.val;
+        print_str += ' -> ' + cur.val;
         cur = cur.next;
     }
 
@@ -97,16 +156,19 @@ function printLinkedList(root) {
 }
 
 function test() {
-    var num1 = '342';
-    var num2 = '465';
-    var l1 = generateLinkedList(num1);
-    var l2 = generateLinkedList(num2);
+    // [5] [5]; [9,9] [1]
+    var num1 = [9,9];
+    var num2 = [1];
+    var l1 = transArrayToLinkedList(num1);
+    var l2 = transArrayToLinkedList(num2);
 
     printLinkedList(l1);
     printLinkedList(l2);
     
-    var ret = addTwoNumbers(l1, l2);
-    printLinkedList(ret);
+    // var ret = addTwoNumbers(l1, l2);
+    var ret = addTwoNumbers2(l1, l2);
+    // printLinkedList(ret);
+    console.log(ret);
 }
 
 test();
