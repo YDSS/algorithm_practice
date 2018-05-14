@@ -6,6 +6,7 @@
  */
 
 const SequenceQueue = require('../queue/SequenceQueue');
+const BinaryTreeNode = require('./BinaryTreeNode');
 
 class BinaryTree {
     /**
@@ -100,14 +101,4 @@ class BinaryTree {
     }
 }
 
-exports.BinaryTree = BinaryTree;
-
-class BinaryTreeNode {
-    constructor(data, lchild, rchild) {
-        this.data = data;
-        this.lchild = lchild;
-        this.rchild = rchild;
-    }
-}
-
-exports.BinaryTreeNode = BinaryTreeNode;
+module.exports = BinaryTree;

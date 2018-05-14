@@ -5,8 +5,12 @@
  * Created on Mon Apr 16 2018
  */
 
-const { BinaryTree, BinaryTreeNode } = require('./BinaryTree');
-const { expect } = require('chai');
+const BinaryTree = require("./BinaryTree");
+const BinaryTreeNode = require("./BinaryTreeNode");
+const BinarySearchTree = require("./BinarySearchTree");
+
+const { expect } = require("chai");
+const { printBinaryTree} =require('./utils')
 
 // test('preOrder', () => {
 //     let root = BinaryTree.mock();
@@ -23,9 +27,11 @@ const { expect } = require('chai');
 //     BinaryTree.postOrder(root);
 // });
 
-test('translevel', () => {
-    let root = BinaryTree.mock();
-    BinaryTree.translevel(root, node => {
-        console.log(node.data);
-    });
-})
+// test('translevel', () => {
+//     let root = BinaryTree.mock();
+//     BinaryTree.translevel(root, node => {
+//         console.log(node.data);
+//     });
+// })
+
+printBinaryTree();
