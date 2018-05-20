@@ -1,8 +1,24 @@
-exports.printBinaryTree = function (root) {
-    let space = " ";
-    console.log(space, space, 'a', space, space);
-    console.log(space, '/', space, '\\', space);
-    console.log('b', space, space, space, 'c');
-    console.log(space, space, space, '/', space);
-    console.log(space, space, 'd', space, space);
+const space = " ";
+const LEVEL_OFFSET = 4;
+
+function printBinaryTreeCrosswise(root, offset) {
+    if (root != null) {
+        console.log(space.repeat(offset), root.data);
+
+        if (root.lchild) {
+            printBinaryTreeCrosswise(root.lchild, offset + LEVEL_OFFSET);
+        } else {
+            root.rchild && printEmptyChild(offset + LEVEL_OFFSET);
+        }
+        if (root.rchild) {
+            printBinaryTreeCrosswise(root.rchild, offset + LEVEL_OFFSET);
+        }
+    }
 }
+exports.printBinaryTreeCrosswise = printBinaryTreeCrosswise;
+
+function printEmptyChild(offset) {
+    console.log(space.repeat(offset), "-");
+}
+
+function printBinaryTreeLengthwise(root) {}

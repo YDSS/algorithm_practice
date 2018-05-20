@@ -12,41 +12,61 @@ class BinarySearchTree {
      * @param {Array} arr array of value of tree node
      */
     constructor(arr) {
-        this.create(arr); 
         this.root = null;
+        this.create(arr); 
     }
 
     create(arr) {
         arr.forEach((val, index) => {
             let node = new BinaryTreeNode(val, null, null);
-            if (index === 0) {
-                this.root = this.insert(node, null); 
-                return;
-            }
-
-            this.root = this.insert(node, this.root);
+            this.root = this._insert(node, this.root);
         })
     }
 
     /**
-     * insert a tree node into tree
+     * insert a node from root 
+     * @param {BinaryTreeNode} node 
+     */
+    insert(node) {
+        this._insert(node, this.root);
+    }
+
+    find(val) {
+        return this._find(val, this.root);
+    }
+
+    _find(val, T) {
+        console.count('bst_find');
+        if (val === T.data) {
+            return true;
+        } 
+        if (val > T.data) {
+            return this._find(val, T.rchild);
+        }
+        if (val < T.data) {
+            return this._find(val, T.lchild);
+        }
+    }
+
+    /**
+     * recurse insert a tree node into tree
      * 
      * @param {BinaryTreeNode} node 
      * @param {BinarySearchTree} T
      * 
      * @return {BinarySearchTree} 
      */
-    insert(node, T) {
+    _insert(node, T) {
         if (T == null) {
             T = node;
         } 
 
         if (node.data > T.data) {
-            T.rchild = this.insert(node, T.rchild);
+            T.rchild = this._insert(node, T.rchild);
         }
 
         if (node.data < T.data) {
-            T.lchild = this.insert(node, T.lchild);
+            T.lchild = this._insert(node, T.lchild);
         }
 
         return T;
