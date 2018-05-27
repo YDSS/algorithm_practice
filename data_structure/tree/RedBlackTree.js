@@ -23,9 +23,11 @@ class RedBlackTree {
         );
         this.NullNode.lchild = this.NullNode;
         this.NullNode.rchild = this.NullNode;
+        // extra attr for recognizing the NullNode
+        this.NullNode.type = "null";
         // init header
         this.header = new RedBlackTreeNode(
-            Number.POSITIVE_INFINITY,
+            Number.NEGATIVE_INFINITY,
             Color.BLACK,
             this.NullNode,
             this.NullNode
@@ -44,7 +46,6 @@ class RedBlackTree {
     }
 
     insert(data) {
-        // skip the header to the real root
         this.X = this.P = this.GP = this.GGP = this.header;
 
         this.NullNode.data = data;
@@ -55,8 +56,7 @@ class RedBlackTree {
 
             if (data < this.X.data) {
                 this.X = this.X.lchild;
-            }
-            if (data > this.X.data) {
+            } else {
                 this.X = this.X.rchild;
             }
             if (
@@ -79,8 +79,7 @@ class RedBlackTree {
         );
         if (data < this.P.data) {
             this.P.lchild = this.X;
-        }
-        if (data > this.P.data) {
+        } else {
             this.P.rchild = this.X;
         }
         this._handleReorient(data);
@@ -89,12 +88,12 @@ class RedBlackTree {
     }
 
     _handleReorient(data) {
-        this.X.Color = Color.RED;
+        this.X.color = Color.RED;
         this.X.lchild.color = Color.BLACK;
         this.X.rchild.color = Color.BLACK;
 
-        if (this.P.Color === Color.RED) {
-            this.GP.Color = Color.RED;
+        if (this.P.color === Color.RED) {
+            this.GP.color = Color.RED;
 
             if (data < this.GP.data !== data < this.P.data)
                 this.P = this._rotate(data, this.GP);
@@ -135,7 +134,7 @@ class RedBlackTree {
 
     _singleRotateWithRight(T) {
         let root = T.rchild;
-        
+
         T.rchild = root.lchild;
         root.lchild = T;
 

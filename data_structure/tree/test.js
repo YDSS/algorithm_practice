@@ -47,9 +47,12 @@ function main() {
 
 function testRedBlackTree() {
     let arr = [5, 10, 15, 20, 30, 70, 60, 50, 40, 55, 65, 85, 80, 90];
+    // let arr = [5, 10, 15, 20, 30, 70, 60, 50];
     let rdt = new RedBlackTree(arr);
-    console.log(rdt.header)
-    // printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
+    // console.log(rdt.header)
+    printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
+    rdt.insert(86);
+    printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
 }
 
 function testAVLTree() {
