@@ -5,16 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(lldb) Launch",
-            "type": "cppdbg",
+            "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb"
+            "name": "debug via NPM",
+            "runtimeExecutable": "npm",
+            "cwd": "F:\\private\\algorithm_practice",
+            "runtimeArgs": [
+                "run-script",
+                "debug"
+            ],
+            "port": 9229
         }
     ]
 }

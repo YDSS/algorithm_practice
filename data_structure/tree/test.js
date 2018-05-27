@@ -9,9 +9,10 @@ const BinaryTree = require("./BinaryTree");
 const BinaryTreeNode = require("./BinaryTreeNode");
 const BinarySearchTree = require("./BinarySearchTree");
 const AVLTree = require("./AVLTree")
+const RedBlackTree = require('./RedBlackTree');
 
 const { expect } = require("chai");
-const { printBinaryTreeCrosswise } = require("./utils");
+const { printBinaryTreeCrosswise, printRedBlackTreeCrosswise } = require("./utils");
 
 // test('preOrder', () => {
 //     let root = BinaryTree.mock();
@@ -39,8 +40,16 @@ main();
 
 function main() {
     // testBinaryTree();
-    testBinarySearchTree();
-    testAVLTree();
+    // testBinarySearchTree();
+    // testAVLTree();
+    testRedBlackTree();
+}
+
+function testRedBlackTree() {
+    let arr = [5, 10, 15, 20, 30, 70, 60, 50, 40, 55, 65, 85, 80, 90];
+    let rdt = new RedBlackTree(arr);
+    console.log(rdt.header)
+    // printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
 }
 
 function testAVLTree() {
