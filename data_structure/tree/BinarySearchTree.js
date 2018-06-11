@@ -42,51 +42,59 @@ class BinarySearchTree {
      * @param {*} data data of current node
      * @return {BinaryTreeNode|Null}
      */
-    findPrecursor(data) {
-        let node = this.find(data);
+    findPrecursor(node) {
+        // let node = this.find(data);
 
-        if (!node) {
-            throw new Error(`node with data(${data}) is not in the tree`);
-        }
+        // if (!node) {
+        //     throw new Error(`node with data(${data}) is not in the tree`);
+        // }
 
         if (!node.lchild) {
             return null;
         }
 
-        let pre = node.lchild; 
-        let tmp;
-        while (tmp = pre.rchild) {
-            pre = tmp;
+        let p = node;
+        let cur = node.lchild; 
+        while (cur.rchild) {
+            p = cur;
+            cur = cur.rchild;
         }
 
-        return pre;
+        return {
+            p,
+            precursor: cur    
+        };
     }
 
     /**
      * find successor node of this node
      *  if this node doesn't have the right subtree, return null
      * 
-     * @param {*} data of current node 
+     * @param {BinaryTreeNode} current node 
      * @return {BinaryTreeNode|Null} 
      */
-    findSuccessor(data) {
-        let node = this.find(data);
+    findSuccessor(node) {
+        // let node = this.find(data);
 
-        if (!node) {
-            throw new Error(`node with data(${data}) is not in the tree`);
-        }
+        // if (!node) {
+        //     throw new Error(`node with data(${data}) is not in the tree`);
+        // }
 
         if (!node.rchild) {
             return null;
         }
 
-        let pre = node.rchild; 
-        let tmp;
-        while (tmp = pre.lchild) {
-            pre = tmp;
+        let p = node;
+        let cur = node.rchild; 
+        while (cur.lchild) {
+            p = cur;
+            cur = cur.lchild;
         }
 
-        return pre;
+        return {
+            p,
+            successor: cur    
+        };
     }
 
     _find(val, T) {
@@ -124,8 +132,9 @@ class BinarySearchTree {
             else {
                 if (T.lchild && T.rchild) {
                     // will find successor through root, can optimize
-                    let successor = this.findSuccessor(val);
+                    let { successor, p } = this.findSuccessor(val);
                     T.data = successor.data;
+                    
                 }
             }
         }
