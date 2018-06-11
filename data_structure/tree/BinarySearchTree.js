@@ -105,6 +105,32 @@ class BinarySearchTree {
         }
     }
 
+    _delete(val, T) {
+        // do nothing, if node not exists
+        if (!T) {
+            return;
+        }
+        if (val > T.data) {
+            return this._delete(val, T.rchild);
+        }
+        if (val < T.data) {
+            return this._delete(val, T.lchild);
+        }
+        if (val === T.data) {
+            // drop the node directly if it has no children
+            if (!T.lchild && !T.rchild) {
+                return null;
+            }  
+            else {
+                if (T.lchild && T.rchild) {
+                    // will find successor through root, can optimize
+                    let successor = this.findSuccessor(val);
+                    T.data = successor.data;
+                }
+            }
+        }
+    }
+
     /**
      * recurse insert a tree node into tree
      * 
