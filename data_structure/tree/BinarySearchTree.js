@@ -35,10 +35,67 @@ class BinarySearchTree {
         return this._find(val, this.root);
     }
 
+    /**
+     * find precursor node of this node
+     *  if this node doesn't have the left subtree, return null
+     * 
+     * @param {*} data data of current node
+     * @return {BinaryTreeNode|Null}
+     */
+    findPrecursor(data) {
+        let node = this.find(data);
+
+        if (!node) {
+            throw new Error(`node with data(${data}) is not in the tree`);
+        }
+
+        if (!node.lchild) {
+            return null;
+        }
+
+        let pre = node.lchild; 
+        let tmp;
+        while (tmp = pre.rchild) {
+            pre = tmp;
+        }
+
+        return pre;
+    }
+
+    /**
+     * find successor node of this node
+     *  if this node doesn't have the right subtree, return null
+     * 
+     * @param {*} data of current node 
+     * @return {BinaryTreeNode|Null} 
+     */
+    findSuccessor(data) {
+        let node = this.find(data);
+
+        if (!node) {
+            throw new Error(`node with data(${data}) is not in the tree`);
+        }
+
+        if (!node.rchild) {
+            return null;
+        }
+
+        let pre = node.rchild; 
+        let tmp;
+        while (tmp = pre.lchild) {
+            pre = tmp;
+        }
+
+        return pre;
+    }
+
     _find(val, T) {
-        console.count('bst_find');
+        if (!T) {
+            return null;
+        }
+
         if (val === T.data) {
-            return true;
+            return T;
         } 
         if (val > T.data) {
             return this._find(val, T.rchild);

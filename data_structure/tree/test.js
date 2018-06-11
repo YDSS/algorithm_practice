@@ -73,10 +73,12 @@ function testBinarySearchTree() {
     // console.log('insert 18');
     // bst.insert(new BinaryTreeNode(18, null, null));
     printBinaryTreeCrosswise(bst.root, 0);
-    console.log('find 6 ', bst.find(6));
+    // console.log('find 6 ', bst.find(6));
+    console.log('find precursor of node 3', bst.findPrecursor(3));
 }
 
 function testBinaryTree() {
     let root = BinaryTree.mock();
     printBinaryTreeCrosswise(root, 0);
+    console.log()
 }
