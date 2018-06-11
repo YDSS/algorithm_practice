@@ -9,7 +9,8 @@
             "request": "launch",
             "name": "debug via NPM",
             "runtimeExecutable": "npm",
-            "cwd": "F:\\private\\algorithm_practice",
+            // "cwd": "F:\\private\\algorithm_practice",
+            "cwd": "/Users/yangdongsheng/Projects/algorithm/algorithm_practice",
             "runtimeArgs": [
                 "run-script",
                 "debug"
