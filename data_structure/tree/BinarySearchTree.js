@@ -53,17 +53,13 @@ class BinarySearchTree {
             return null;
         }
 
-        let p = node;
-        let cur = node.lchild; 
-        while (cur.rchild) {
-            p = cur;
-            cur = cur.rchild;
+        let pre = node.lchild; 
+        let tmp;
+        while (tmp = pre.lchild) {
+            pre = tmp;
         }
 
-        return {
-            p,
-            precursor: cur    
-        };
+        return pre;
     }
 
     /**
@@ -84,19 +80,23 @@ class BinarySearchTree {
             return null;
         }
 
-        let p = node;
-        let cur = node.rchild; 
-        while (cur.lchild) {
-            p = cur;
-            cur = cur.lchild;
+        let suc = node.rchild; 
+        let tmp;
+        while (tmp = suc.lchild) {
+            suc = tmp;
         }
 
-        return {
-            p,
-            successor: cur    
-        };
+        return suc;
     }
 
+    /**
+     * find node
+     * 
+     * @private
+     * 
+     * @param {*} val 
+     * @param {BinarySearchTree} T root of this sub tree
+     */
     _find(val, T) {
         if (!T) {
             return null;
@@ -113,16 +113,32 @@ class BinarySearchTree {
         }
     }
 
+    delete(val) {
+        this.root = this._delete(val, this.root);
+    }
+
+    /**
+     * delete node
+     * 
+     * @private 
+     * 
+     * @param {*} val 
+     * @param {BinaryTreeNode} T root of this sub tree
+     */
     _delete(val, T) {
         // do nothing, if node not exists
         if (!T) {
-            return;
+            return null;
         }
+        // delete in T's right subtree
         if (val > T.data) {
-            return this._delete(val, T.rchild);
+            T.rchild = this._delete(val, T.rchild);
+            return T;
         }
+        // delete in T's left subtree
         if (val < T.data) {
-            return this._delete(val, T.lchild);
+            T.lchild = this._delete(val, T.lchild);
+            return T;
         }
         if (val === T.data) {
             // drop the node directly if it has no children
@@ -130,11 +146,23 @@ class BinarySearchTree {
                 return null;
             }  
             else {
+                // if node has two children, delete it's successor instead 
+                //  which has one child at most 
                 if (T.lchild && T.rchild) {
-                    // will find successor through root, can optimize
-                    let { successor, p } = this.findSuccessor(val);
+                    let successor = this.findSuccessor(T);
                     T.data = successor.data;
-                    
+                    T.rchild = this._delete(successor.data, T.rchild);
+                    return T;
+                }
+
+                if (T.lchild) {
+                    return T.lchild;
+                }
+                else if (T.rchild) {
+                    return T.rchild;
+                }
+                else {
+                    return null;
                 }
             }
         }
@@ -142,6 +170,8 @@ class BinarySearchTree {
 
     /**
      * recurse insert a tree node into tree
+     * 
+     * @private
      * 
      * @param {BinaryTreeNode} node 
      * @param {BinarySearchTree} T

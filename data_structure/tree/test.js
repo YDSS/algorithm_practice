@@ -67,7 +67,7 @@ function testAVLTree() {
 }
 
 function testBinarySearchTree() {
-    let arr = [11, 2, 5, 8, 29, 6, 4, 10, 7];
+    let arr = [11, 2, 1, 5, 8, 29, 6, 10, 7];
     let bst = new BinarySearchTree(arr);
     // printBinaryTreeCrosswise(bst.root, 0);
     // console.log('insert 15');
@@ -77,8 +77,10 @@ function testBinarySearchTree() {
     // bst.insert(new BinaryTreeNode(18, null, null));
     printBinaryTreeCrosswise(bst.root, 0);
     // console.log('find 6 ', bst.find(6));
-    let node6 = bst.find(8);
-    console.log('find precursor of node 8', bst.findPrecursor(node6));
+    // let node = bst.find(2);
+    // console.log(bst.findSuccessor(node));
+    bst.delete(6);
+    printBinaryTreeCrosswise(bst.root, 0);
 }
 
 function testBinaryTree() {
