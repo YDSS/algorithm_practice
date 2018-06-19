@@ -163,6 +163,60 @@ class RedBlackTree {
         return root;
     }
 
+    /**
+     * find precursor node of this node
+     *  if this node doesn't have the left subtree, return null
+     *
+     * @param {*} data data of current node
+     * @return {BinaryTreeNode|Null}
+     */
+    findPrecursor(node) {
+        // let node = this.find(data);
+
+        // if (!node) {
+        //     throw new Error(`node with data(${data}) is not in the tree`);
+        // }
+
+        if (!node.lchild) {
+            return null;
+        }
+
+        let pre = node.lchild;
+        let tmp;
+        while ((tmp = pre.lchild)) {
+            pre = tmp;
+        }
+
+        return pre;
+    }
+
+    /**
+     * find successor node of this node
+     *  if this node doesn't have the right subtree, return null
+     *
+     * @param {BinaryTreeNode} current node
+     * @return {BinaryTreeNode|Null}
+     */
+    findSuccessor(node) {
+        // let node = this.find(data);
+
+        // if (!node) {
+        //     throw new Error(`node with data(${data}) is not in the tree`);
+        // }
+
+        if (!node.rchild) {
+            return null;
+        }
+
+        let suc = node.rchild;
+        let tmp;
+        while ((tmp = suc.lchild)) {
+            suc = tmp;
+        }
+
+        return suc;
+    }
+
     delete(val) {
         // prepare for deleting
         this.header.color = Color.RED;
@@ -186,12 +240,13 @@ class RedBlackTree {
             ) {
                 this._handleRotateSisterWithTwoBlackChildren();
                 // judge if X.data is what we are looking for
-                this._handleDeleteXWhenXhasTwoBlackChildren();
+                this._handleDeleteXWhenXhasTwoBlackChildren(val);
             }
             // S has at last one red children
             else {
                 // single rotate when S with it's red child in a line,
                 // reference to avl rotate
+                // 2.3
                 if (
                     this.S.data > this.P.data ===
                     (this.S.rchild.color === Color.RED)
@@ -204,8 +259,9 @@ class RedBlackTree {
                     this.S.lchild.color = Color.BLACK;
                     this.S.rchild.color = Color.BLACK;
                     // judge if X.data is what we are looking for
-                    this._handleDeleteXWhenXhasTwoBlackChildren();
+                    this._handleDeleteXWhenXhasTwoBlackChildren(val);
                     // double rotate when S with it's red child in a z-shape line
+                    // 2.2
                 } else {
                     let firstData =
                         this.S.data < this.P.data
@@ -217,11 +273,11 @@ class RedBlackTree {
                     this.P.color = Color.BLACK;
                     this.X.color = Color.RED;
                     // judge if X.data is what we are looking for
-                    this._handleDeleteXWhenXhasTwoBlackChildren();
+                    this._handleDeleteXWhenXhasTwoBlackChildren(val);
                 }
             }
         } else {
-            this._handleDeleteXWhenXhasAtLastOneRedChild();
+            this._handleDeleteXWhenXhasAtLastOneRedChild(val);
         }
     }
 
@@ -238,24 +294,91 @@ class RedBlackTree {
     // 2.3
     _handleRotateSisterWithARedRightChildOrTwoRedChild() {}
 
-    _handleDeleteXWhenXhasTwoBlackChildren() {
-        
+    _handleDeleteXWhenXhasTwoBlackChildren(val) {
+        if (this.X.data === val) {
+            if (this._hasChild(this.X)) {
+                val = this._replaceWithSuccessorOrPrecursor(val);
+                this._descend(val);
+                this.delete(val);
+            } else {
+                // delete X when it's a leaf
+                this._deleteLeafNode(val, this.P);
+            }
+        } else {
+            this._descend(val);
+            this._delete(val);
+        }
     }
 
-    _handleDeleteXWhenXhasAtLastOneRedChild() {
+    _handleDeleteXWhenXhasAtLastOneRedChild(val) {
+        if (this.X.data === val) {
+            val = this._replaceWithSuccessorOrPrecursor(val);
 
+            this._descend(val);
+            this._handleDeleteXWhenXhasAtLastOneRedChild(val);
+        } else {
+            this._descend(val);
+            // X is red, enter the phase of judging X's data
+            if (this.X.color === Color.RED) {
+                this._handleDeleteXWhenXhasTwoBlackChildren(val);
+            } else {
+                this._handleRotateWhenXIsBlackAndSisterIsRed();
+                this._delete(val);
+            }
+        }
+    }
+
+    // 3.1.2
+    _handleRotateWhenXIsBlackAndSisterIsRed() {
+        this._rotate(this.S.data, this.GP);
+        // change color
+        this.S.color = Color.BLACK;
+        this.P.color = Color.RED;
+    }
+
+    _deleteLeafNode(val, parent) {
+        if (val > parent.data) {
+            parent.rchild = this.NullNode;
+        } else {
+            parent.lchild = this.NullNode;
+        }
+    }
+
+    _hasChild(node) {
+        return !this._isNilNode(node.lchild) || !this._isNilNode(node.rchild);
+    }
+
+    _isNilNode(node) {
+        return node === this.NullNode;
+    }
+
+    /**
+     * replace X with it's successor,
+     *  if it has no successor, instead of it's precursor
+     * @param {*} val the delete data
+     *
+     * @return {*} updated delete data
+     */
+    _replaceWithSuccessorOrPrecursor(val) {
+        let child = this.findSuccessor(this.X);
+        if (!child) {
+            child = this.findPrecursor(this.X);
+        }
+        this.X.data = child.data;
+
+        return child.data;
     }
 
     /**
      * descend one floor
      *
-     * @param {boolean} isXToLeft is X the left child of current node
+     * @param {*} val the val of node will be deleted
      */
-    _descend(isXToLeft) {
+    _descend(val) {
         this.GP = this.P;
         this.P = this.X;
 
-        if (isXToLeft) {
+        if (this.X.data > val) {
             this.S = this.X.rchild;
             this.X = this.X.lchild;
         } else {
