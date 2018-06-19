@@ -40,19 +40,30 @@ main();
 
 function main() {
     // testBinaryTree();
-    testBinarySearchTree();
+    // testBinarySearchTree();
     // testAVLTree();
-    // testRedBlackTree();
+    testRedBlackTree();
 }
 
 function testRedBlackTree() {
     let arr = [5, 10, 15, 20, 30, 70, 60, 50, 40, 55, 65, 85, 80, 90];
     // let arr = [5, 10, 15, 20, 30, 70, 60, 50];
     let rdt = new RedBlackTree(arr);
-    // console.log(rdt.header)
+    // print orignal tree
     printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
-    rdt.insert(86);
-    printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
+    // insert 
+    // rdt.insert(86);
+    // printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
+
+    // test rotate
+    // let rotateVal = 80;
+    // let p = rdt.find(70);
+    // p.rchild = rdt._rotate(rotateVal, p);
+    // let gp = rdt.find(60);
+    // gp.rchild = rdt._rotate(rotateVal, gp);
+    // printRedBlackTreeCrosswise(gp, 0);    
+
+    
 }
 
 function testAVLTree() {

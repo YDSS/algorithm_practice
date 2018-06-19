@@ -37,12 +37,34 @@ class RedBlackTree {
         this.P = null;
         this.GP = null;
         this.GGP = null;
+        // X's sister
+        this.S = null;
     }
 
     create(arr) {
         arr.forEach(item => {
             this.header = this.insert(item);
         });
+    }
+
+    find(val) {
+        return this._find(val, this.header);
+    }
+
+    _find(val, T) {
+        if (!T) {
+            return null;
+        }
+
+        if (val === T.data) {
+            return T;
+        }
+        if (val > T.data) {
+            return this._find(val, T.rchild);
+        }
+        if (val < T.data) {
+            return this._find(val, T.lchild);
+        }
     }
 
     insert(data) {
@@ -139,6 +161,107 @@ class RedBlackTree {
         root.lchild = T;
 
         return root;
+    }
+
+    delete(val) {
+        // prepare for deleting
+        this.header.color = Color.RED;
+        this.GP = null;
+        this.P = this.header;
+        this.X = this.header.rchild;
+        this.S = this.header.lchild;
+
+        this._delete(val);
+    }
+
+    _delete(val) {
+        if (
+            this.X.lchild.color === Color.BLACK &&
+            this.X.rchild.color === Color.BLACK
+        ) {
+            // S has two black children
+            if (
+                this.S.lchild.color === Color.BLACK &&
+                this.S.rchild.color === Color.BLACK
+            ) {
+                this._handleRotateSisterWithTwoBlackChildren();
+                // judge if X.data is what we are looking for
+                this._handleDeleteXWhenXhasTwoBlackChildren();
+            }
+            // S has at last one red children
+            else {
+                // single rotate when S with it's red child in a line,
+                // reference to avl rotate
+                if (
+                    this.S.data > this.P.data ===
+                    (this.S.rchild.color === Color.RED)
+                ) {
+                    this._rotate(S.data, this.GP);
+                    // change color
+                    this.P.color = Color.BLACK;
+                    this.X.color = Color.RED;
+                    this.S.color = Color.RED;
+                    this.S.lchild.color = Color.BLACK;
+                    this.S.rchild.color = Color.BLACK;
+                    // judge if X.data is what we are looking for
+                    this._handleDeleteXWhenXhasTwoBlackChildren();
+                    // double rotate when S with it's red child in a z-shape line
+                } else {
+                    let firstData =
+                        this.S.data < this.P.data
+                            ? this.S.rchild.data
+                            : this.S.lchild.data;
+                    this._rotate(firstData, this.P);
+                    this._rotate(this.S.data, this.GP);
+                    // change color
+                    this.P.color = Color.BLACK;
+                    this.X.color = Color.RED;
+                    // judge if X.data is what we are looking for
+                    this._handleDeleteXWhenXhasTwoBlackChildren();
+                }
+            }
+        } else {
+            this._handleDeleteXWhenXhasAtLastOneRedChild();
+        }
+    }
+
+    // 2.1
+    _handleRotateSisterWithTwoBlackChildren() {
+        this.P.color = Color.BLACK;
+        this.X.color = Color.RED;
+        this.S.color = Color.RED;
+    }
+
+    // 2.2
+    _handleRotateSisterWithARedLeftChild() {}
+
+    // 2.3
+    _handleRotateSisterWithARedRightChildOrTwoRedChild() {}
+
+    _handleDeleteXWhenXhasTwoBlackChildren() {
+        
+    }
+
+    _handleDeleteXWhenXhasAtLastOneRedChild() {
+
+    }
+
+    /**
+     * descend one floor
+     *
+     * @param {boolean} isXToLeft is X the left child of current node
+     */
+    _descend(isXToLeft) {
+        this.GP = this.P;
+        this.P = this.X;
+
+        if (isXToLeft) {
+            this.S = this.X.rchild;
+            this.X = this.X.lchild;
+        } else {
+            this.S = this.X.lchild;
+            this.X = this.X.rchild;
+        }
     }
 }
 

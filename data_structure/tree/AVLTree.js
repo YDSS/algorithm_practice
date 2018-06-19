@@ -28,9 +28,12 @@ class AVLTree {
     }
 
     _find(val, T) {
-        console.count('avl_find');
+        if (!T) {
+            return null;
+        }
+
         if (val === T.data) {
-            return true;
+            return T;
         } 
         if (val > T.data) {
             return this._find(val, T.rchild);
