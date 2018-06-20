@@ -63,7 +63,16 @@ function testRedBlackTree() {
     // gp.rchild = rdt._rotate(rotateVal, gp);
     // printRedBlackTreeCrosswise(gp, 0);    
 
-    
+    // find successor of 70
+    // let successor = rdt.findSuccessor(rdt.find(70));
+    // console.log(successor.data);
+    // find precursor of 60
+    // let precursor = rdt.findPrecursor(rdt.find(60));
+    // console.log(precursor.data);
+
+    // delete 80
+    rdt.delete(40);
+    printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
 }
 
 function testAVLTree() {

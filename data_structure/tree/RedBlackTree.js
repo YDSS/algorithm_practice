@@ -183,7 +183,7 @@ class RedBlackTree {
 
         let pre = node.lchild;
         let tmp;
-        while ((tmp = pre.lchild)) {
+        while (!this._isNilNode(tmp = pre.lchild)) {
             pre = tmp;
         }
 
@@ -210,7 +210,7 @@ class RedBlackTree {
 
         let suc = node.rchild;
         let tmp;
-        while ((tmp = suc.lchild)) {
+        while (!this._isNilNode(tmp = suc.lchild)) {
             suc = tmp;
         }
 
@@ -251,7 +251,7 @@ class RedBlackTree {
                     this.S.data > this.P.data ===
                     (this.S.rchild.color === Color.RED)
                 ) {
-                    this._rotate(S.data, this.GP);
+                    this._rotate(this.S.data, this.GP);
                     // change color
                     this.P.color = Color.BLACK;
                     this.X.color = Color.RED;
@@ -299,7 +299,7 @@ class RedBlackTree {
             if (this._hasChild(this.X)) {
                 val = this._replaceWithSuccessorOrPrecursor(val);
                 this._descend(val);
-                this.delete(val);
+                this._delete(val);
             } else {
                 // delete X when it's a leaf
                 this._deleteLeafNode(val, this.P);
@@ -330,14 +330,17 @@ class RedBlackTree {
 
     // 3.1.2
     _handleRotateWhenXIsBlackAndSisterIsRed() {
-        this._rotate(this.S.data, this.GP);
+        let curGP = this._rotate(this.S.data, this.GP);
         // change color
         this.S.color = Color.BLACK;
         this.P.color = Color.RED;
+        // fix pointer of S and GP
+        this.S = this.X.data > this.P.data ? this.P.lchild : this.P.rchild;
+        this.GP = curGP;
     }
 
     _deleteLeafNode(val, parent) {
-        if (val > parent.data) {
+        if (parent.rchild.data === val) {
             parent.rchild = this.NullNode;
         } else {
             parent.lchild = this.NullNode;
