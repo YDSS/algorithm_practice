@@ -313,18 +313,16 @@ class RedBlackTree {
     _handleDeleteXWhenXhasAtLastOneRedChild(val) {
         if (this.X.data === val) {
             val = this._replaceWithSuccessorOrPrecursor(val);
-
             this._descend(val);
-            this._handleDeleteXWhenXhasAtLastOneRedChild(val);
         } else {
             this._descend(val);
-            // X is red, enter the phase of judging X's data
-            if (this.X.color === Color.RED) {
-                this._handleDeleteXWhenXhasTwoBlackChildren(val);
-            } else {
-                this._handleRotateWhenXIsBlackAndSisterIsRed();
-                this._delete(val);
-            }
+        }
+        // X is red, enter the phase of judging X's data
+        if (this.X.color === Color.RED) {
+            this._handleDeleteXWhenXhasTwoBlackChildren(val);
+        } else {
+            this._handleRotateWhenXIsBlackAndSisterIsRed();
+            this._delete(val);
         }
     }
 
@@ -381,12 +379,26 @@ class RedBlackTree {
         this.GP = this.P;
         this.P = this.X;
 
-        if (this.X.data > val) {
+        if (val < this.X.data) {
             this.S = this.X.rchild;
             this.X = this.X.lchild;
-        } else {
+        } else if (val > this.X.data) {
             this.S = this.X.lchild;
             this.X = this.X.rchild;
+        }
+        // val === this.X.data when X's successor or precursor
+        //  is it's child, in this situation it's wrong to choise
+        //  where X to go down by comparing val, cause X.data is equal
+        //  with new delete value
+        else {
+            if (val === this.X.lchild) {
+                this.S = this.X.rchild;
+                this.X = this.X.lchild;
+            }
+            else {
+                this.S = this.X.lchild;
+                this.X = this.X.rchild;
+            }
         }
     }
 }

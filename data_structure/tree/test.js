@@ -70,8 +70,8 @@ function testRedBlackTree() {
     // let precursor = rdt.findPrecursor(rdt.find(60));
     // console.log(precursor.data);
 
-    // delete 80
-    rdt.delete(40);
+    // deleted 10,80,85,40,60,70
+    rdt.delete(70);
     printRedBlackTreeCrosswise(rdt.header.rchild, 0);    
 }
 
