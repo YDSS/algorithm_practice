@@ -217,6 +217,11 @@ class RedBlackTree {
         return suc;
     }
 
+    /**
+     * delete node by means of top to down
+     * 
+     * @param {*} val 
+     */
     delete(val) {
         // prepare for deleting
         this.header.color = Color.RED;
