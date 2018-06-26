@@ -34,7 +34,11 @@ function nextPrime(x) {
     return ret;
 }
 
-function test() {
-    console.log(nextPrime(2));
+module.exports = {
+    nextPrime
 }
-test();
+
+// function test() {
+//     console.log(nextPrime(2));
+// }
+// test();

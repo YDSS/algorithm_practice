@@ -3,9 +3,9 @@
  * @author YDSS
  */
 
-const ListNode = require("./ListNode");
+const ListNode = require("./HashTableListNode");
 
-class SingleLinkedList {
+class HashTableLinkedList {
     /**
      * @constructor
      * @param {Array?} arr array of elements need to insert
@@ -73,13 +73,15 @@ class SingleLinkedList {
 
     /**
      * insert a node
+     * 
+     * @param {sting} key key of node
      * @param {*} val data of node
      * @param {string?} method 'head' or 'tail', means insert from head or tail, head by default
      *
      * @return {ListNode}
      */
-    insert(val, method = "head") {
-        let node = new ListNode(val, null);
+    insert(key, val, method = "head") {
+        let node = new ListNode(key, val, null);
 
         if (method === "head") {
             if (this.headless) {
@@ -102,15 +104,15 @@ class SingleLinkedList {
 
     /**
      * find the first node matched
-     * @param {*} val
+     * @param {string} key
      *
      * @return {ListNode}
      */
-    findOne(val) {
+    findOne(key) {
         let cur = this.headless ? this.head : this.head.next;
         let found = null;
         while (cur) {
-            if (cur.data === val) {
+            if (cur.key === key) {
                 found = cur;
                 break;
             }
@@ -122,15 +124,15 @@ class SingleLinkedList {
 
     /**
      * find all the node matched
-     * @param {*} val
+     * @param {string} key
      *
      * @return {Array}
      */
-    find(val) {
+    find(key) {
         let cur = this.headless ? this.head : this.head.next;
         let ret = [];
         while (cur) {
-            if (cur.data === val) {
+            if (cur.key === key) {
                 ret.push(cur);
             }
 
@@ -142,17 +144,17 @@ class SingleLinkedList {
 
     /**
      * delete all the nodes with data equaled with val
-     * @param {*} val
+     * @param {string} key
      * 
      * @return {Array} deleted nodes
      */
-    delete(val) {
+    delete(key) {
         let cur = this.head;
         let pre;
         let deleted = [];
 
         while (cur) {
-            if (cur.data === val) {
+            if (cur.key === key) {
                 deleted.push(cur);
 
                 // pre may be null if the first node will be deleted
@@ -173,10 +175,10 @@ class SingleLinkedList {
     print() {
         let cur = this.head;
         while (cur) {
-            console.log(` --> Node(${cur.data})`);
+            console.log(` --> Node(${cur.key})`);
             cur = cur.next;
         }
     }
 }
 
-module.exports = SingleLinkedList;
+module.exports = HashTableLinkedList;
