@@ -1,6 +1,23 @@
 const SeparateChainingHashTable = require("./SeparateChainingHashTable");
+const RehashingHashTable = require("./RehashingHashTable");
 
-test();
+// test();
+testRehashing();
+
+function testRehashing() {
+    let arr = [
+        { key: "hello", val: 1 },
+        { key: "world", val: 2 },
+        { key: "test", val: 3 },
+        { key: "sdegf", val: 4 },
+        { key: "an12312", val: 5 }
+    ];
+    let hashTable = new RehashingHashTable(5, 0.5);
+    arr.forEach(item => {
+        hashTable.insert(item.key, item.val);
+    })
+    hashTable.print();
+}
 
 function test() {
     // initialize 
