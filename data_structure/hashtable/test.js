@@ -15,7 +15,35 @@ function test() {
     let hashTable = new SeparateChainingHashTable(10);
     // hashTable._hash(arr[3].key);
     arr.forEach(item => {
-        console.log(`${item.key} => ${hashTable._hash(item.key)}`)
         hashTable.insert(item.key, item.val);
     });
+    hashTable.print(); 
+    console.log();
+
+    // testInsert(hashTable);
+    // testFind(hashTable);
+    // testOverrid(hashTable);
+    testDelete(hashTable);
+}
+
+function testInsert(hashTable) {
+    hashTable.insert('asdlaj113-12', 9);
+    hashTable.print();
+}
+
+function testFind(hashTable) {
+    console.log(hashTable.find('world'))
+}
+
+function testOverrid(hashTable) {
+    console.log(hashTable.find('world'));
+    hashTable.insert('world', 100);
+    console.log(hashTable.find('world'));
+}
+
+function testDelete(hashTable) {
+    hashTable.print();
+    hashTable.delete('world');
+    console.log();
+    hashTable.print();
 }

@@ -4,7 +4,6 @@
  * @author YDSS
  */
 const LinkedList = require('./HashTableLinkedList');
-const { nextPrime } = require('../../math/prime')
 
 class SeparateChainingHashTable {
     constructor(tableSize) {
@@ -48,6 +47,13 @@ class SeparateChainingHashTable {
         return matchedList.findOne(key);
     }
 
+    delete(key) {
+        let index = this._hash(key);
+        let matchedList = this.thisList[index];
+        
+        matchedList.delete(key);
+    }
+
     _hash(key) {
         const maxLen = 20;
         let i = Math.min(key.length - 1, maxLen);
@@ -63,6 +69,19 @@ class SeparateChainingHashTable {
 
     _getCharCode(char) {
         return String.prototype.charCodeAt.call(char);
+    }
+
+    print() {
+        this.thisList.forEach((list, index) => {
+            let printLine = `[${index}]`;
+            // remove head
+            let cur = list.head.next;
+            while (cur) {
+                printLine += ` => Node('${cur.key}')`;
+                cur = cur.next;
+            }
+            console.log(printLine);
+        }); 
     }
 }
 
