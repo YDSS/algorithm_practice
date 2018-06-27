@@ -59,16 +59,17 @@ class RehashingHashTable {
     find(key) {
         let collisionNum = 0;
         let hash = this._hash(key);
-        let index;
 
+        while (this._table[hash] && this._table[hash].key !== key) {
+            hash = hash + collisionNum * collisionNum + 1; 
             collisionNum++;
 
-            if (index >= this.tableSize) {
-                index -= this.tableSize;
+            if (hash >= this.tableSize) {
+                hash -= this.tableSize;
             }
-        while (this._table[index] && this._table[index].key !== key) {
-            index = hash + collisionNum * collisionNum + 1; 
         }
+
+        return hash;
     }
 
     _hash(key) {
@@ -93,10 +94,10 @@ class RehashingHashTable {
      */
     _resolveConflict(key, hash) {
         let collisionNum = 0;
-        let index;
+        let index = hash;
 
         do {
-            index = hash + collisionNum * collisionNum + 1; 
+            index = index + collisionNum * collisionNum + 1; 
             collisionNum++;
 
             if (index >= this.tableSize) {
@@ -112,14 +113,16 @@ class RehashingHashTable {
     }
 
     print() {
+        console.log();
         console.log(`tableSize: ${this.tableSize}`);
         console.log(`count: ${this.count}`);
-        console.log();
+        console.log('^^^^^')
         this._table.forEach((item, i) => {
             if (item) {
                 console.log(`[${i}] => (${item.key} : ${item.value})`);
             }
         });
+        console.log();
     }
 }
 

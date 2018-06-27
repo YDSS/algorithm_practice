@@ -17,6 +17,13 @@ function testRehashing() {
         hashTable.insert(item.key, item.val);
     })
     hashTable.print();
+
+    testRehashingFind(hashTable);
+}
+
+function testRehashingFind(hashTable) {
+    console.log(hashTable.find('world'))
+    console.log(hashTable.find('231'))
 }
 
 function test() {
