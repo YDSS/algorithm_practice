@@ -11,10 +11,10 @@
                 // "${file}"
                 "${relativeFile}"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            // "group": {
+            //     "kind": "build",
+            //     "isDefault": true
+            // }
         },
         {
             "label": "testcase",
@@ -25,6 +25,30 @@
                 // "${file}"
                 "${relativeFile}"
             ],
+        },
+        {
+            "label": "buildts",
+            "type": "typescript",
+            "tsconfig": "tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": "build",
+        },
+        {
+            "label": "runts",
+            "type": "shell",
+            "command": "node",
+            "args": [
+                "${fileDirname}/${fileBasenameNoExtension}.js"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn":[
+                "buildts"
+            ]
         }
         // {
         //     "label": "run",

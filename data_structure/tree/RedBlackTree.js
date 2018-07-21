@@ -293,12 +293,6 @@ class RedBlackTree {
         this.S.color = Color.RED;
     }
 
-    // 2.2
-    _handleRotateSisterWithARedLeftChild() {}
-
-    // 2.3
-    _handleRotateSisterWithARedRightChildOrTwoRedChild() {}
-
     _handleDeleteXWhenXhasTwoBlackChildren(val) {
         if (this.X.data === val) {
             if (this._hasChild(this.X)) {
