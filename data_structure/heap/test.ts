@@ -25,7 +25,7 @@ class Main {
 
     buildMockMinHeap() {
         let arr = this.mock();
-        let minHeap = new MinHeap();
+        let minHeap = new MinHeap(10);
         minHeap.buildHeap(arr);
 
         return minHeap;
@@ -37,5 +37,5 @@ class Main {
 }
 
 // new Main().testBuildMinHeap();
-// new Main().testMinHeapInsert();
-new Main().testMinHeapDeleteMin();
+new Main().testMinHeapInsert();
+// new Main().testMinHeapDeleteMin();

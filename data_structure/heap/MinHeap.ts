@@ -1,22 +1,25 @@
-import { HeapAbstract, HeapInterface } from "./heap";
-
-/**
- * direction of child of the element
- */
-enum Direction {
-    Left,
-    Right
-}
+import { HeapInterface } from "./heap";
 
 export default class MinHeap implements HeapInterface {
     /**
      * actually store elements in the heap
      */
     private heap: number[] = [Number.NEGATIVE_INFINITY];
+    public maxSize: number;
 
-    constructor() {}
+    constructor(maxSize: number) {
+        this.maxSize = maxSize;
+    }
+
+    get size(): number {
+        return this.heap.length - 1;
+    }
 
     public buildHeap(arr: number[]): void {
+        if (arr.length > this.maxSize) {
+            throw new Error("built array exceed max size of the heap");
+        }
+
         arr.forEach((item, index) => {
             this.heap[index+1] = item;
         });
@@ -33,6 +36,9 @@ export default class MinHeap implements HeapInterface {
      * @return position of inserted element
      */
     public insert(key: number): number {
+        if (this.isFull()) {
+            throw new Error("the heap is full");
+        }
         // insert new element into tail of the heap
         let i = this.heap.length;
         // percolate up until the heap recovered
@@ -57,6 +63,9 @@ export default class MinHeap implements HeapInterface {
      * @return min node
      */
     public deleteMin(): number {
+        if (this.isEmpty()) {
+            throw new Error("the heap is empty");
+        }
         // get min element 
         let min = this.heap[1]; 
         let lastEl = this.heap[this.heap.length - 1];
@@ -79,8 +88,8 @@ export default class MinHeap implements HeapInterface {
             return;
         }
 
-        let lchildI = this.findChild(i, Direction.Left);
-        let rchildI = this.findChild(i, Direction.Right);
+        let [lchildI, rchildI] = this.findChild(i);
+        // let rchildI = this.findChild(i, Direction.Right);
         let minI;
         // only has one child
         if (this.heap[rchildI] == null) {
@@ -104,8 +113,9 @@ export default class MinHeap implements HeapInterface {
     private percolateDown(i: number): void {
         let cur = this.heap[i];
         while (i * 2 < this.heap.length) {
-            let lchildI = this.findChild(i, Direction.Left);
-            let rchildI = this.findChild(i, Direction.Right);
+            let [lchildI, rchildI] = this.findChild(i);
+            // let lchildI = this.findChild(i, Direction.Left);
+            // let rchildI = this.findChild(i, Direction.Right);
 
             let minI;
             if (this.heap[rchildI] == null) {
@@ -136,13 +146,11 @@ export default class MinHeap implements HeapInterface {
      * @param i index of the element in the heap
      * @param direction direction of child of the element
      */
-    private findChild(i: number, direction: Direction): number {
-        if (direction === Direction.Left) {
-            return 2 * i;
-        }
-        if (direction === Direction.Right) {
-            return 2 * i + 1;
-        }
+    private findChild(i: number): number[] {
+        let lchildIndex = 2 * i;
+        let rchildIndex = lchildIndex + 1;
+
+        return [lchildIndex, rchildIndex];
     }
 
     /**
@@ -157,28 +165,40 @@ export default class MinHeap implements HeapInterface {
     }
 
     /**
+     * determine whether the heap is full
+     */
+    public isFull(): boolean {
+        return this.size === this.maxSize;
+    }
+
+    public isEmpty(): boolean {
+        return this.size === 0;
+    }
+
+    /**
      * print structure of adt
      */
     public print(): void {
-        this.printHeapTree(1, 4);
+        this.printHeapTree(1, 0);
     }
 
     private printHeapTree(i: number, offset: number): void {
         if (this.heap[i] != null) {
             console.log(" ".repeat(offset), this.heap[i]);
+            let [lchildI, rchildI] = this.findChild(i);
 
-            if (this.heap[this.findChild(i, Direction.Left)]) {
+            if (this.heap[lchildI]) {
                 this.printHeapTree(
-                    this.findChild(i, Direction.Left),
+                    lchildI,
                     offset + 4
                 );
             } else {
-                this.heap[this.findChild(i, Direction.Right)] &&
+                this.heap[rchildI] &&
                     console.log(" ".repeat(offset + 4), "-");
             }
-            if (this.heap[this.findChild(i, Direction.Right)]) {
+            if (this.heap[rchildI]) {
                 this.printHeapTree(
-                    this.findChild(i, Direction.Right),
+                    rchildI,
                     offset + 4
                 );
             }

@@ -4,7 +4,9 @@ export default class MinHeap implements HeapInterface {
      * actually store elements in the heap
      */
     private heap;
-    constructor();
+    maxSize: number;
+    constructor(maxSize: number);
+    readonly size: number;
     buildHeap(arr: number[]): void;
     /**
      * insert an element
@@ -12,6 +14,10 @@ export default class MinHeap implements HeapInterface {
      * @return position of inserted element
      */
     insert(key: number): number;
+    /**
+     * delete min node
+     * @return min node
+     */
     deleteMin(): number;
     /**
      * percolate down by recursion
@@ -39,6 +45,10 @@ export default class MinHeap implements HeapInterface {
      * @param y
      */
     private swap;
+    /**
+     * determine whether the heap is full
+     */
+    isFull(): boolean;
     /**
      * print structure of adt
      */
