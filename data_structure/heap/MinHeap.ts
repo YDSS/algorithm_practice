@@ -1,8 +1,17 @@
+/**
+ * @file implementation of minheap
+ * @author YDSS
+ *
+ * Created on Sun Jul 22 2018
+ */
+
 import { HeapInterface } from "./heap";
 
 export default class MinHeap implements HeapInterface {
     /**
-     * actually store elements in the heap
+     * actually store elements in the heap,
+     *   preset a element of negative infinity at the top of the heap, 
+     *   it's a mark that help us percolate up
      */
     private heap: number[] = [Number.NEGATIVE_INFINITY];
     public maxSize: number;
@@ -168,11 +177,15 @@ export default class MinHeap implements HeapInterface {
      * determine whether the heap is full
      */
     public isFull(): boolean {
-        return this.size === this.maxSize;
+        return this.size - 1 === this.maxSize;
     }
 
+    /**
+     * determine whether the heap is empty
+     */
     public isEmpty(): boolean {
-        return this.size === 0;
+        // the heap has a mark in the top of heap
+        return this.size === 1;
     }
 
     /**
