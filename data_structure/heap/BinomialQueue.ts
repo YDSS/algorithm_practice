@@ -37,6 +37,13 @@ export default class BinomialQueue {
         for (let i = 0, j = 1; j <= this.size; i++, j *= 2) {
             let r1 = this.queue[i];
             let r2 = q[i];
+            // 110 means got r2 and r1, has no carry
+            let tag = Number(!!r2) * 2 * 2 + Number(!!r1) * 2 + Number(!!carry);
+
+            switch (tag) {
+                case 0: 
+
+            }
         }
     }
 
