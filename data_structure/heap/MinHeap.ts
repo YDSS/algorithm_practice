@@ -24,6 +24,11 @@ export default class MinHeap implements HeapInterface {
         return this.heap.length - 1;
     }
 
+    /**
+     * build a heap with an array of numbers 
+     *  T(n) = O(n)
+     * @param arr 
+     */
     public buildHeap(arr: number[]): void {
         if (arr.length > this.maxSize) {
             throw new Error("built array exceed max size of the heap");
@@ -41,6 +46,7 @@ export default class MinHeap implements HeapInterface {
 
     /**
      * insert an element 
+     *  T(n) = O(logn)
      * @param key 
      * @return position of inserted element
      */
@@ -69,6 +75,7 @@ export default class MinHeap implements HeapInterface {
 
     /**
      * delete min node
+     *  T(n) = O(logn)
      * @return min node
      */
     public deleteMin(): number {
@@ -87,6 +94,15 @@ export default class MinHeap implements HeapInterface {
         return min;
     }
 
+    /**
+     * merge two min heap 
+     * @param h1 heap be merged, will store the merged heap
+     * @param h2 heap be merged 
+     */
+    public static merge(h1, h2) {
+        
+    }
+
 
     /**
      * percolate down by recursion
@@ -98,7 +114,6 @@ export default class MinHeap implements HeapInterface {
         }
 
         let [lchildI, rchildI] = this.findChild(i);
-        // let rchildI = this.findChild(i, Direction.Right);
         let minI;
         // only has one child
         if (this.heap[rchildI] == null) {
@@ -123,8 +138,6 @@ export default class MinHeap implements HeapInterface {
         let cur = this.heap[i];
         while (i * 2 < this.heap.length) {
             let [lchildI, rchildI] = this.findChild(i);
-            // let lchildI = this.findChild(i, Direction.Left);
-            // let rchildI = this.findChild(i, Direction.Right);
 
             let minI;
             if (this.heap[rchildI] == null) {

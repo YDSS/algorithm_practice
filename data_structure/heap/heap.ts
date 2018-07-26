@@ -1,7 +1,3 @@
-export interface HeapNode {
-    
-}
-
 export abstract class HeapAbstract {
 }
 
@@ -9,13 +5,13 @@ export interface HeapInterface {
     /**
      * insert a node
      */
-    insert(key: number): number;
+    insert(key: any): any;
     /**
      * delete min node
      */
-    deleteMin(): number;
+    deleteMin(): any;
     /**
      * build heap
      */
-    buildHeap(arr: number[]): void;
+    buildHeap(arr: any[]): void;
 }
