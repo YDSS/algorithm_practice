@@ -3,6 +3,7 @@ import BinomialQueue from './BinomialQueue';
 class Main {
     testBuildQueue() {
         let queue = this.mock();        
+        queue.print();
     }
 
     mock() {
@@ -13,3 +14,5 @@ class Main {
         return binomialQueue;
     }
 }
+
+new Main().testBuildQueue();

@@ -1,9 +1,17 @@
 "use strict";
+/**
+ * @file implementation of minheap
+ * @author YDSS
+ *
+ * Created on Sun Jul 22 2018
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 class MinHeap {
     constructor(maxSize) {
         /**
-         * actually store elements in the heap
+         * actually store elements in the heap,
+         *   preset a element of negative infinity at the top of the heap,
+         *   it's a mark that help us percolate up
          */
         this.heap = [Number.NEGATIVE_INFINITY];
         this.maxSize = maxSize;
@@ -11,6 +19,11 @@ class MinHeap {
     get size() {
         return this.heap.length - 1;
     }
+    /**
+     * build a heap with an array of numbers
+     *  T(n) = O(n)
+     * @param arr
+     */
     buildHeap(arr) {
         if (arr.length > this.maxSize) {
             throw new Error("built array exceed max size of the heap");
@@ -25,6 +38,7 @@ class MinHeap {
     }
     /**
      * insert an element
+     *  T(n) = O(logn)
      * @param key
      * @return position of inserted element
      */
@@ -50,9 +64,13 @@ class MinHeap {
     }
     /**
      * delete min node
+     *  T(n) = O(logn)
      * @return min node
      */
     deleteMin() {
+        if (this.isEmpty()) {
+            throw new Error("the heap is empty");
+        }
         // get min element 
         let min = this.heap[1];
         let lastEl = this.heap[this.heap.length - 1];
@@ -64,6 +82,13 @@ class MinHeap {
         return min;
     }
     /**
+     * merge two min heap
+     * @param h1 heap be merged, will store the merged heap
+     * @param h2 heap be merged
+     */
+    static merge(h1, h2) {
+    }
+    /**
      * percolate down by recursion
      * @param i index of the element in the heap
      */
@@ -72,7 +97,6 @@ class MinHeap {
             return;
         }
         let [lchildI, rchildI] = this.findChild(i);
-        // let rchildI = this.findChild(i, Direction.Right);
         let minI;
         // only has one child
         if (this.heap[rchildI] == null) {
@@ -94,8 +118,6 @@ class MinHeap {
         let cur = this.heap[i];
         while (i * 2 < this.heap.length) {
             let [lchildI, rchildI] = this.findChild(i);
-            // let lchildI = this.findChild(i, Direction.Left);
-            // let rchildI = this.findChild(i, Direction.Right);
             let minI;
             if (this.heap[rchildI] == null) {
                 minI = lchildI;
@@ -140,7 +162,14 @@ class MinHeap {
      * determine whether the heap is full
      */
     isFull() {
-        return this.size === this.maxSize;
+        return this.size - 1 === this.maxSize;
+    }
+    /**
+     * determine whether the heap is empty
+     */
+    isEmpty() {
+        // the heap has a mark in the top of heap
+        return this.size === 1;
     }
     /**
      * print structure of adt

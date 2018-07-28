@@ -20,7 +20,7 @@ class Main {
     }
     buildMockMinHeap() {
         let arr = this.mock();
-        let minHeap = new MinHeap_1.default(9);
+        let minHeap = new MinHeap_1.default(10);
         minHeap.buildHeap(arr);
         return minHeap;
     }
@@ -31,4 +31,4 @@ class Main {
 // new Main().testBuildMinHeap();
 new Main().testMinHeapInsert();
 // new Main().testMinHeapDeleteMin();
-//# sourceMappingURL=test.js.map
+//# sourceMappingURL=testMinHeap.js.map
