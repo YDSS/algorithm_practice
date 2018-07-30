@@ -43,30 +43,37 @@ export default class BinomialQueue {
             let r2 = q.queue[i];
             // 110 means got r2 and r1, has no carry
             let tag = Number(!!r2) * 4 + Number(!!r1) * 2 + Number(!!carry);
-            console.log(tag);
 
             switch (tag) {
                 case 0: 
+                    break;
                 case 1:
                     this.queue[i] = carry;
                     carry = null;
+                    break;
                 case 2:
                     this.queue[i] = r1;
+                    break;
                 case 3:
                     carry = this.combineTree(carry, r1);
                     this.queue[i] = null;
+                    break;
                 case 4: 
                     this.queue[i] = r2;
+                    break;
                 case 5:
                     carry = this.combineTree(carry, r2);
                     this.queue[i] = null;
+                    break;
                 case 6:
                     carry = this.combineTree(r1, r2);
                     this.queue[i] = null; 
+                    break;
                 case 7:
                     let tmp = carry;
                     carry = this.combineTree(r1, r2);
                     this.queue[i] = tmp;
+                    break;
             }
         }
     }
