@@ -145,10 +145,13 @@ export default class BinomialQueue {
         }
 
         let minTreeQueue = new BinomialQueue(minNodeIndex - 1);
+        minTreeQueue.size = Math.pow(2, minNodeIndex) - 1;
         for (let i = minNodeIndex - 1; i >= 0; i--) {
-            minTreeQueue[i] = child;
+            minTreeQueue.queue[i] = child;
             child = child.nextSibling;
         }
+        // merge the new binomialqueue into the original queue
+        this.merge(minTreeQueue);
     }
 
     /**
