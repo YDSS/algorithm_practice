@@ -152,6 +152,7 @@ export default class BinomialQueue {
         }
         // merge the new binomialqueue into the original queue
         this.merge(minTreeQueue);
+        return minNode;
     }
 
     /**

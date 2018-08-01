@@ -34,6 +34,7 @@ export default class BinomialQueue {
     /**
      * delete the min data of node
      */
+    deleteMin(): SiblingTreeNode;
     /**
      * print all the trees in the queue
      */

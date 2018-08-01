@@ -91,8 +91,41 @@ class BinomialQueue {
     /**
      * delete the min data of node
      */
-    // public deleteMin(): SiblingTreeNode {
-    // }
+    deleteMin() {
+        // find the smallest node
+        let minNode;
+        let minNodeIndex;
+        this.queue.forEach((root, i) => {
+            if (!root) {
+                return;
+            }
+            if (!minNode) {
+                minNode = root;
+                minNodeIndex = i;
+                return;
+            }
+            if (minNode.data > root.data) {
+                minNode = root;
+                minNodeIndex = i;
+            }
+        });
+        // remove the tree has the smallest node from the original queue
+        this.queue[minNodeIndex] = null;
+        // split the smallest tree from root, combine to a new binomialqueue
+        let child = minNode.leftChild;
+        if (!child) {
+            return minNode;
+        }
+        let minTreeQueue = new BinomialQueue(minNodeIndex - 1);
+        minTreeQueue.size = Math.pow(2, minNodeIndex) - 1;
+        for (let i = minNodeIndex - 1; i >= 0; i--) {
+            minTreeQueue.queue[i] = child;
+            child = child.nextSibling;
+        }
+        // merge the new binomialqueue into the original queue
+        this.merge(minTreeQueue);
+        return minNode;
+    }
     /**
      * print all the trees in the queue
      */
