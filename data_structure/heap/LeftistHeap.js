@@ -1,34 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const LeftistHeapNode_1 = require("./LeftistHeapNode");
+const utils_js_1 = require("../tree/utils.js");
 class LeftistHeap {
-    constructor(maxSize) {
-        this.maxSize = maxSize;
-    }
+    constructor() { }
     /**
      * merge another heap into the current one
      *  T(n) = O(logn)
-     * @param h1 the merged heap will be stored in h1
-     * @param h2
+     * @param h2 the heap will be merged
      */
-    static merge(h1, h2) {
-        if (h1 == null) {
-            return h2;
-        }
+    merge(h2) {
         if (h2 == null) {
-            return h1;
+            return;
         }
-        let h1Root = h1.root;
+        let h1Root = this.root;
         let h2Root = h2.root;
-        if (h1Root.data > h2Root.data) {
-            h1.root = LeftistHeap._merge(h2Root, h1Root);
+        if (h2Root == null) {
+            return;
         }
-        else {
-            h1.root = LeftistHeap._merge(h1Root, h2Root);
+        if (h1Root == null) {
+            this.root = h2Root;
+            return;
         }
-        h1.maxSize = h1.maxSize + h2.maxSize;
-        return h1;
+        this.root = this._merge(h1Root, h2Root);
     }
-    static _merge(n1, n2) {
+    _merge(n1, n2) {
         if (n1 == null) {
             return n2;
         }
@@ -38,6 +34,7 @@ class LeftistHeap {
         if (n1.data > n2.data) {
             return this._merge(n2, n1);
         }
+        // npl of n1 is not changed in this situation
         if (n1.lchild == null) {
             n1.lchild = n2;
         }
@@ -50,16 +47,58 @@ class LeftistHeap {
         }
         return n1;
     }
-    insert(node) {
+    insert(data) {
+        let singleNode = new LeftistHeapNode_1.default(data);
+        let singleHeap = new LeftistHeap();
+        singleHeap.root = singleNode;
+        this.merge(singleHeap);
     }
     deleteMin() {
+        if (!this.root) {
+            throw new Error("Empty lefist heap");
+        }
+        // get min node
+        let min = this.root;
+        // split the left child and the right one, then merge them
+        let { lchild, rchild } = this.root;
+        let lchildHeap, rchildHeap;
+        if (!lchild && !rchild) {
+            this.root = null;
+            return;
+        }
+        if (lchild) {
+            lchildHeap = new LeftistHeap();
+            lchildHeap.root = lchild;
+        }
+        if (rchild) {
+            rchildHeap = new LeftistHeap();
+            rchildHeap.root = rchild;
+        }
+        if (lchildHeap) {
+            lchildHeap.merge(rchildHeap);
+            this.root = lchildHeap.root;
+        }
+        else {
+            rchildHeap.merge(lchildHeap);
+            this.root = rchildHeap.root;
+        }
+        return min;
     }
     buildHeap(arr) {
+        arr.forEach(data => {
+            this.insert(data);
+        });
     }
-    static swapChildren(node) {
+    swapChildren(node) {
         let tmp = node.lchild;
         node.lchild = node.rchild;
         node.rchild = tmp;
+    }
+    print() {
+        utils_js_1.printBinaryTreeCrosswise(this.root, 0, node => {
+            // console.log(node);
+            return `(${node.npl})`;
+        });
     }
 }
 exports.default = LeftistHeap;

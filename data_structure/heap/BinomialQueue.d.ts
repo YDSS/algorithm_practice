@@ -39,5 +39,4 @@ export default class BinomialQueue {
      * print all the trees in the queue
      */
     print(): void;
-    private _print;
 }

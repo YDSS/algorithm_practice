@@ -10,7 +10,7 @@
     "chai": "^4.1.2"
   },
   "scripts": {
-    "debug": "node --inspect-brk=9229 data_structure/heap/printSiblingTree.js"
+    "debug": "node --inspect-brk=9229 data_structure/heap/testLefistHeap.js"
   },
   "repository": {
     "type": "git",

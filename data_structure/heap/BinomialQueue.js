@@ -7,6 +7,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const SiblingTreeNode_1 = require("./SiblingTreeNode");
+const utils_js_1 = require("../tree/utils.js");
 class BinomialQueue {
     constructor(maxSize) {
         this.queue = [];
@@ -139,20 +140,8 @@ class BinomialQueue {
     print() {
         this.queue.forEach((root, i) => {
             console.log(`pos: ${i}:`);
-            this._print(root, 4);
+            utils_js_1.printSiblingTree(root, 4);
         });
-    }
-    _print(node, offset) {
-        if (!node) {
-            return;
-        }
-        console.log(" ".repeat(offset), node.data);
-        if (node.leftChild) {
-            this._print(node.leftChild, offset + 4);
-        }
-        if (node.nextSibling) {
-            this._print(node.nextSibling, offset);
-        }
     }
 }
 exports.default = BinomialQueue;

@@ -7,6 +7,7 @@
 
 import { HeapInterface } from "./heap";
 import SiblingTreeNode from "./SiblingTreeNode";
+import { printSiblingTree } from '../tree/utils.js';
 
 export default class BinomialQueue {
     /**
@@ -169,23 +170,7 @@ export default class BinomialQueue {
     public print(): void {
         this.queue.forEach((root, i) => {
             console.log(`pos: ${i}:`); 
-            this._print(root, 4);
+            printSiblingTree(root, 4);
         });
-    }
-
-    private _print(node, offset): void {
-        if (!node) {
-            return;
-        }
-
-        console.log(" ".repeat(offset), node.data);
-
-        if (node.leftChild) {
-            this._print(node.leftChild, offset + 4);
-        }
-
-        if (node.nextSibling) {
-            this._print(node.nextSibling, offset);
-        } 
     }
 }

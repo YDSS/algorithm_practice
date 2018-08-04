@@ -1,4 +1,5 @@
 export default class LeftistHeapNode {
+    constructor(data: any);
     /**
      * null path length of the node
      */
