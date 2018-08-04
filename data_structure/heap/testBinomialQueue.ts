@@ -11,6 +11,7 @@ class Main {
         let min = queue.deleteMin();
         console.log(min.data);
         queue.print();
+        console.log('size: ', queue.size);
     }
 
     mock() {

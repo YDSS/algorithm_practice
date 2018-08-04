@@ -117,6 +117,10 @@ export default class BinomialQueue {
      * delete the min data of node
      */
     public deleteMin(): SiblingTreeNode {
+        if (this.size === 0) {
+            throw new Error("Empty binomial queue");
+        }
+
         // find the smallest node
         let minNode;
         let minNodeIndex;
@@ -138,6 +142,7 @@ export default class BinomialQueue {
         });
         // remove the tree has the smallest node from the original queue
         this.queue[minNodeIndex] = null;
+        this.size -= (1 << minNodeIndex);
         // split the smallest tree from root, combine to a new binomialqueue
         let child = minNode.leftChild;
         if (!child) {
@@ -145,10 +150,13 @@ export default class BinomialQueue {
         }
 
         let minTreeQueue = new BinomialQueue(minNodeIndex - 1);
-        minTreeQueue.size = Math.pow(2, minNodeIndex) - 1;
+        minTreeQueue.size = (1 << minNodeIndex) - 1;
         for (let i = minNodeIndex - 1; i >= 0; i--) {
             minTreeQueue.queue[i] = child;
-            child = child.nextSibling;
+            let nextSibling = child.nextSibling;
+            // remove sibling relationship
+            child.nextSibling = null;
+            child = nextSibling;
         }
         // merge the new binomialqueue into the original queue
         this.merge(minTreeQueue);
