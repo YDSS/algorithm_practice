@@ -3,7 +3,7 @@
  * @author YDSS
  */
 
-function insertSort(arr: number[]): number[]{
+export default function insertSort(arr: number[]): number[]{
     for (let i = 0; i < arr.length; i++) {
         let insertEl = arr[i];
         let j: number = i;
