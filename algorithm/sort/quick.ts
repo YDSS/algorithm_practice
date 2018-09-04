@@ -19,8 +19,7 @@ export default function quickSort(arr: number[]): number[] {
 
 function qSort(arr: number[], left: number, right: number) {
     // median cut 
-    let {m, mEl} = median(arr, left, right); 
-    console.log(`m: ${m}`);
+    let mEl = median(arr, left, right); 
     let i = left + 1;
     let j = right - 2;
     while (true) {
@@ -30,18 +29,21 @@ function qSort(arr: number[], left: number, right: number) {
         while (arr[j] > mEl) {
             j--;
         }
-        // jump out of loop when arr[i] or arr[j] equals arr[m]
-        if (arr[i] === mEl || arr[j] === mEl) {
+        if (i < j) {
+            swap(arr, i, j);
+        }
+        else {
+            // also jump out of loop when arr[i] or arr[j] equals mEl
             break;
         }
-
-        swap(arr, i, j);
+        // restore middle element
+        swap(arr, i, right - 1);
     }
-    qSort(arr, left, m);
-    qSort(arr, m + 1, right);
+    qSort(arr, left, i);
+    qSort(arr, i + 1, right);
 }
 
-function median(arr: number[], left: number, right: number): {m: number, mEl: number} {
+function median(arr: number[], left: number, right: number): number{
     let middle = Math.floor((left + right) / 2);
     // sort the three element
     if (arr[left] > arr[middle]) {
@@ -55,14 +57,9 @@ function median(arr: number[], left: number, right: number): {m: number, mEl: nu
         swap(arr, middle, right);
     }
 
-    // move middle element to right - 1
+    // hide middle element, by moving it to right - 1
     swap(arr, middle, right - 1);
-    return {
-        // middle position
-        m: middle,
-        // middle element which moved to right - 1
-        mEl: arr[right - 1]
-    };
+    return  arr[right - 1];
 }
 
 function swap(arr:number[], i:number, j:number) {
