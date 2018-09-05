@@ -4,8 +4,8 @@
  * @author YDSS
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-function insertSort(arr) {
-    for (let i = 0; i < arr.length; i++) {
+function insertSort(arr, left, right) {
+    for (let i = left; i <= right; i++) {
         let insertEl = arr[i];
         let j = i;
         for (; j > 0 && insertEl < arr[j - 1]; j--) {
@@ -16,6 +16,6 @@ function insertSort(arr) {
     return arr;
 }
 exports.default = insertSort;
-let arr = [5, 3, 45, 13, 6, 4, 1, 100, 56, 23];
-console.log(insertSort(arr));
+// let arr = [5,3,45,13,6,4,1,100,56,23];
+// console.log(insertSort(arr, 0, arr.length - 1));
 //# sourceMappingURL=insert.js.map

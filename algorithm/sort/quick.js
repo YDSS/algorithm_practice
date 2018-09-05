@@ -7,39 +7,45 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const insert_1 = require("./insert");
+const cutoff = 3;
 function quickSort(arr) {
-    const cutoff = 10;
     if (arr.length <= cutoff) {
-        return insert_1.default(arr);
+        return insert_1.default(arr, 0, arr.length - 1);
     }
     qSort(arr, 0, arr.length - 1);
     return arr;
 }
 exports.default = quickSort;
 function qSort(arr, left, right) {
-    // median cut 
+    // median cut
     let mEl = median(arr, left, right);
-    let i = left + 1;
-    let j = right - 2;
-    while (true) {
-        while (arr[i] < mEl) {
-            i++;
-        }
-        while (arr[j] > mEl) {
-            j--;
-        }
-        if (i < j) {
-            swap(arr, i, j);
-        }
-        else {
-            // also jump out of loop when arr[i] or arr[j] equals mEl
-            break;
+    if (left + cutoff <= right) {
+        let i = left + 1;
+        let j = right - 2;
+        while (true) {
+            while (arr[i] < mEl) {
+                i++;
+            }
+            while (arr[j] > mEl) {
+                j--;
+            }
+            if (i < j) {
+                swap(arr, i, j);
+            }
+            else {
+                // also jump out of loop when arr[i] or arr[j] equals mEl
+                break;
+            }
         }
         // restore middle element
         swap(arr, i, right - 1);
+        qSort(arr, left, i);
+        qSort(arr, i + 1, right);
     }
-    qSort(arr, left, i);
-    qSort(arr, i + 1, right);
+    else {
+        console.log(`cutoff, ${left}, ${right}`);
+        insert_1.default(arr, left, right);
+    }
 }
 function median(arr, left, right) {
     let middle = Math.floor((left + right) / 2);
