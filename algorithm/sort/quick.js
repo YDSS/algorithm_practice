@@ -43,7 +43,6 @@ function qSort(arr, left, right) {
         qSort(arr, i + 1, right);
     }
     else {
-        console.log(`cutoff, ${left}, ${right}`);
         insert_1.default(arr, left, right);
     }
 }
@@ -69,6 +68,6 @@ function swap(arr, i, j) {
     arr[i] = arr[j];
     arr[j] = tmp;
 }
-let arr = [11, 22, 5, 1, 3, 98, 20, 45, 27, 39, 13, 49];
-console.log(quickSort(arr));
+// let arr = [11, 22, 5, 1, 3, 98, 20, 45, 27, 39, 13, 49];
+// console.log(quickSort(arr));
 //# sourceMappingURL=quick.js.map

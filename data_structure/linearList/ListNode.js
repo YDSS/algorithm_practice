@@ -1,6 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * list node  
- * 
+ * list node
+ *
  * @author YDSS
  */
 class ListNode {
@@ -9,5 +11,5 @@ class ListNode {
         this.next = next;
     }
 }
-
-module.exports = ListNode;
+exports.default = ListNode;
+//# sourceMappingURL=ListNode.js.map

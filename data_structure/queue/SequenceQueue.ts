@@ -1,4 +1,3 @@
-"use strict";
 /**
  * @file implementation of circular sequence queue
  * @author YDSS
@@ -22,12 +21,19 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-class SequenceQueue {
+
+export default class SequenceQueue {
+    maxSize: number;
+    _realMaxSize: number;
+    _queue: any[];
+    front: number;
+    rear: number;
+
     constructor(maxSize) {
         if (!maxSize) {
             throw new Error("maxSize can not be null");
         }
+
         this.maxSize = maxSize;
         // there wiil be lack of one space compare with maxSize 
         // in circular sequence queue, so add 1 to make the queue right
@@ -36,31 +42,37 @@ class SequenceQueue {
         this.front = 0;
         this.rear = 0;
     }
+
     isEmpty() {
         return this.front === this.rear;
     }
+
     isFull() {
         return (this.rear + 1) % this._realMaxSize === this.front;
     }
+
     enter(item) {
         if (this.isFull()) {
             throw new Error('the queue is full');
         }
+
         this._queue[this.rear] = item;
-        this.rear = (this.rear + 1) % this._realMaxSize;
+        this.rear = ( this.rear + 1 ) % this._realMaxSize;
     }
+
     leave() {
         if (this.isEmpty()) {
             throw new Error('the queue is empty');
         }
+
         let item = this._queue[this.front];
         delete this._queue[this.front];
-        this.front = (this.front + 1) % this._realMaxSize;
+        this.front = ( this.front + 1 ) % this._realMaxSize;
+
         return item;
     }
+
     print() {
         console.log(this._queue);
     }
 }
-exports.default = SequenceQueue;
-//# sourceMappingURL=SequenceQueue.js.map
