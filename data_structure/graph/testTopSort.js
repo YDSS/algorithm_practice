@@ -6,15 +6,19 @@ test();
 function test() {
     let table = initAdjacentTable();
     let ret = topSort_1.default(table);
+    console.log(ret);
     printTopSort(ret);
 }
 function printTopSort(ret) {
     // print result
     let printRet = '';
-    ret = ret.sort((a, b) => a - b);
-    ret.map(vertex => {
+    let sorted = [];
+    ret.map((step, vertex) => {
+        sorted[step] = vertex;
+    });
+    sorted.map(vertex => {
         // vertex number start from 1
-        printRet += `-> ${vertex + 1}`;
+        printRet += `-> ${vertex}`;
     });
     printRet = printRet.slice(3);
     console.log(printRet);
@@ -24,23 +28,23 @@ function printTopSort(ret) {
  */
 function initAdjacentTable() {
     let table = [];
-    // v1
+    // v0
     table[0] = new singleLinkedList_1.default([1, 2, 3], 'tail');
-    // v2
+    // v1
     table[1] = new singleLinkedList_1.default([3, 4], 'tail');
-    // v3
+    // v2
     table[2] = new singleLinkedList_1.default([5], 'tail');
-    // v4
+    // v3
     table[3] = new singleLinkedList_1.default([2, 5, 6], 'tail');
-    // v5
+    // v4
     table[4] = new singleLinkedList_1.default([3, 6], 'tail');
-    // v6
+    // v5
     table[5] = new singleLinkedList_1.default([], 'tail');
-    // v7
+    // v6
     table[6] = new singleLinkedList_1.default([5], 'tail');
     // print
     table.map((list, index) => {
-        console.log(`vertex ${index + 1} :`);
+        console.log(`vertex ${index} :`);
         list.print();
     });
     return table;

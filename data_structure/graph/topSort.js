@@ -21,7 +21,7 @@ function topSort(table) {
     let ret = [];
     while (!queue.isEmpty()) {
         let vertex = queue.leave();
-        ret[vertex] = ++counter;
+        ret[vertex] = counter++;
         // find vertexs those are adjacent to current one 
         let list = table[vertex];
         let head = list.head;
@@ -32,6 +32,7 @@ function topSort(table) {
             if (indegrees[v] === 0) {
                 queue.enter(v);
             }
+            cur = cur.next;
         }
         ;
     }
@@ -48,13 +49,15 @@ exports.default = topSort;
  * @param table node.data is code of vertex, which is number
  */
 function initIndegree(table) {
-    let indegree = [];
+    // initialize indegree of current vertex, 
+    // in case of empty when this vertex has no indegree
+    let indegree = table.map(() => 0);
     table.map((list) => {
         let head = list.head;
         let cur = head.next;
         while (cur) {
             let vertex = cur.data;
-            indegree[vertex] = indegree[vertex] ? ++indegree[vertex] : 1;
+            indegree[vertex] += 1;
             cur = cur.next;
         }
     });

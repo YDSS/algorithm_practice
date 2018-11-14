@@ -3,18 +3,14 @@
  * @author YDSS
  */
 
-import LinkedNode from '../linearList/ListNode';
 import Queue from '../queue/SequenceQueue';
 import LinkedList from '../linearList/singleLinkedList';
 
 export default function topSort(table: LinkedList[]): number[] {
     let indegrees = initIndegree(table);
-    console.log('indegrees: ');
-    console.log(indegrees);
     let queue = new Queue(table.length);
 
     // let the vertexs those have no indegree enter the queue
-    // O(|V|)
     indegrees.map((indegree, vertex) => {
         if (indegree === 0) {
             queue.enter(vertex);
@@ -23,9 +19,10 @@ export default function topSort(table: LinkedList[]): number[] {
 
     let counter = 0;
     let ret = [];
+    // O(|V|)
     while(!queue.isEmpty()) {
         let vertex = queue.leave();
-        ret[vertex] = ++counter; 
+        ret[vertex] = counter++; 
         // find vertexs those are adjacent to current one 
         let list = table[vertex];
         let head = list.head;
@@ -36,9 +33,10 @@ export default function topSort(table: LinkedList[]): number[] {
             if (indegrees[v] === 0) {
                 queue.enter(v);
             }
+
+            cur = cur.next;
         };
     };
-    console.log('counter: ' + counter);
     
     if (counter !== table.length) {
         throw new Error('this graph has circle');
@@ -52,14 +50,16 @@ export default function topSort(table: LinkedList[]): number[] {
  * @param table node.data is code of vertex, which is number
  */
 function initIndegree(table: LinkedList[]): number[] {
-    let indegree: number[] = [];
+    // initialize indegree of current vertex, 
+    // in case of empty when this vertex has no indegree
+    let indegree: number[] = table.map(() => 0);
     table.map((list: LinkedList) => {
         let head = list.head;
         let cur = head.next;
 
         while(cur) {
             let vertex = cur.data;
-            indegree[vertex] = indegree[vertex] ? ++indegree[vertex] : 1;
+            indegree[vertex] += 1;
             
             cur = cur.next;
         }
