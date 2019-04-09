@@ -8,23 +8,17 @@
             "type": "shell",
             "command": "node",
             "args": [
-                // "${file}"
                 "${relativeFile}"
             ],
-            // "group": {
-            //     "kind": "build",
-            //     "isDefault": true
-            // }
+            "problemMatcher": []
         },
         {
             "label": "testcase",
             "type": "shell",
             "command": "jest",
             "args": [
-                // "--findRelatedTests",
-                // "${file}"
                 "${relativeFile}"
-            ],
+            ]
         },
         {
             "label": "buildts",
@@ -33,7 +27,7 @@
             "problemMatcher": [
                 "$tsc"
             ],
-            "group": "build",
+            "group": "build"
         },
         {
             "label": "runts",
@@ -46,18 +40,9 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "dependsOn":[
+            "dependsOn": [
                 "buildts"
             ]
         }
-        // {
-        //     "label": "run",
-        //     "type": "shell",
-        //     "command": ".${workspaceFolder}/tmp/${fileBasenameNoExtension}.out",
-        //     // "args": [
-        //     //     "${workspaceFolder}/tmp/${fileBasename}.out",
-        //     // ],
-        //     "group": "test"
-        // }
     ]
 }
