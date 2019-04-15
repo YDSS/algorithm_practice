@@ -6,15 +6,15 @@
  * @return {number}
  */
 function findMedianSortedArrays(A, B) {
+    // make sure that n >= m
+    if (A.length < B.length) {
+        let tmp = A;
+        A = B;
+        B = tmp;
+    }
+
     let n = A.length;
     let m = B.length;
-
-    makeNIsLarger(A, B);
-    console.log(A);
-    console.log(B);
-    console.log(n);
-    console.log(m);
-   
 
     let isOdd = (m + n) % 2 > 0;
     // iMin and iMax is range of i, 0 <= i <= n
@@ -79,35 +79,21 @@ function findMedianSortedArrays(A, B) {
     console.log(`rightNum: ${rightNum}`)
 
     if (isOdd) {
-        // return Math.max(A[i - 1], B[j - 1]);
         return leftNum;
     } else {
-        // return (Math.max(A[i - 1], B[j - 1]) + Math.min(A[i], B[j])) / 2;
         return (leftNum + rightNum) / 2;
     }
 
     function getMiddleOfTwoNums(num1, num2) {
-        return Math.floor((num1 + num2) / 2);
-    }
-
-    // make sure that n >= m
-    function makeNIsLarger(A, B) {
-        let tmp;
-        if (m > n) {
-            tmp = A;
-            A = B;
-            B = tmp;
-
-            tmp = n;
-            n = m;
-            m = tmp;
-        }
+        return Math.ceil((num1 + num2) / 2);
     }
 }
 
 // let A = [1, 2, 3, 6];
-// let B = [4, 5];
-let A = [];
-let B = [4, 5];
+// let B = [4];
+// let A = [];
+// let B = [1, 2];
+let A = [100001]
+let B = [100000]
 
 console.log(findMedianSortedArrays(A, B));
