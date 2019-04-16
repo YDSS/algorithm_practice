@@ -21,68 +21,60 @@ function findMedianSortedArrays(A, B) {
     let iMin = 0;
     let iMax = n;
     // i is cursor of A
-    let i = getMiddleOfTwoNums(iMin, iMax);
+    let i;
     // j is cursor of B, j = (m + n + 1) % 2 - i
     let j;
+    let halfLen = Math.floor((m + n + 1) / 2);
 
-    while (i <= n) {
-        j = Math.floor((m + n + 1) / 2) - i;
-        console.log(`i: ${i}`);
-        console.log(`j: ${j}`);
-
-        if (
-            (j === 0 || i === n || B[j - 1] <= A[i]) &&
-            (i === 0 || j === m || A[i - 1] <= B[j])
-        ) {
-            // i and j is the result we find
-            break;
-        }
+    while (iMin <= iMax) {
+        i = getMiddleOfTwoNums(iMin, iMax);
+        j = halfLen - i;
+        // console.log(`i: ${i}`);
+        // console.log(`j: ${j}`);
 
         if (i < n && B[j - 1] > A[i]) {
             // means i is too small
             iMin++;
-            console.log(`iMin: ${iMin}`);
+            // console.log(`iMin: ${iMin}`);
         }
-
-        if (j > 0 && A[i - 1] > B[j]) {
+        else if (i > 0 && A[i - 1] > B[j]) {
             // means i is too large
             iMax--;
-            console.log(`iMax: ${iMax}`);
+            // console.log(`iMax: ${iMax}`);
+        }
+        else {
+            // i and j is the result we find
+            break;  
         }
 
-        i = getMiddleOfTwoNums(iMin, iMax);
-        console.log("--------");
+        // console.log("--------");
     }
 
     // handle edge case like i = 0, j = 0, i = n, j = m
-    let leftNum; // max num in left array
-    let rightNum; // min num in right array
-    if (A[i - 1] == null) {
-        console.log('a')
+    let leftNum = 0; // max num in left array
+    if (i === 0) {
         leftNum = B[j - 1];
-    } else if (B[j - 1] == null) {
-        console.log('b')
+    } else if (j === 0) {
         leftNum = A[i - 1];
     } else {
-        console.log('c')
         leftNum = Math.max(A[i - 1], B[j - 1]);
     }
+    // console.log(`leftNum: ${leftNum}`)
+    if (isOdd) {
+        return leftNum;
+    }
 
-    if (A[i] == null) {
+    let rightNum = 0; // min num in right array
+    if (i === n) {
         rightNum = B[j];
-    } else if (B[j] == null) {
+    } else if (j === m) {
         rightNum = A[i];
     } else {
         rightNum = Math.min(A[i], B[j]);
     }
-    console.log(`leftNum: ${leftNum}`)
-    console.log(`rightNum: ${rightNum}`)
-
-    if (isOdd) {
-        return leftNum;
-    } else {
-        return (leftNum + rightNum) / 2;
-    }
+    // console.log(`rightNum: ${rightNum}`)
+    
+    return (leftNum + rightNum) / 2;
 
     function getMiddleOfTwoNums(num1, num2) {
         return Math.ceil((num1 + num2) / 2);
@@ -91,9 +83,9 @@ function findMedianSortedArrays(A, B) {
 
 // let A = [1, 2, 3, 6];
 // let B = [4];
-// let A = [];
-// let B = [1, 2];
-let A = [100001]
-let B = [100000]
+let A = [];
+let B = [1];
+// let A = [100001]
+// let B = [100000]
 
 console.log(findMedianSortedArrays(A, B));
