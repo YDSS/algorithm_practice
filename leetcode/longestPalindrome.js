@@ -5,7 +5,7 @@
 /**
  * find the center char of a palindrome substring, which is the symetry of the str
  * T(n) = O(n^2) S(n) = O(1)
- * 
+ *
  * @param {string} str
  * @return {string}
  */
@@ -18,14 +18,20 @@ function longestPalindrome3(str) {
 
     let isCharExisted = i => {
         return str[i] != null;
-    }
+    };
 
     // find the only one char center
-    for (p = 0; p < n; p++) { // O(n)
+    for (p = 0; p < n; p++) {
+        // O(n)
         i = p;
         j = p;
 
-        while (isCharExisted(i - 1) && isCharExisted(j + 1) && str[i - 1] === str[j + 1]) { // Tmax = O(n)
+        while (
+            isCharExisted(i - 1) &&
+            isCharExisted(j + 1) &&
+            str[i - 1] === str[j + 1]
+        ) {
+            // Tmax = O(n)
             i--;
             j++;
         }
@@ -39,12 +45,19 @@ function longestPalindrome3(str) {
     }
 
     // find two chars center
-    for (p = 0; p < n; p++) { // O(n - 1)
+    for (p = 0; p < n; p++) {
+        // O(n - 1)
         i = p;
         j = p + 1;
 
-        if (str[i] === str[j]) { // means this two char can be the mirror
-            while (isCharExisted(i - 1) && isCharExisted(j + 1) && str[i - 1] === str[j + 1]) { // Tmax = O(n)
+        if (str[i] === str[j]) {
+            // means this two char can be the mirror
+            while (
+                isCharExisted(i - 1) &&
+                isCharExisted(j + 1) &&
+                str[i - 1] === str[j + 1]
+            ) {
+                // Tmax = O(n)
                 i--;
                 j++;
             }
@@ -63,7 +76,8 @@ function longestPalindrome3(str) {
 }
 
 /**
- * DP
+ * DP 
+ * T(n) = O(n^2) S(n) = O(n^2)
  * f(i, j) = f(i + 1, j - 1) && str[i] === str[j]
  * @param {string} str
  * @return {string}
@@ -71,20 +85,66 @@ function longestPalindrome3(str) {
 function longestPalindrome(str) {
     let n = str.length;
     // init two dimension array
-    let stat = new Array(n); 
+    let stat = new Array(n);
     for (let i = 0; i < n; i++) {
         stat[i] = new Array(n);
     }
+
+    // initialize arr, 0 means it's not the palindrome str, 1 means opposite
     for (let i = 0; i < n; i++) {
-        stat[i][i] = true;
+        for (let j = 0; j < n; j++) {
+            stat[i][j] = 0; 
+        }
     }
 
+    // initialize f(i, i) and f(i, i+1)
+    for (let i = 0; i < n; i++) {
+        stat[i][i] = 1;
+        if (i < n - 1) {
+            if (str[i] === str[i + 1]) {
+                stat[i][i + 1] = 1;
+            }
+        }
+    }
+
+    for (let k = 2; k < n; k++) {
+        for (let i = 0; i < n; i++) {
+            let j = i + k;
+            if (j > n - 1) continue;
+
+            if (stat[i + 1][j - 1] && str[i] === str[j]) {
+                stat[i][j] = 1;
+            }
+        }
+    }
+
+    let h, t;
+    let maxLen = 0;
     for (let i = 0; i < n; i++) {
         for (let j = i; j < n; j++) {
-            if (stat[i + 1][j - 1] && str[i] === str[j]) {
-                stat[i][j] = true;
+            if (stat[i][j] === 1 && j - i + 1 > maxLen) {
+                maxLen = j - i + 1;
+                h = i;
+                t = j;
             }
-        } 
+        }
+    } 
+
+    // printTwoDimensionArray(stat);
+    // console.log(`maxLen: ${maxLen}`)
+    // console.log('the longest palindrome str is')
+    return str.slice(h, t + 1)
+
+    function printTwoDimensionArray(arr) {
+        let len = arr.length;
+
+        for (let i = 0; i < len; i++) {
+            let s = "";
+            for (let j = 0; j < len; j++) {
+                s += `${arr[i][j]} `;
+            }
+            console.log(s);
+        }
     }
 }
 
@@ -118,7 +178,7 @@ function longestPalindrome2(str) {
         }
 
         return ret;
-    }
+    };
 
     getMaxLen(0, 0);
     console.log(`maxLen: ${maxLen}`);
@@ -145,10 +205,10 @@ function longestPalindrome2(str) {
     }
 }
 
-// let str = "";
+let str = "";
 // let str = "a";
 // let str = "babad";
 // let str = "abb";
 // let str = "dacbbcalfa";
-// let str = "abcdasdfghjkldbca";
+// let str = "abcdsasdfghjkldbca";
 console.log(longestPalindrome(str));
