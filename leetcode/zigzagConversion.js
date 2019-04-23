@@ -9,6 +9,9 @@
  * @return {string}
  */
 function convert(s, numRows) {
+    if (numRows < 2) {
+        return s;
+    }
     // initialize a two dimension array
     let arr = new Array(numRows);
     // every one dimension array in arr is a row of zigzag sorted form
@@ -35,8 +38,8 @@ function convert(s, numRows) {
             indexInZig += 2;
         }
         arr[indexInZig].push(s[j]);
-        console.log(arr);
-        console.log(`index: ${indexInZig}`);
+        // console.log(arr);
+        // console.log(`index: ${indexInZig}`);
 
         if (direction) {
             indexInZig++;
@@ -49,11 +52,14 @@ function convert(s, numRows) {
     let ret = "";
     for (let i = 0; i < numRows; i++) {
         for (let j = 0; j < arr[i].length; j++) {
-            ret += arr[i][j];
+            if (arr[i][j] != null) {
+                ret += arr[i][j];
+            }
         }
     }
     return ret;
 }
 
-let str = "PAYPALISHIRING";
-console.log(convert(str, 4));
+// let str = "PAYPALISHIRING";
+let str = "AB";
+console.log(convert(str, 10));
