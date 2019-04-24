@@ -6,7 +6,6 @@ test();
 function test() {
     let table = initAdjacentTable();
     let ret = topSort_1.default(table);
-    console.log(ret);
     printTopSort(ret);
 }
 function printTopSort(ret) {
