@@ -6,11 +6,12 @@
  */
 
 /**
+ * not correct yet
  * @param {string} s
  * @param {string} p
  * @return {boolean}
  */
-function isMatch(s, p) {
+function isMatch2(s, p) {
     const asterisk = "*";
     const dot = ".";
     // head and tail cursors of s
@@ -108,6 +109,42 @@ function isMatch(s, p) {
     }
 
     return matched;
+}
+
+/**
+ * recursion, brute
+ * @param {string} s
+ * @param {string} p
+ * @return {boolean}
+ */
+function isMatch3(s, p) {
+    // console.log(`s: ${s}, p: ${p}`)
+    if (p.length === 0) {
+        return s.length === 0;
+    }
+
+    if (p[0] === '*') {
+        return false;
+    }
+
+    let firstMatch = (p[0] === s[0] || (s[0] != null && p[0] === '.'));
+    if (p[1] === '*') {
+        return (firstMatch && isMatch(s.slice(1), p)) // * as a repeat
+            || isMatch(s, p.slice(2)) // ignore *
+    }
+    else {
+        return firstMatch && isMatch(s.slice(1), p.slice(1));
+    }
+}
+
+/**
+ * DP
+ * @param {string} s
+ * @param {string} p
+ * @return {boolean}
+ */
+function isMatch(s, p) {
+
 }
 
 // let str = 'aab';
