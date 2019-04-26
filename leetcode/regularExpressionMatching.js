@@ -15,16 +15,16 @@ function isMatch2(s, p) {
     const asterisk = "*";
     const dot = ".";
     // head and tail cursors of s
-    let j = 0; 
+    let j = 0;
     // head and tail cursor of p
     let k = 0;
     let matched = true;
     let isSymbolComb = false; // when encounter .*, the match process is over
-    
+
     while (k < p.length) {
-        console.log(`j: ${j}`)
-        console.log(`k: ${k}`)
-        console.log('----')
+        console.log(`j: ${j}`);
+        console.log(`k: ${k}`);
+        console.log("----");
         // first check str before the expression
         while (j < s.length && k < p.length && s[j] === p[k]) {
             j++;
@@ -39,27 +39,25 @@ function isMatch2(s, p) {
             if (p[k + 1] === asterisk) {
                 k += 2;
                 continue;
-            }
-            else {
+            } else {
                 matched = false;
                 break;
             }
-        } 
+        }
 
         // check when .*
         if (p[k] === dot && p[k + 1] === asterisk) {
             isSymbolComb = true;
-            // cause .* will match all the left of s, 
+            // cause .* will match all the left of s,
             // so if p has other chars those not .* or its repeat, it'll not match
             // if it has, the match is over and it's matched
-            if (k < p.length - 2) { 
+            if (k < p.length - 2) {
                 let tag = 0; // 0 means ., 1 means *
                 while (k < p.length) {
                     if (p[k] !== asterisk && p[k] !== dot) {
                         matched = false;
                         break;
-                    }
-                    else {
+                    } else {
                         tag = p[k] === dot ? 0 : 1;
                     }
                     k++;
@@ -123,28 +121,65 @@ function isMatch3(s, p) {
         return s.length === 0;
     }
 
-    if (p[0] === '*') {
+    if (p[0] === "*") {
         return false;
     }
 
-    let firstMatch = (p[0] === s[0] || (s[0] != null && p[0] === '.'));
-    if (p[1] === '*') {
-        return (firstMatch && isMatch(s.slice(1), p)) // * as a repeat
-            || isMatch(s, p.slice(2)) // ignore *
-    }
-    else {
+    let firstMatch = p[0] === s[0] || (s[0] != null && p[0] === ".");
+    if (p[1] === "*") {
+        return (
+            (firstMatch && isMatch(s.slice(1), p)) || // * as a repeat
+            isMatch(s, p.slice(2))
+        ); // ignore *
+    } else {
         return firstMatch && isMatch(s.slice(1), p.slice(1));
     }
 }
 
 /**
- * DP
+ * recursion with memory
  * @param {string} s
  * @param {string} p
  * @return {boolean}
  */
 function isMatch(s, p) {
+    // initialize memory
+    let memo = new Array(s.length);
+    let hitCache = 0;
+    for (let i = 0; i < s.length + 1; i++) {
+        memo[i] = new Array(p.length + 1);
+    }
 
+    let ret = dp(0, 0, s, p);
+    // console.log(`hitcache: ${hitCache}`);
+    return ret;
+
+    function dp(i, j, s, p) {
+        // console.log(`s: ${s}, p: ${p}`)
+        // console.log(`i: ${i}, j: ${j}`)
+        if (memo[i][j] != null) {
+            hitCache++;
+            return memo[i][j];
+        }
+
+        if (p.length === 0) {
+            return (memo[i][j] = s.length === 0);
+        }
+
+        if (p[0] === "*") {
+            return (memo[i][j] = false);
+        }
+
+        let firstMatch = p[0] === s[0] || (s[0] != null && p[0] === ".");
+        if (p[1] === "*") {
+            return (memo[i][j] = (
+                (firstMatch && dp(i + 1, j, s.slice(1), p)) || // * as a repeat
+                dp(i, j + 2, s, p.slice(2)) // ignore *
+            )); 
+        } else {
+            return (memo[i][j] = firstMatch && dp(i + 1, j + 1, s.slice(1), p.slice(1)));
+        }
+    }
 }
 
 // let str = 'aab';
@@ -152,13 +187,13 @@ function isMatch(s, p) {
 // let str = "mississippi";
 // let pattern = "mis*is*p*.";
 // let pattern = "mis*is*ip*.";
-// let str = "aab";
-// let pattern = "c*a*b";
+let str = "aab";
+let pattern = "c*a*b";
 // let str = "";
 // let pattern = ".*";
 // let str = "aab";
 // let pattern = "a*ab";
-let str = "aaa";
-let pattern = "ab*a*c*a";
+// let str = "aaa";
+// let pattern = "ab*a*c*a";
 
 console.log(isMatch(str, pattern));
