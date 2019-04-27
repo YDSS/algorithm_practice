@@ -6,6 +6,9 @@
 // const ListNode = require("./ListNode");
 import ListNode from "./ListNode";
 
+/**
+ * @property {ListNode} head head of the list
+ */
 export default class SingleLinkedList {
     head: ListNode;
     headless: boolean;
