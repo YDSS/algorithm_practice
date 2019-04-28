@@ -6,6 +6,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // const ListNode = require("./ListNode");
 const ListNode_1 = require("./ListNode");
+/**
+ * @property {ListNode} head head of the list
+ */
 class SingleLinkedList {
     /**
      * @constructor

@@ -42,7 +42,8 @@
             },
             "dependsOn": [
                 "buildts"
-            ]
+            ],
+            "problemMatcher": []
         }
     ]
 }
