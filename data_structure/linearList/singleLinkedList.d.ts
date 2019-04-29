@@ -60,6 +60,10 @@ export default class SingleLinkedList {
      */
     delete(val: any): any[];
     /**
+     * iterator the list
+     */
+    iterator(): IterableIterator<ListNode>;
+    /**
      * print a linked list from head
      */
     print(): void;

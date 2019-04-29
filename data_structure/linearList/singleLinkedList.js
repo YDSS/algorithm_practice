@@ -21,9 +21,11 @@ class SingleLinkedList {
     constructor(arr = [], method = "head", headless = false) {
         this.head = new ListNode_1.default(null, null);
         this.headless = headless;
-        method === "head"
-            ? this._createFromHead(arr)
-            : this._createFromTail(arr);
+        if (arr.length) {
+            method === "head"
+                ? this._createFromHead(arr)
+                : this._createFromTail(arr);
+        }
         if (headless) {
             if (!arr.length) {
                 throw new Error("arr cannot be empty when this list has no head");
@@ -151,6 +153,16 @@ class SingleLinkedList {
         return deleted;
     }
     /**
+     * iterator the list
+     */
+    *iterator() {
+        let cur = this.head.next;
+        while (cur) {
+            yield cur;
+            cur = cur.next;
+        }
+    }
+    /**
      * print a linked list from head
      */
     print() {
@@ -162,4 +174,11 @@ class SingleLinkedList {
     }
 }
 exports.default = SingleLinkedList;
+// let linkedList = new SingleLinkedList([1, 2, 3]);
+// linkedList.print();
+// let iterator = linkedList.iterator();
+// let i;
+// while (i = iterator.next().value) {
+//     console.log(i.data);
+// }
 //# sourceMappingURL=singleLinkedList.js.map

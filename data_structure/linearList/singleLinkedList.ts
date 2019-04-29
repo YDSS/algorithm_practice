@@ -24,9 +24,11 @@ export default class SingleLinkedList {
         this.head = new ListNode(null, null);
         this.headless = headless;
 
-        method === "head"
-            ? this._createFromHead(arr)
-            : this._createFromTail(arr);
+        if (arr.length) {
+            method === "head"
+                ? this._createFromHead(arr)
+                : this._createFromTail(arr);
+        }
 
         if (headless) {
             if (!arr.length) {
@@ -149,7 +151,7 @@ export default class SingleLinkedList {
     /**
      * delete all the nodes with data equaled with val
      * @param {*} val
-     * 
+     *
      * @return {Array} deleted nodes
      */
     delete(val) {
@@ -174,6 +176,18 @@ export default class SingleLinkedList {
     }
 
     /**
+     * iterator the list
+     */
+    public *iterator() {
+        let cur = this.head.next;
+
+        while (cur) {
+            yield cur;
+            cur = cur.next;
+        }
+    }
+
+    /**
      * print a linked list from head
      */
     print() {
@@ -184,3 +198,12 @@ export default class SingleLinkedList {
         }
     }
 }
+
+// let linkedList = new SingleLinkedList([1, 2, 3]);
+// linkedList.print();
+
+// let iterator = linkedList.iterator();
+// let i;
+// while (i = iterator.next().value) {
+//     console.log(i.data);
+// }
