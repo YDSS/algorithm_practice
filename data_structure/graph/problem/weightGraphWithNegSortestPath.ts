@@ -25,15 +25,16 @@ function getWeightedGraphWithNegSortestPath(graph: Array<Array<any>>, start: num
 
     while (!queue.isEmpty()) {
         let v = queue.leave();
+
         graph[v].map(w => {
             let {index, dist} = w;
             if (table[index].dist > table[v].dist + dist) {
                 table[index].dist = table[v].dist + dist;
                 table[index].path = v;
-            }
-            console.log(queue.traverse(item => item === index))
-            if (!queue.traverse(item => item === index).some(item => item)) {
-                queue.enter(index); 
+
+                if (!queue.traverse(item => item === index).some(item => item)) {
+                    queue.enter(index); 
+                }
             }
         })
     }
