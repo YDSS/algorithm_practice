@@ -32,5 +32,12 @@ export default class SequenceQueue {
     isFull(): boolean;
     enter(item: any): void;
     leave(): any;
+    /**
+     * traverse all the element in the queue
+     * @param {function} cb pass every element to cb
+     *
+     * @return {Array} all the result cb ran
+     */
+    traverse(cb: any): Array<any>;
     print(): void;
 }

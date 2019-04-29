@@ -58,6 +58,24 @@ class SequenceQueue {
         this.front = (this.front + 1) % this._realMaxSize;
         return item;
     }
+    /**
+     * traverse all the element in the queue
+     * @param {function} cb pass every element to cb
+     *
+     * @return {Array} all the result cb ran
+     */
+    traverse(cb) {
+        if (this.isEmpty()) {
+            return [];
+        }
+        let ret = [];
+        let i = this.front;
+        while (i % this._realMaxSize < this.rear) {
+            ret.push(cb(this._queue[i % this._realMaxSize]));
+            i++;
+        }
+        return ret;
+    }
     print() {
         console.log(this._queue);
     }
