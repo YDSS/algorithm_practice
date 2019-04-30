@@ -48,7 +48,7 @@ export default class AdjacencyList {
                 edge = node.data;
                 str += `${edge.to}(${edge.dist}) -> `;
             }
-            console.log(str.slice(0, str.length - 3));
+            console.log(str.replace(/\s\-\>\s$/, ''));
         })
     }
 }

@@ -45,13 +45,14 @@ export let eventNodeGraph = {
         {from: '6`', to: '6', dist: 2},
         {from: '4', to: '7`', dist: 0},
         {from: '6', to: '7`', dist: 0},
+        {from: '6', to: '8`', dist: 0},
         {from: '5', to: '8`', dist: 0},
         {from: '5', to: '9', dist: 4},
         {from: '7`', to: '7', dist: 3},
         {from: '8`', to: '8', dist: 2},
         {from: '7', to: '10`', dist: 0},
-        {from: '8`', to: '10`', dist: 0},
+        {from: '8', to: '10`', dist: 0},
         {from: '9', to: '10`', dist: 0},
-        {from: '10`', to: '10`', dist: 1},
+        {from: '10`', to: '10', dist: 1},
     ]
 }

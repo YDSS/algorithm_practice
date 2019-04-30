@@ -12,6 +12,8 @@ function getCriticalPath(graph, start, end) {
     let n = graph.vertexes.length;
     // init adjacency list
     let adjList = new AdjacencyList_1.default(graph.vertexes, graph.edges);
+    // adjList.print();
+    // return;
     // init queue
     let queue = new SequenceQueue_1.default(n);
     // is a vertex existed in the queue
@@ -44,7 +46,6 @@ function getCriticalPath(graph, start, end) {
                 table[to].ec = table[v].ec + dist;
                 if (!isVertexExisted(to)) {
                     queue.enter(to);
-                    console.log(`enter ${to}`);
                 }
             }
             // save v to processors of it's adjacent vertex

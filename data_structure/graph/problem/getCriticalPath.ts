@@ -4,12 +4,12 @@
  */
 
 import AdjacencyList from "../AdjacencyList";
-import LinkedList from "../../linearList/singleLinkedList";
 import Node from "../../linearList/ListNode"
 import Queue from "../../queue/SequenceQueue";
 // mock
 import { eventNodeGraph } from "../mock/AdjacencyListData"
 
+// T(n) = O(|V| + 3|E|)
 function getCriticalPath(
     graph: {
         vertexes: string[];
@@ -29,7 +29,7 @@ function getCriticalPath(
     }
     // init table to record info of vertex
     let table = {};
-    graph.vertexes.map(v => {
+    graph.vertexes.map(v => { // T(n) = O(|V|)
         table[v] = {
             ec: Number.NEGATIVE_INFINITY,
             lc: Number.POSITIVE_INFINITY,
@@ -40,7 +40,7 @@ function getCriticalPath(
     table[start].ec = 0;
     // calc ec of every vertex
     queue.enter(start);
-    while (!queue.isEmpty()) {
+    while (!queue.isEmpty()) { // T(n) = O(|E|), not like weightedGraphWithNegEdge, every vertex only enter queue once
         let v = queue.leave();
         let adjacentVs = adjList.get(v);
         let iterator = adjacentVs.iterator();
@@ -54,19 +54,17 @@ function getCriticalPath(
                 table[to].ec = table[v].ec + dist;
                 if (!isVertexExisted(to)) {
                     queue.enter(to);
-                    console.log(`enter ${to}`)
                 }
             }
             // save v to processors of it's adjacent vertex
             table[to].processors.push({from: v, dist});
         }
     }
-    console.log(1)
     //calc lc of vertex
     queue.clear();
     table[end].lc = table[end].ec;
     queue.enter(end);
-    while (!queue.isEmpty()) {
+    while (!queue.isEmpty()) { // T(n) = O(|E|)
         let v = queue.leave();
         let { processors } = table[v];
         if (processors && processors.length) {
@@ -81,12 +79,11 @@ function getCriticalPath(
             })
         }
     }
-    console.log(2)
     // find the critical path
     queue.clear();
     let criticalPath: Array<string|number> = [start];
     queue.enter(start);
-    while (!queue.isEmpty()) {
+    while (!queue.isEmpty()) { // T(n) = O(|E|)
         let v = queue.leave();
         let adjacentVs = adjList.get(v);
         let iterator = adjacentVs.iterator();
@@ -104,7 +101,6 @@ function getCriticalPath(
             }
         }
     }   
-    console.log(3)
     // remove duplicate vertex
     let removeDup = (arr: Array<string|number>) => {
         let ret = [];
