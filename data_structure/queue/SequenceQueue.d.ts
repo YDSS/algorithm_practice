@@ -39,5 +39,9 @@ export default class SequenceQueue {
      * @return {Array} all the result cb ran
      */
     traverse(cb: any): Array<any>;
+    /**
+     * clear the queue
+     */
+    clear(): void;
     print(): void;
 }

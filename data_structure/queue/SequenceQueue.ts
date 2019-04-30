@@ -93,6 +93,15 @@ export default class SequenceQueue {
         return ret;
     }
 
+    /**
+     * clear the queue
+     */
+    clear(): void {
+        this._queue = [];
+        this.front = 0;
+        this.rear = 0;
+    }
+
     print() {
         console.log(this._queue);
     }

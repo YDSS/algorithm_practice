@@ -17,4 +17,5 @@ export default class AdjacencyList {
     }>);
     private initialize;
     get(vertex: string | number): LinkedList;
+    print(): void;
 }

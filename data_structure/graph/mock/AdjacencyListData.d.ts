@@ -11,3 +11,11 @@ export declare const weightedGraphWithNeg: {
     index: number;
     dist: number;
 }[][];
+export declare let eventNodeGraph: {
+    vertexes: string[];
+    edges: {
+        from: string;
+        to: string;
+        dist: number;
+    }[];
+};
