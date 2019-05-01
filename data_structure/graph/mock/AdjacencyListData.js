@@ -54,4 +54,23 @@ exports.eventNodeGraph = {
         { from: '10`', to: '10', dist: 1 },
     ]
 };
+exports.undigraph = {
+    vertexes: [
+        'v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7'
+    ],
+    edges: [
+        { from: 'v1', to: 'v2', dist: 2 },
+        { from: 'v1', to: 'v4', dist: 1 },
+        { from: 'v1', to: 'v3', dist: 4 },
+        { from: 'v2', to: 'v5', dist: 10 },
+        { from: 'v2', to: 'v4', dist: 3 },
+        { from: 'v3', to: 'v4', dist: 2 },
+        { from: 'v3', to: 'v6', dist: 5 },
+        { from: 'v4', to: 'v6', dist: 8 },
+        { from: 'v4', to: 'v5', dist: 7 },
+        { from: 'v4', to: 'v7', dist: 4 },
+        { from: 'v5', to: 'v7', dist: 6 },
+        { from: 'v6', to: 'v7', dist: 1 },
+    ]
+};
 //# sourceMappingURL=AdjacencyListData.js.map

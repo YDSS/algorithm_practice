@@ -8,12 +8,11 @@ const AdjacencyList_1 = require("../AdjacencyList");
 const SequenceQueue_1 = require("../../queue/SequenceQueue");
 // mock
 const AdjacencyListData_1 = require("../mock/AdjacencyListData");
+// T(n) = O(|V| + 3|E|)
 function getCriticalPath(graph, start, end) {
     let n = graph.vertexes.length;
     // init adjacency list
     let adjList = new AdjacencyList_1.default(graph.vertexes, graph.edges);
-    // adjList.print();
-    // return;
     // init queue
     let queue = new SequenceQueue_1.default(n);
     // is a vertex existed in the queue
@@ -33,7 +32,7 @@ function getCriticalPath(graph, start, end) {
     table[start].ec = 0;
     // calc ec of every vertex
     queue.enter(start);
-    while (!queue.isEmpty()) {
+    while (!queue.isEmpty()) { // T(n) = O(|E|), not like weightedGraphWithNegEdge, every vertex only enter queue once
         let v = queue.leave();
         let adjacentVs = adjList.get(v);
         let iterator = adjacentVs.iterator();
@@ -52,12 +51,11 @@ function getCriticalPath(graph, start, end) {
             table[to].processors.push({ from: v, dist });
         }
     }
-    console.log(1);
     //calc lc of vertex
     queue.clear();
     table[end].lc = table[end].ec;
     queue.enter(end);
-    while (!queue.isEmpty()) {
+    while (!queue.isEmpty()) { // T(n) = O(|E|)
         let v = queue.leave();
         let { processors } = table[v];
         if (processors && processors.length) {
@@ -72,12 +70,11 @@ function getCriticalPath(graph, start, end) {
             });
         }
     }
-    console.log(2);
     // find the critical path
     queue.clear();
     let criticalPath = [start];
     queue.enter(start);
-    while (!queue.isEmpty()) {
+    while (!queue.isEmpty()) { // T(n) = O(|E|)
         let v = queue.leave();
         let adjacentVs = adjList.get(v);
         let iterator = adjacentVs.iterator();
@@ -94,7 +91,6 @@ function getCriticalPath(graph, start, end) {
             }
         }
     }
-    console.log(3);
     // remove duplicate vertex
     let removeDup = (arr) => {
         let ret = [];

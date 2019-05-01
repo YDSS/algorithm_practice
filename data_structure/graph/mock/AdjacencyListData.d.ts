@@ -19,3 +19,11 @@ export declare let eventNodeGraph: {
         dist: number;
     }[];
 };
+export declare let undigraph: {
+    vertexes: string[];
+    edges: {
+        from: string;
+        to: string;
+        dist: number;
+    }[];
+};
