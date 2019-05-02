@@ -40,7 +40,6 @@ function prim(graph, start) {
     let sv;
     while (sv = findUnknownShortestVertex()) {
         table[sv.vertex].known = true;
-        console.log(`v: ${sv.vertex}, known: ${table[sv.vertex].known}`);
         let adjacentVs = matrix[sv.vertex];
         Object.keys(adjacentVs).map(w => {
             let dist = adjacentVs[w];
