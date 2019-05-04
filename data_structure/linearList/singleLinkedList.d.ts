@@ -23,13 +23,13 @@ export default class SingleLinkedList {
      *
      * @param {Array} arr
      */
-    _createFromHead(arr: any): void;
+    private _createFromHead;
     /**
      * insert from tail
      *
      * @param {Array} arr
      */
-    _createFromTail(arr: any): void;
+    private _createFromTail;
     /**
      * insert a node
      * @param {*} val data of node
@@ -58,7 +58,7 @@ export default class SingleLinkedList {
      *
      * @return {Array} deleted nodes
      */
-    delete(val: any): any[];
+    delete(val?: any): ListNode[];
     /**
      * iterator the list
      */

@@ -45,7 +45,7 @@ export default class SingleLinkedList {
      *
      * @param {Array} arr
      */
-    _createFromHead(arr) {
+    private _createFromHead(arr) {
         let head = this.head;
         for (let val of arr) {
             let headNext = head.next;
@@ -60,7 +60,7 @@ export default class SingleLinkedList {
      *
      * @param {Array} arr
      */
-    _createFromTail(arr) {
+    private _createFromTail(arr) {
         let head = this.head;
         let tail;
 
@@ -86,7 +86,7 @@ export default class SingleLinkedList {
      *
      * @return {ListNode}
      */
-    insert(val, method = "head") {
+    public insert(val, method = "head") {
         let node = new ListNode(val, null);
 
         if (method === "head") {
@@ -114,7 +114,7 @@ export default class SingleLinkedList {
      *
      * @return {ListNode}
      */
-    findOne(val) {
+    public findOne(val) {
         let cur = this.headless ? this.head : this.head.next;
         let found = null;
         while (cur) {
@@ -134,7 +134,7 @@ export default class SingleLinkedList {
      *
      * @return {Array}
      */
-    find(val) {
+    public find(val) {
         let cur = this.headless ? this.head : this.head.next;
         let ret = [];
         while (cur) {
@@ -154,8 +154,18 @@ export default class SingleLinkedList {
      *
      * @return {Array} deleted nodes
      */
-    delete(val) {
+    public delete(val?: any): ListNode[] {
         let cur = this.head;
+        // if val is empty, delete the first node
+        if (val == null) {
+            if (!this.head.next) {
+                return null;
+            }
+            let deleted = this.head.next;
+            this.head.next = deleted.next;
+
+            return [deleted];
+        }
         let pre;
         let deleted = [];
 
@@ -190,7 +200,7 @@ export default class SingleLinkedList {
     /**
      * print a linked list from head
      */
-    print() {
+    public print() {
         let cur = this.head;
         while (cur) {
             console.log(` --> Node(${cur.data})`);
@@ -199,7 +209,12 @@ export default class SingleLinkedList {
     }
 }
 
-// let linkedList = new SingleLinkedList([1, 2, 3]);
+// let linkedList = new SingleLinkedList([1], 'tail');
+// let [d] = linkedList.delete();
+// let a = linkedList.delete();
+// linkedList.delete();
+// console.log(a);
+// linkedList.print();
 // linkedList.print();
 
 // let iterator = linkedList.iterator();

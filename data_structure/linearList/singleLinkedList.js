@@ -137,6 +137,15 @@ class SingleLinkedList {
      */
     delete(val) {
         let cur = this.head;
+        // if val is empty, delete the first node
+        if (val == null) {
+            if (!this.head.next) {
+                return null;
+            }
+            let deleted = this.head.next;
+            this.head.next = deleted.next;
+            return [deleted];
+        }
         let pre;
         let deleted = [];
         while (cur) {
@@ -174,7 +183,12 @@ class SingleLinkedList {
     }
 }
 exports.default = SingleLinkedList;
-// let linkedList = new SingleLinkedList([1, 2, 3]);
+// let linkedList = new SingleLinkedList([1], 'tail');
+// let [d] = linkedList.delete();
+// let a = linkedList.delete();
+// linkedList.delete();
+// console.log(a);
+// linkedList.print();
 // linkedList.print();
 // let iterator = linkedList.iterator();
 // let i;
