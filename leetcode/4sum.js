@@ -16,11 +16,31 @@ function fourSum(nums, target) {
     let twoSum;
     let n = nums.length;
 
+    let removeLeftDup = (left, right) => {
+        left++;
+        while (left < right && nums[left - 1] === nums[left]) {
+            // skip duplicated result
+            left++;
+        }
+
+        return left;
+    };
+
+    let removeRightDup = (left, right) => {
+        right--;
+        while (left < right && nums[right + 1] === nums[right]) {
+            // skip duplicated result
+            right--;
+        }
+
+        return right;
+    };
+
     // sort the arr
     nums.sort((a, b) => {
         return a - b;
     });
-    console.log(nums);
+    // console.log(nums);
     for (let i = 0; i < n - 2; i++) {
         if (i > 0 && nums[i - 1] === nums[i]) {
             // skip duplicated result
@@ -36,36 +56,19 @@ function fourSum(nums, target) {
             left = j + 1;
             right = n - 1;
             while (left < right) {
-                console.log(nums[i], nums[j], nums[left], nums[right])
+                // console.log(nums[i], nums[j], nums[left], nums[right]);
                 twoSum = nums[left] + nums[right];
                 if (remain === twoSum) {
                     solutions.push([nums[i], nums[j], nums[left], nums[right]]);
-                    left++;
-                    right--;
+                    left = removeLeftDup(left, right);
+                    right = removeRightDup(left, right);
                     continue;
                 }
                 if (remain > twoSum) {
-                    left++;
+                    left = removeLeftDup(left, right);
                 } else {
-                    right--;
+                    right = removeRightDup(left, right);
                 }
-                while (
-                    left > j + 1 &&
-                    left < right &&
-                    nums[left - 1] === nums[left]
-                ) {
-                    // skip duplicated result
-                    left++;
-                }
-                while (
-                    right < n - 1 &&
-                    left < right &&
-                    nums[right - 1] === nums[right]
-                ) {
-                    // skip duplicated result
-                    right--;
-                }
- 
             }
         }
     }
@@ -73,10 +76,12 @@ function fourSum(nums, target) {
     return solutions;
 }
 
-// let nums = [1, 0, -1, 0, -2, 2];
+let nums = [1, 0, -1, 0, -2, 2];
+let target = 0;
+// let nums = [0, 0, 0, 0, 0];
 // let target = 0;
-// let nums = [0,0,0,0]
-// let target = 0;
-let nums = [-1,2,2,-5,0,-1,4];
-let target = 3;
+// let nums = [-1,2,2,-5,0,-1,4];
+// let target = 3;
+// let nums = [-1, 0, -5, -2, -2, -4, 0, 1, -2];
+// let target = -9;
 console.log(fourSum(nums, target));
