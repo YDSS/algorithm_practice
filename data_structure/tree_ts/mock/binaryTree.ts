@@ -1,0 +1,1 @@
+export let binarySearchTreeNodes = [6, 2, 8, 1, 4, 3]

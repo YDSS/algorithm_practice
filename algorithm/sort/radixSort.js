@@ -11,7 +11,6 @@ const singleLinkedList_1 = require("../../data_structure/linearList/singleLinked
  * @param arr array of unordered nums
  */
 function radixSort(arr) {
-    let n = arr.length;
     // find max num, get it's length
     let max = Number.NEGATIVE_INFINITY;
     arr.map(num => {
