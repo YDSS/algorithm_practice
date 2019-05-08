@@ -3,7 +3,8 @@
  * @author arlenyang
  */
 import Node from "./BinaryTreeNode";
-export default class BinarySearchTree {
+import BinaryTree from "./BinaryTree";
+export default class BinarySearchTree extends BinaryTree {
     root: Node;
     constructor();
     build(nodes: number[]): void;
@@ -14,5 +15,4 @@ export default class BinarySearchTree {
     private findRWithParent;
     delete(val: number): Node;
     private findSuccessor;
-    print(): void;
 }

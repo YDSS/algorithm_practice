@@ -4,13 +4,14 @@
  */
 
 import Node from "./BinaryTreeNode";
+import BinaryTree from "./BinaryTree";
 import { binarySearchTreeNodes } from "./mock/binaryTree";
 
-export default class BinarySearchTree {
+export default class BinarySearchTree extends BinaryTree {
     public root: Node;
 
     constructor() {
-        this.root = null;
+        super();
     }
 
     public build(nodes: number[]) {
@@ -153,30 +154,20 @@ export default class BinarySearchTree {
 
         return findMinNode(right, node);
     }
-
-    public print() {
-        const OFFSET = 4;
-        let printR = (tree, offset) => {
-            if (tree == null) {
-                return;
-            }
-
-            console.log(`${" ".repeat(offset)}${tree.data}`);
-            printR(tree.left, offset + OFFSET);
-            printR(tree.right, offset + OFFSET);
-        };
-
-        printR(this.root, 0);
-    }
 }
 
 let bsTree = new BinarySearchTree();
 bsTree.build(binarySearchTreeNodes);
-bsTree.print();
+bsTree.print(4);
+// find node
 // console.log('find 2')
 // console.log(bsTree.find(2));
-console.log("delete 6");
-console.log(bsTree.delete(6));
-bsTree.print();
-// console.log('find 2 again')
-// console.log(bsTree.find(2));
+
+// delete a node
+// console.log("delete 6");
+// console.log(bsTree.delete(6));
+// bsTree.print(4);
+
+// height
+// console.log('height of the tree is:')
+// console.log(bsTree.calcHeight(bsTree.root.left));
