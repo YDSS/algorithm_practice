@@ -8,8 +8,11 @@ export default class BinarySearchTree {
     constructor();
     build(nodes: number[]): void;
     insert(val: number): void;
+    private insertR;
     find(val: number): Node;
-    delete(val: number): void;
+    private findR;
+    private findRWithParent;
+    delete(val: number): Node;
     private findSuccessor;
     print(): void;
 }
