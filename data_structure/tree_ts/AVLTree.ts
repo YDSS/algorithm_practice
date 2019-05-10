@@ -7,6 +7,8 @@ import BinaryTree from "./BinaryTree"
 import Node from "./AVLTreeNode"
 
 export default class AVLTree extends BinaryTree {
+    root: Node;
+
     constructor() {
         super();
     }
@@ -23,8 +25,12 @@ export default class AVLTree extends BinaryTree {
 
     private insertR(val: number, tree: Node): Node {
         if (tree == null) {
-            
+            return new Node(val);
         }
+
+        if (val > tree.data) {
+            tree.left = this.insertR(val, tree.left);
+        } 
     }
 
     private singleRotateWithLeft(tree: Node): Node {

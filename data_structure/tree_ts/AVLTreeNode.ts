@@ -3,9 +3,9 @@
  * @author arlenyang
  */
 
-import BinaryTreeNode from "./BinaryTreeNode"
+import BinaryTreeNodeSuperClass from "./BinaryTreeNodeSuperclass"
 
-export default class AVLTreeNode extends BinaryTreeNode {
+export default class AVLTreeNode extends BinaryTreeNodeSuperClass {
     height: number;
 
     constructor(data) {

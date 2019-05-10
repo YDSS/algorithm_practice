@@ -3,7 +3,7 @@
  * @author arlenayng
  */
 
-import Node from "./BinaryTreeNode";
+import Node from "./BinaryTreeNodeSuperclass";
 
 export default class BinaryTree {
     root: Node;

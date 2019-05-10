@@ -3,14 +3,10 @@
  * @author arlenyang
  */
 
-export default class BinaryTreeNode {
-    data: any;
-    left: BinaryTreeNode;
-    right: BinaryTreeNode;
-    
+import BinaryTreeNodeSuperClass from "./BinaryTreeNodeSuperclass"
+
+export default class BinaryTreeNode extends BinaryTreeNodeSuperClass {
     constructor(data) {
-        this.data = data;
-        this.left = null;
-        this.right = null;
+        super(data);
     }
 }

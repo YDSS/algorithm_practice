@@ -3,7 +3,7 @@
  * @author arlenyang
  */
 
-import Node from "./BinaryTreeNode";
+import Node from "./BinaryTreeNodeSuperclass";
 import BinaryTree from "./BinaryTree";
 import { binarySearchTreeNodes } from "./mock/binaryTree";
 
