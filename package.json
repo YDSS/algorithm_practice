@@ -11,7 +11,7 @@
     "typescript": "^3.1.6"
   },
   "scripts": {
-    "debug": "node --inspect-brk=9229 leetcode/4sum.js"
+    "debug": "node --inspect-brk=9229 leetcode/mergeKSortedLists.js"
   },
   "repository": {
     "type": "git",

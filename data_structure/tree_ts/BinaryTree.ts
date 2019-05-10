@@ -20,12 +20,12 @@ export default class BinaryTree {
      */
     public calcHeight(tree: Node): number {
         if (tree == null) {
-            return -1;
+            return Number.NEGATIVE_INFINITY;
         }
 
-        // if (this.isLeaf(tree)) {
-        //     return 0;
-        // }
+        if (this.isLeaf(tree)) {
+            return 0;
+        }
 
         let leftTreeHeight = this.calcHeight(tree.left);
         let rightTreeHeight = this.calcHeight(tree.right);

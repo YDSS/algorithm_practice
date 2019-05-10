@@ -169,5 +169,5 @@ bsTree.print(4);
 // bsTree.print(4);
 
 // height
-// console.log('height of the tree is:')
-// console.log(bsTree.calcHeight(bsTree.root.left));
+console.log('height of the tree is:')
+console.log(bsTree.calcHeight(bsTree.root.left));
