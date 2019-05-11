@@ -1,16 +1,10 @@
+"use strict";
 /**
  * @file avl tree node, which has a extend attr of height
  * @author arlenyang
  */
-
-import BinaryTreeNodeSuperClass from "./BinaryTreeNodeSuperclass"
-
-export default class AVLTreeNode {
-    height: number;
-    left: AVLTreeNode;
-    right: AVLTreeNode;
-    data: any;
-
+Object.defineProperty(exports, "__esModule", { value: true });
+class AVLTreeNode {
     constructor(data) {
         this.data = data;
         this.left = null;
@@ -18,3 +12,5 @@ export default class AVLTreeNode {
         this.height = 0;
     }
 }
+exports.default = AVLTreeNode;
+//# sourceMappingURL=AVLTreeNode.js.map

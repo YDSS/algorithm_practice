@@ -52,7 +52,12 @@ export default class BinaryTree {
             }
 
             console.log(`${" ".repeat(offset)}${tree.data}`);
-            printR(tree.left, offset + OFFSET);
+            if (!tree.left && tree.right) {
+                console.log(`${" ".repeat(offset + OFFSET)}null`);
+            }
+            else {
+                printR(tree.left, offset + OFFSET) 
+            }
             printR(tree.right, offset + OFFSET);
         };
 

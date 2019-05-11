@@ -1,11 +1,18 @@
 /**
- * @file binary tree, super class
- * @author arlenayng
+ * @file implementation of AVL tree
+ * @author arlenyang
  */
-import Node from "./BinaryTreeNodeSuperclass";
-export default class BinaryTree {
+import Node from "./AVLTreeNode";
+export default class AVLTree {
     root: Node;
     constructor();
+    build(arr: number[]): void;
+    insert(val: number): void;
+    private insertR;
+    private singleRotateWithLeft;
+    private singleRotateWithRight;
+    private doubleRotateWithLeft;
+    private doubleRotateWithRight;
     /**
      * calculate the height of tree
      * @param tree

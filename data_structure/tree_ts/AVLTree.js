@@ -1,32 +1,25 @@
+"use strict";
 /**
  * @file implementation of AVL tree
  * @author arlenyang
  */
-
-import { avlTreeNodes } from "./mock/binaryTree"
-
-import Node from "./AVLTreeNode";
-
-export default class AVLTree {
-    root: Node;
-
-    constructor() {}
-
-    public build(arr: number[]): void {
+Object.defineProperty(exports, "__esModule", { value: true });
+const binaryTree_1 = require("./mock/binaryTree");
+const AVLTreeNode_1 = require("./AVLTreeNode");
+class AVLTree {
+    constructor() { }
+    build(arr) {
         arr.map(n => {
             this.insert(n);
         });
     }
-
-    public insert(val: number): void {
+    insert(val) {
         this.root = this.insertR(val, this.root);
     }
-
-    private insertR(val: number, tree: Node): Node {
+    insertR(val, tree) {
         if (tree == null) {
-            return new Node(val);
+            return new AVLTreeNode_1.default(val);
         }
-
         // insert new node into the left subtree
         if (val < tree.data) {
             tree.left = this.insertR(val, tree.left);
@@ -36,7 +29,8 @@ export default class AVLTree {
             if (tree.left.height - rightHeight === 2) {
                 if (val < tree.left.data) {
                     tree = this.singleRotateWithLeft(tree);
-                } else {
+                }
+                else {
                     tree = this.doubleRotateWithLeft(tree);
                 }
             }
@@ -50,7 +44,8 @@ export default class AVLTree {
             if (tree.right.height - leftHeight === 2) {
                 if (val > tree.right.data) {
                     tree = this.singleRotateWithRight(tree);
-                } else {
+                }
+                else {
                     tree = this.doubleRotateWithRight(tree);
                 }
             }
@@ -59,97 +54,79 @@ export default class AVLTree {
         let leftHeight = tree.left ? tree.left.height : -1;
         let rightHeight = tree.right ? tree.right.height : -1;
         tree.height = Math.max(leftHeight, rightHeight) + 1;
-
         return tree;
     }
-
-    private singleRotateWithLeft(tree: Node): Node {
+    singleRotateWithLeft(tree) {
         let k2 = tree.left;
         tree.left = k2.right;
         k2.right = tree;
-
         tree.height -= 1;
-
         return k2;
     }
-
-    private singleRotateWithRight(tree: Node): Node {
+    singleRotateWithRight(tree) {
         let k2 = tree.right;
         tree.right = k2.left;
         k2.left = tree;
-
         tree.height -= 1;
-
         return k2;
     }
-
-    private doubleRotateWithLeft(tree: Node): Node {
+    doubleRotateWithLeft(tree) {
         tree.left = this.singleRotateWithRight(tree.left);
         let k2 = this.singleRotateWithLeft(tree);
-
         return k2;
     }
-
-    private doubleRotateWithRight(tree: Node): Node {
+    doubleRotateWithRight(tree) {
         tree.right = this.singleRotateWithLeft(tree.right);
         let k2 = this.singleRotateWithRight(tree);
-
         return k2;
     }
-
     /**
      * calculate the height of tree
      * @param tree
      *
      * @return {number}
      */
-    public calcHeight(tree: Node): number {
+    calcHeight(tree) {
         if (tree == null) {
             return Number.NEGATIVE_INFINITY;
         }
-
         if (this.isLeaf(tree)) {
             return 0;
         }
-
         let leftTreeHeight = this.calcHeight(tree.left);
         let rightTreeHeight = this.calcHeight(tree.right);
-
         return Math.max(leftTreeHeight, rightTreeHeight) + 1;
     }
-
     /**
      * determining whether the node is a leaf
      * @param node
      */
-    public isLeaf(node: Node): boolean {
+    isLeaf(node) {
         return node.left == null && node.right == null;
     }
-
     /**
      * print the tree
      * @param OFFSET offset between parent node and child node when print
      */
-    public print(OFFSET: number): void {
+    print(OFFSET) {
         let printR = (tree, offset) => {
             if (tree == null) {
                 return;
             }
-
             console.log(`${" ".repeat(offset)}${tree.data}(${tree.height})`);
             if (!tree.left && tree.right) {
                 console.log(`${" ".repeat(offset + OFFSET)}null`);
             }
             else {
-                printR(tree.left, offset + OFFSET) 
+                printR(tree.left, offset + OFFSET);
             }
             printR(tree.right, offset + OFFSET);
         };
-
         printR(this.root, 0);
     }
 }
-
+exports.default = AVLTree;
 let avlTree = new AVLTree();
-avlTree.build(avlTreeNodes);
+avlTree.build(binaryTree_1.avlTreeNodes);
 avlTree.print(4);
+//# sourceMappingURL=AVLTree.js.map

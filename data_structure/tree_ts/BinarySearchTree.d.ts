@@ -2,7 +2,7 @@
  * @file implementation of binary search tree
  * @author arlenyang
  */
-import Node from "./BinaryTreeNode";
+import Node from "./BinaryTreeNodeSuperclass";
 import BinaryTree from "./BinaryTree";
 export default class BinarySearchTree extends BinaryTree {
     root: Node;

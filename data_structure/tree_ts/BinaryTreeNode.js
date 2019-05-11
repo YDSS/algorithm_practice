@@ -4,11 +4,10 @@
  * @author arlenyang
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-class BinaryTreeNode {
+const BinaryTreeNodeSuperclass_1 = require("./BinaryTreeNodeSuperclass");
+class BinaryTreeNode extends BinaryTreeNodeSuperclass_1.default {
     constructor(data) {
-        this.data = data;
-        this.left = null;
-        this.right = null;
+        super(data);
     }
 }
 exports.default = BinaryTreeNode;

@@ -4,7 +4,7 @@
  * @author arlenyang
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const BinaryTreeNode_1 = require("./BinaryTreeNode");
+const BinaryTreeNodeSuperclass_1 = require("./BinaryTreeNodeSuperclass");
 const BinaryTree_1 = require("./BinaryTree");
 const binaryTree_1 = require("./mock/binaryTree");
 class BinarySearchTree extends BinaryTree_1.default {
@@ -21,7 +21,7 @@ class BinarySearchTree extends BinaryTree_1.default {
     }
     insertR(val, tree) {
         if (tree == null) {
-            return new BinaryTreeNode_1.default(val);
+            return new BinaryTreeNodeSuperclass_1.default(val);
         }
         if (val < tree.data) {
             tree.left = this.insertR(val, tree.left);
