@@ -89,4 +89,6 @@ class SequenceQueue {
     }
 }
 exports.default = SequenceQueue;
+let q = new SequenceQueue(10);
+console.log(q.isEmpty());
 //# sourceMappingURL=SequenceQueue.js.map

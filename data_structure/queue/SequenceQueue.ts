@@ -106,3 +106,6 @@ export default class SequenceQueue {
         console.log(this._queue);
     }
 }
+
+let q = new SequenceQueue(10);
+console.log(q.isEmpty())
