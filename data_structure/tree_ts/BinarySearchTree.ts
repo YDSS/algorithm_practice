@@ -156,18 +156,18 @@ export default class BinarySearchTree extends BinaryTree {
     }
 }
 
-let bsTree = new BinarySearchTree();
-bsTree.build(binarySearchTreeNodes);
-bsTree.print(4);
-// find node
-// console.log('find 2')
-// console.log(bsTree.find(2));
-
-// delete a node
-// console.log("delete 6");
-// console.log(bsTree.delete(6));
+// let bsTree = new BinarySearchTree();
+// bsTree.build(binarySearchTreeNodes);
 // bsTree.print(4);
+// // find node
+// // console.log('find 2')
+// // console.log(bsTree.find(2));
 
-// height
-console.log('height of the tree is:')
-console.log(bsTree.calcHeight(bsTree.root.left));
+// // delete a node
+// // console.log("delete 6");
+// // console.log(bsTree.delete(6));
+// // bsTree.print(4);
+
+// // height
+// console.log('height of the tree is:')
+// console.log(bsTree.calcHeight(bsTree.root.left));

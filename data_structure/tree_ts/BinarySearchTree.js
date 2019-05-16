@@ -6,7 +6,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BinaryTreeNodeSuperclass_1 = require("./BinaryTreeNodeSuperclass");
 const BinaryTree_1 = require("./BinaryTree");
-const binaryTree_1 = require("./mock/binaryTree");
 class BinarySearchTree extends BinaryTree_1.default {
     constructor() {
         super();
@@ -138,17 +137,17 @@ class BinarySearchTree extends BinaryTree_1.default {
     }
 }
 exports.default = BinarySearchTree;
-let bsTree = new BinarySearchTree();
-bsTree.build(binaryTree_1.binarySearchTreeNodes);
-bsTree.print(4);
-// find node
-// console.log('find 2')
-// console.log(bsTree.find(2));
-// delete a node
-// console.log("delete 6");
-// console.log(bsTree.delete(6));
+// let bsTree = new BinarySearchTree();
+// bsTree.build(binarySearchTreeNodes);
 // bsTree.print(4);
-// height
-console.log('height of the tree is:');
-console.log(bsTree.calcHeight(bsTree.root.left));
+// // find node
+// // console.log('find 2')
+// // console.log(bsTree.find(2));
+// // delete a node
+// // console.log("delete 6");
+// // console.log(bsTree.delete(6));
+// // bsTree.print(4);
+// // height
+// console.log('height of the tree is:')
+// console.log(bsTree.calcHeight(bsTree.root.left));
 //# sourceMappingURL=BinarySearchTree.js.map
