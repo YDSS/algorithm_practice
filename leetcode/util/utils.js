@@ -50,3 +50,10 @@ exports.printBinaryTree = function (root) {
 
     printR(root, 0);
 }
+
+function swap(arr, i, j) {
+    let tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+}
+exports.swap = swap;
