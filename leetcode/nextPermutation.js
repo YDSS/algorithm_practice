@@ -26,24 +26,24 @@ function nextPermutation(nums) {
     for (; i > 0; i--) {
         j = i;
         while (nums[i] <= nums[--j]){}
-        console.log(`i: ${i}, j: ${j}`)
+        // console.log(`i: ${i}, j: ${j}`)
         if (nums[i] <= nums[j] || j < 0) {
             continue;
         }
         let curDigit = len - 1 - i;
         let forwardDigit = len - 1 - j;
-        console.log(`curD: ${curDigit}, fordD: ${forwardDigit}`)
+        // console.log(`curD: ${curDigit}, fordD: ${forwardDigit}`)
         let origin = Math.pow(10, curDigit) * nums[i] + Math.pow(10, forwardDigit) * nums[j];
         let swaped = Math.pow(10, forwardDigit) * nums[i] + Math.pow(10, curDigit) * nums[j];
         let increment = swaped - origin;
-        console.log(`origin: ${origin}, swaped: ${swaped}, increment: ${increment}`)
+        // console.log(`origin: ${origin}, swaped: ${swaped}, increment: ${increment}`)
         if (increment < minIncrement) {
             minIncrement = increment;
             h = i;
             k = j;
-            console.log(`min: ${minIncrement}, h: ${h}, k: ${k}`);
+            // console.log(`min: ${minIncrement}, h: ${h}, k: ${k}`);
         }
-        console.log('-------')
+        // console.log('-------')
     }
     if (!Number.isFinite(minIncrement)) {
         nums.sort((a, b) => { return a - b })
@@ -54,6 +54,7 @@ function nextPermutation(nums) {
 }
 
 // let nums = [1, 2, 3];
-let nums = [1, 4, 6, 2, 1];
+// let nums = [1, 4, 6, 2, 1];
+let nums = [3, 1, 1, 2, 1];
 nextPermutation(nums);
 console.log(nums);
