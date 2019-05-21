@@ -26,8 +26,11 @@ function strStr(haystack, needle) {
     }
 
     let index = 0;
+    // no need to inspect substring in haystack when reach the boundary that
+    //  the length of rest of haystack is smaller than needle's
+    let range = haystack.length + 1 - needle.length; 
     let j;
-    for (; index < haystack.length; index++) {
+    for (; index < range; index++) {
         if (haystack[index] !== needle[0]) {
             continue;
         }
@@ -42,15 +45,15 @@ function strStr(haystack, needle) {
         }
     }
 
-    return index === haystack.length ? -1 : index;
+    return index === range ? -1 : index;
 }
 
-// let haystack = "hello";
-// let needle = "ll";
+let haystack = "hello";
+let needle = "ll";
 // let haystack = "ababc";
 // let needle = "abc";
 // let haystack = "aaaaa"
 // let needle = "bba"
-let haystack = "mississippi";
-let needle = "issip";
+// let haystack = "mississippi";
+// let needle = "issip";
 console.log(strStr(haystack, needle));
