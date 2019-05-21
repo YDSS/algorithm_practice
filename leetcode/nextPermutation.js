@@ -75,7 +75,7 @@ function nextPermutation(nums) {
             swap(nums, cur, i);
             bt(nums, cur + 1);
             // get index of swaped num before
-            let index = cur + 1;
+            let index = cur;
             for (; index < nums.length; index++) {
                 if (nums[index] === tmp) {
                     break;
@@ -86,6 +86,7 @@ function nextPermutation(nums) {
     }
     bt(nums, 0);
     if (!Number.isFinite(bestDist)) {
+        origin += "";
         for (let i = 0; i < nums.length; i++) {
             nums[i] = +origin[i];
         }
@@ -99,8 +100,9 @@ function nextPermutation(nums) {
     }
 }
 
-let nums = [1, 2, 3];
+// let nums = [1, 2, 3];
 // let nums = [1, 4, 6, 2, 1];
 // let nums = [3, 1, 1, 2, 1];
+let nums = [1]
 nextPermutation(nums);
 console.log(nums);
