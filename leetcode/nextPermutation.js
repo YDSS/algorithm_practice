@@ -58,7 +58,7 @@ function swap(arr, i, j) {
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-function nextPermutation(nums) {
+function nextPermutation2(nums) {
     let origin = +(nums.join(""));
     let bestDist = Number.POSITIVE_INFINITY;
     let bt = (nums, cur) => {
@@ -100,9 +100,39 @@ function nextPermutation(nums) {
     }
 }
 
+/**
+ * T(n) = O(n)
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+function nextPermutation(nums) {
+    let len = nums.length;
+    let i = len - 2;
+    let reverse = start => {
+        let high = len - 1;
+        let low = start;
+        while (low < high) {
+            swap(nums, low, high);
+            low++;
+            high--;
+        }
+    }
+
+    for (; i > -1 && nums[i] >= nums[i + 1]; i--) {} // find the first num smaller than nums those are right to it
+    if (i === -1) {
+        reverse(0);
+        return;
+    }
+    // find the smallest num larger than nums[i]
+    let j = i;
+    while (j < len - 1 && nums[i] < nums[j + 1]) { j++ }
+    swap(nums, i, j);
+    reverse(i + 1);
+}
+
 // let nums = [1, 2, 3];
 // let nums = [1, 4, 6, 2, 1];
 // let nums = [3, 1, 1, 2, 1];
-let nums = [1]
+let nums = [1, 2]
 nextPermutation(nums);
 console.log(nums);
