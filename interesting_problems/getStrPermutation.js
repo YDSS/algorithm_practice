@@ -11,14 +11,12 @@ function getStrPermutation(str) {
             return;
         }
 
-        recursion(i - 1, permutation);
-        console.log(permutation);
-        console.log(str[i])
+        recursion(i - 1);
         // insert str[i] to all the current permutation
         let tmp = [];
         for (let j = 0; j < permutation.length; j++) {
             let p = permutation[j];
-            for (let k = 0; k < p.length; k++) {
+            for (let k = 0; k < p.length + 1; k++) {
                 tmp.push(p.slice(0, k) + str[i] + p.slice(k));
             }
         }
