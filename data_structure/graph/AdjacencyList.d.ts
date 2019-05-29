@@ -3,6 +3,12 @@
  * @author arlenyang
  */
 import LinkedList from "../linearList/singleLinkedList";
+import ListNode from "../linearList/ListNode";
+import Edge from "./Edge";
+export interface AdjacencyListNode extends ListNode {
+    data: Edge;
+    next: AdjacencyListNode;
+}
 export default class AdjacencyList {
     private table;
     /**
@@ -10,11 +16,7 @@ export default class AdjacencyList {
      * @param vertexes vertex set, i.e [0, 1] or ['v0', 'v1']
      * @param edges edges set, i.e [{from: 0, to: 1, dist: 2],]
      */
-    constructor(vertexes: Array<string | number>, edges: Array<{
-        from: string | number;
-        to: string | number;
-        dist: number;
-    }>);
+    constructor(vertexes: Array<string | number>, edges: Array<Edge>);
     private initialize;
     get(vertex: string | number): LinkedList;
     print(): void;

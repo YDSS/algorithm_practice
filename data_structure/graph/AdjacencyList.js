@@ -15,7 +15,7 @@ class AdjacencyList {
         this.initialize(vertexes, edges);
     }
     initialize(vertexes, edges) {
-        // construct vertex list       
+        // construct vertex list
         this.table = {};
         vertexes.map(v => {
             this.table[v] = new singleLinkedList_1.default();
@@ -39,11 +39,11 @@ class AdjacencyList {
             let iterator = this.table[v].iterator();
             let edge;
             let node;
-            while (node = iterator.next().value) {
+            while ((node = iterator.next().value)) {
                 edge = node.data;
-                str += `${edge.to}(${edge.dist}) -> `;
+                str += `${edge.to}${edge.dist ? ("(" + edge.dist + ")") : ""} -> `;
             }
-            console.log(str.replace(/\s\-\>\s$/, ''));
+            console.log(str.replace(/\s\-\>\s$/, ""));
         });
     }
 }

@@ -4,25 +4,37 @@
  */
 
 import LinkedList from "../linearList/singleLinkedList";
-import Node from "../linearList/ListNode"
+import ListNode from "../linearList/ListNode";
+import Edge from "./Edge";
+
+export interface AdjacencyListNode extends ListNode {
+    data: Edge,
+    next: AdjacencyListNode
+}
 
 export default class AdjacencyList {
-    private table: {[s: string ]: LinkedList};
+    private table: { [s: string]: LinkedList };
     /**
      * @constructor
      * @param vertexes vertex set, i.e [0, 1] or ['v0', 'v1']
      * @param edges edges set, i.e [{from: 0, to: 1, dist: 2],]
      */
-    constructor(vertexes: Array<string|number>, edges: Array<{from: string|number, to: string|number, dist: number}>) {
-        this.initialize(vertexes, edges);          
+    constructor(
+        vertexes: Array<string | number>,
+        edges: Array<Edge>
+    ) {
+        this.initialize(vertexes, edges);
     }
 
-    private initialize(vertexes: Array<string|number>, edges: Array<{from: string|number, to: string|number, dist: number}>) {
-        // construct vertex list       
+    private initialize(
+        vertexes: Array<string | number>,
+        edges: Array<Edge>
+    ) {
+        // construct vertex list
         this.table = {};
         vertexes.map(v => {
             this.table[v] = new LinkedList();
-        })
+        });
         // insert all the edges
         edges.map(pair => {
             let { from } = pair;
@@ -33,23 +45,23 @@ export default class AdjacencyList {
         });
     }
 
-    public get(vertex: string|number): LinkedList{
+    public get(vertex: string | number): LinkedList {
         return this.table[vertex];
     }
-    
+
     public print(): void {
         let str;
         Object.keys(this.table).map(v => {
             str = `${v}: `;
             let iterator = this.table[v].iterator();
-            let edge;
-            let node: Node;
-            while (node = iterator.next().value) {
+            let edge: Edge;
+            let node: AdjacencyListNode;
+            while ((node = iterator.next().value)) {
                 edge = node.data;
-                str += `${edge.to}(${edge.dist}) -> `;
+                str += `${edge.to}${edge.dist ? ("(" + edge.dist + ")") : ""} -> `;
             }
-            console.log(str.replace(/\s\-\>\s$/, ''));
-        })
+            console.log(str.replace(/\s\-\>\s$/, ""));
+        });
     }
 }
 

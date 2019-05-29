@@ -33,6 +33,7 @@ function isBalance(root) {
     };
     return isBalanceR(root);
 }
+exports.default = isBalance;
 let tree = new BinarySearchTree_1.default();
 // tree.build([5, 2, 1, 3, 6]); // balance tree
 // tree.build([5, 3, 2, 1, 6]); // unbalance tree
