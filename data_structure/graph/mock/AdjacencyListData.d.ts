@@ -27,3 +27,10 @@ export declare let undigraph: {
         dist: number;
     }[];
 };
+export declare let eularCircularGraph: {
+    vertexes: string[];
+    edges: {
+        from: string;
+        to: string;
+    }[];
+};

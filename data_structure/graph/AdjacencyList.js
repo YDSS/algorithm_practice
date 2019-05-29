@@ -13,6 +13,7 @@ class AdjacencyList {
      */
     constructor(vertexes, edges) {
         this.initialize(vertexes, edges);
+        this.vertexes = vertexes;
     }
     initialize(vertexes, edges) {
         // construct vertex list
@@ -31,6 +32,9 @@ class AdjacencyList {
     }
     get(vertex) {
         return this.table[vertex];
+    }
+    getVertexes() {
+        return this.vertexes;
     }
     print() {
         let str;

@@ -11,6 +11,7 @@ export interface AdjacencyListNode extends ListNode {
 }
 export default class AdjacencyList {
     private table;
+    private vertexes;
     /**
      * @constructor
      * @param vertexes vertex set, i.e [0, 1] or ['v0', 'v1']
@@ -19,5 +20,6 @@ export default class AdjacencyList {
     constructor(vertexes: Array<string | number>, edges: Array<Edge>);
     private initialize;
     get(vertex: string | number): LinkedList;
+    getVertexes(): Array<string | number>;
     print(): void;
 }

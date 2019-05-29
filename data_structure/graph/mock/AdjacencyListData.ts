@@ -76,3 +76,23 @@ export let undigraph = {
         {from: 'v6', to: 'v7', dist: 1},
     ]
 }
+
+export let eularCircularGraph = {
+    vertexes: ['A', 'B' , 'C', 'D', 'E', 'F'],
+    edges: [
+        {from: "A", to: "B"},
+        {from: "A", to: "C"},
+        {from: "B", to: "A"},
+        {from: "B", to: "D"},
+        {from: "B", to: "E"},
+        {from: "B", to: "F"},
+        {from: "C", to: "A"},
+        {from: "C", to: "D"},
+        {from: "D", to: "C"},
+        {from: "D", to: "B"},
+        {from: "E", to: "B"},
+        {from: "E", to: "F"},
+        {from: "F", to: "E"},
+        {from: "F", to: "B"},
+    ]
+}
