@@ -19,7 +19,7 @@ function findEularCircular(adjList, start) {
     adjList.getVertexes().map(v => {
         lastPosition[v] = adjList.get(v).head;
     });
-    // the result, e.g. Eular Circular, is a Linked List 
+    // the result, e.g. Eular Circular, is a Linked List
     let circular = new singleLinkedList_1.default();
     // current node in circular
     let cur = circular.head;
@@ -32,40 +32,68 @@ function findEularCircular(adjList, start) {
         }
         return `(${v},${w})`;
     };
+    let isEdgeVisited = (v, w) => {
+        let key = getEdgeKey(v, w);
+        if (!visited[key]) {
+            visited[key] = true;
+            return false;
+        }
+        return true;
+    };
     let dfs = (v) => {
+        console.log(v);
         // insert v into current circular
         let node = new ListNode_1.default(v, null);
         node.next = cur.next;
         cur.next = node;
         cur = cur.next;
         // find last position of w adjacent to v
-        let w = lastPosition[v].next;
-        if (w) {
+        let w = lastPosition[v];
+        let hasUnvisitedEdge = false;
+        while (w.next) {
+            w = w.next;
             let { to } = w.data;
-            let key = getEdgeKey(v, to.toString());
-            if (!visited[key]) {
-                visited[key] = true;
+            if (!isEdgeVisited(v, to.toString())) {
                 lastPosition[v] = w;
-                dfs(to.toString());
+                hasUnvisitedEdge = true;
+                break;
             }
+        }
+        if (hasUnvisitedEdge) {
+            dfs(w.data.to.toString());
         }
         // stop cause no unvisited edge found,
         // we have to find one in the circular from start
         // if not found, means all the edges are visited,
         // we can end the entire loop
         else {
+            lastPosition[v] = w;
             let it = circular.iterator();
             let ve;
             let stopLoop = true;
-            while (ve = it.next().value) {
-                if (lastPosition[ve.data].next != null) {
+            let endVertexOfUnvisitedEdge = null;
+            while ((ve = it.next().value)) {
+                let veLast = lastPosition[ve.data];
+                while (veLast.next) {
+                    veLast = veLast.next;
+                    if (!isEdgeVisited(ve.data, veLast.data.to.toString())) {
+                        endVertexOfUnvisitedEdge = veLast.data.to.toString();
+                        break;
+                    }
+                }
+                if (endVertexOfUnvisitedEdge) {
                     cur = ve;
                     stopLoop = false;
                     break;
                 }
+                // if (lastPosition[ve.data].next != null) {
+                //     cur = ve;
+                //     stopLoop = false;
+                //     break;
+                // }
             }
             if (!stopLoop) {
-                dfs(ve.data);
+                dfs(endVertexOfUnvisitedEdge);
             }
             else {
                 return;
@@ -73,9 +101,11 @@ function findEularCircular(adjList, start) {
         }
     };
     dfs(start);
+    console.log(visited);
+    console.log(lastPosition);
     return circular;
 }
 let adjList = new AdjacencyList_1.default(AdjacencyListData_1.eularCircularGraph.vertexes, AdjacencyListData_1.eularCircularGraph.edges);
-let circular = findEularCircular(adjList, 'A');
+let circular = findEularCircular(adjList, "A");
 circular.print();
 //# sourceMappingURL=findEularCircular.js.map

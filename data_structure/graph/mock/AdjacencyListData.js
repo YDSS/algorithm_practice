@@ -78,10 +78,10 @@ exports.eularCircularGraph = {
     edges: [
         { from: "A", to: "B" },
         { from: "A", to: "C" },
-        { from: "B", to: "A" },
         { from: "B", to: "D" },
         { from: "B", to: "E" },
         { from: "B", to: "F" },
+        { from: "B", to: "A" },
         { from: "C", to: "A" },
         { from: "C", to: "D" },
         { from: "D", to: "C" },
