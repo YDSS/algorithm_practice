@@ -9,20 +9,23 @@ const singleLinkedList_1 = require("../../linearList/singleLinkedList");
 const ListNode_1 = require("../../linearList/ListNode");
 const AdjacencyListData_1 = require("../mock/AdjacencyListData");
 // assume that this graph has at least one Eular Circular
+// S(n) = O(|V| + 2|E|)
+// T(n) = 
 function findEularCircular(adjList, start) {
     // visited edges, (v, w) and (w, v) has the same key in this table by
     //  getEdgeKey method
-    let visited = {};
+    let visited = {}; // S(n) = O(|E|)
     // last visited node in the adjacent list of every vertex
-    let lastPosition = {};
+    let lastPosition = {}; // S(n) = O(|V|)
     // init lastPosition
     adjList.getVertexes().map(v => {
         lastPosition[v] = adjList.get(v).head;
     });
     // the result, e.g. Eular Circular, is a Linked List
-    let circular = new singleLinkedList_1.default();
+    let circular = new singleLinkedList_1.default(); // S(n) = O(|E|)
     // current node in circular
     let cur = circular.head;
+    let lastSplitPoint = cur;
     // order vertex by ascii, assume that vertex has only one char
     let getEdgeKey = (v, w) => {
         if (v.charCodeAt(0) > w.charCodeAt(0)) {
@@ -41,7 +44,6 @@ function findEularCircular(adjList, start) {
         return true;
     };
     let dfs = (v) => {
-        console.log(v);
         // insert v into current circular
         let node = new ListNode_1.default(v, null);
         node.next = cur.next;
@@ -68,11 +70,13 @@ function findEularCircular(adjList, start) {
         // we can end the entire loop
         else {
             lastPosition[v] = w;
-            let it = circular.iterator();
-            let ve;
+            // let it = circular.iterator();
+            let ve = lastSplitPoint;
+            console.log(lastSplitPoint.data);
             let stopLoop = true;
             let endVertexOfUnvisitedEdge = null;
-            while ((ve = it.next().value)) {
+            // while ((ve = it.next().value)) {
+            while (ve = ve.next) {
                 let veLast = lastPosition[ve.data];
                 while (veLast.next) {
                     veLast = veLast.next;
@@ -83,14 +87,10 @@ function findEularCircular(adjList, start) {
                 }
                 if (endVertexOfUnvisitedEdge) {
                     cur = ve;
+                    lastSplitPoint = ve;
                     stopLoop = false;
                     break;
                 }
-                // if (lastPosition[ve.data].next != null) {
-                //     cur = ve;
-                //     stopLoop = false;
-                //     break;
-                // }
             }
             if (!stopLoop) {
                 dfs(endVertexOfUnvisitedEdge);
@@ -101,8 +101,6 @@ function findEularCircular(adjList, start) {
         }
     };
     dfs(start);
-    console.log(visited);
-    console.log(lastPosition);
     return circular;
 }
 let adjList = new AdjacencyList_1.default(AdjacencyListData_1.eularCircularGraph.vertexes, AdjacencyListData_1.eularCircularGraph.edges);

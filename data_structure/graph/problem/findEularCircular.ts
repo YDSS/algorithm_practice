@@ -26,6 +26,7 @@ function findEularCircular(adjList: AdjacencyList, start: string) {
     let circular = new LinkedList(); // S(n) = O(|E|)
     // current node in circular
     let cur = circular.head;
+    let lastSplitPoint = cur;
     // order vertex by ascii, assume that vertex has only one char
     let getEdgeKey = (v: string, w: string) => {
         if (v.charCodeAt(0) > w.charCodeAt(0)) {
@@ -72,11 +73,11 @@ function findEularCircular(adjList: AdjacencyList, start: string) {
         // we can end the entire loop
         else {
             lastPosition[v] = w;
-            let it = circular.iterator();
-            let ve: LinkedNode;
+            // let it = circular.iterator();
+            let ve = lastSplitPoint;
             let stopLoop = true;
             let endVertexOfUnvisitedEdge = null;
-            while ((ve = it.next().value)) {
+            while (ve = ve.next) {
                 let veLast = lastPosition[ve.data];
                 while (veLast.next) {
                     veLast = veLast.next;
@@ -87,6 +88,7 @@ function findEularCircular(adjList: AdjacencyList, start: string) {
                 }
                 if (endVertexOfUnvisitedEdge) {
                     cur = ve;
+                    lastSplitPoint = ve;
                     stopLoop = false;
                     break;
                 }
