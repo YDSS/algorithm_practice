@@ -72,10 +72,8 @@ function findEularCircular(adjList, start) {
             lastPosition[v] = w;
             // let it = circular.iterator();
             let ve = lastSplitPoint;
-            console.log(lastSplitPoint.data);
             let stopLoop = true;
             let endVertexOfUnvisitedEdge = null;
-            // while ((ve = it.next().value)) {
             while (ve = ve.next) {
                 let veLast = lastPosition[ve.data];
                 while (veLast.next) {
