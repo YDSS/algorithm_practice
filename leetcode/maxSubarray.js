@@ -111,7 +111,6 @@ function maxSubArray(nums) {
         curMax = curMax > 0 ? (curMax + n) : n;
         if (curMax > max) {
             max = curMax;
-            console.log(max);
         }
     })
 
