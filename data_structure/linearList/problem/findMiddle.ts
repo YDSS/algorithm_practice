@@ -6,6 +6,10 @@
 import LinkedList from "../singleLinkedList";
 import LinkedNode from "../ListNode"
 
+/**
+ * T(n) = O(n/2), S(n) = O(1)
+ * @param list 
+ */
 function findMiddle(list: LinkedList): {mid: number, node: LinkedNode} {
     // empty list 
     if (list.head.next == null) {
