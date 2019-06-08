@@ -4,35 +4,108 @@
  */
 
 /**
+ * use hashtable to check if has repetition in row, column, and 3-3 box
+ * @param {character[][]} board
+ * @return {boolean}
+ */
+function isValidSudoku2(board) {
+    let rowTable = [];
+    let columnTable = [];
+    let boxTable = [];
+
+    /**
+     * check if the value is existed in the specific table,
+     *  if not, add it into table
+     * @param {number} value number in ceil
+     * @param {Array<object>} table
+     * @param {number} i which row, column or box in table
+     */
+    let checkTable = (value, table, i) => {
+        if (!table[i]) {
+            table[i] = {};
+        }
+        if (table[i][value]) {
+            return false;
+        }
+        table[i][value] = 1;
+
+        return true;
+    };
+
+    for (let row = 0; row < 9; row++) {
+        for (let column = 0; column < 9; column++) {
+            let value = board[row][column];
+            if (value !== ".") {
+                // only has 9 3-3 boxes in the board, boxIndex is the sequence number in which box of current point
+                let boxIndex = Math.floor(row / 3) * 3 + Math.floor(column / 3);
+                if (
+                    !checkTable(value, rowTable, row) ||
+                    !checkTable(value, columnTable, column) ||
+                    !checkTable(value, boxTable, boxIndex)
+                ) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+/**
+ * use bit manipulation instead of hashtable
  * @param {character[][]} board
  * @return {boolean}
  */
 function isValidSudoku(board) {
-    let checkSubBox = (i, j) => {
-        let isValid = true;
-        let map = [];
-        for (let x = i; x < i + 3; x++) {
-            for (let y = j; y < j + 3; y++) {
-                let ceil = board[x][y];
-                if (ceil === ".") {
-                    continue;
-                }
-                if (map[ceil] != null) {
-                    isValid = false;
-                    break;
-                } else {
-                    map[ceil] = 1;
-                }
-            }
-        }
+    let rowTable = [];
+    let columnTable = [];
+    let boxTable = [];
 
-        return isValid;
+    /**
+     * check if the value is existed in the specific table,
+     *  if not, add it into table
+     * 
+     * use bit map instead of hash map in every table
+     * 
+     * T(n) = O(9 ^ 2), S(n) = O(n)
+     * @param {number} value number in ceil
+     * @param {Array<object>} table
+     * @param {number} i which row, column or box in table
+     */
+    let checkTable = (value, table, i) => {
+        if (table[i] == null) {
+            table[i] = 0;
+        }
+        if (has(table[i], value)) {
+            return false;
+        }
+        table[i] = add(table[i], value);
+
+        return true;
     };
-    for (let i = 0; i < 7; i += 3) {
-        for (let j = 0; j < 7; j += 3) {
-            if (!checkSubBox(i, j)) {
-                // console.log(`i: ${i}, j: ${j}`);
-                return false;
+
+    let has = (bitMap, value) => {
+        return (bitMap & (1 << value - 1)) > 0;
+    }
+
+    let add = (bitMap, value) => {
+        return bitMap | (1 << value - 1);
+    }
+
+    for (let row = 0; row < 9; row++) {
+        for (let column = 0; column < 9; column++) {
+            let value = board[row][column];
+            if (value !== ".") {
+                // only has 9 3-3 boxes in the board, boxIndex is the sequence number in which box of current point
+                let boxIndex = Math.floor(row / 3) * 3 + Math.floor(column / 3);
+                if (
+                    !checkTable(value, rowTable, row) ||
+                    !checkTable(value, columnTable, column) ||
+                    !checkTable(value, boxTable, boxIndex)
+                ) {
+                    return false;
+                }
             }
         }
     }
