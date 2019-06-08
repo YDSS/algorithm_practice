@@ -8,39 +8,33 @@
  * @return {string}
  */
 function countAndSay(n) {
-    let sayOnce = said => {
-        if (said.length === 1) {
-            return "11";
+    let m = n;
+    let sayR = (said, m) => {
+        if (m === 0) {
+            return said;
         }
-
-        let ret = "";
+        if (m === n) {
+            return sayR("1", m - 1);
+        }
+        let saidNext = "";
         let count = 1;
-        let i = 1;
-        while (i < said.length) {
-            if (said[i - 1] === said[i]) {
+        for (let i = 0; i < said.length - 1; i++) {
+            if (said[i] === said[i + 1]) {
                 count++;
             }
-            else { 
-                ret += (count + said[i - 1]);
+            else {
+                saidNext += `${count}${said[i]}`;
                 count = 1;
             }
-            i++;
         }
-        if (count > 1) {
-            ret += (count + said[said.length - 1]);
-        }
+        saidNext += `${count}${said[said.length - 1]}`
 
-        return ret;
+        return sayR(saidNext, m - 1);
     } 
-    
-    let ret = "1";
-    for (let i = 0; i < n; i++) {
-        ret = sayOnce(ret); 
-    }
 
-    return ret;
+    return sayR("", m);
 };
 
 // let n = 1;
-let n = 4;
+let n = 3;
 console.log(countAndSay(n))
