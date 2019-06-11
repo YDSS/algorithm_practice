@@ -154,3 +154,40 @@ class Queue {
     }
 }
 exports.Queue = Queue;
+
+// for example: [10,5,15,null,null,6,20]
+function fullBinaryTreeArrayToTree(arr) {
+    function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+    } 
+
+    // key is index of treenode in the arr, value is the treenode object
+    let treeNodeMap = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == null) {
+            continue; 
+        }
+        if (!treeNodeMap[i]) {
+            treeNodeMap[i] = new TreeNode(arr[i]); 
+        } 
+        // find its children
+        let left = 2 * i + 1;
+        if (arr[left] != null) {
+            if (!treeNodeMap[left]) {
+                treeNodeMap[left] = new TreeNode(arr[left]);
+            }
+            treeNodeMap[i].left = treeNodeMap[left];
+        }
+        let right = 2 * i + 2;
+        if (arr[right] != null) {
+            if (!treeNodeMap[right]) {
+                treeNodeMap[right] = new TreeNode(arr[right]);
+            }
+            treeNodeMap[i].right = treeNodeMap[right];
+        }
+    }
+
+    return treeNodeMap[0]; // root
+}
+exports.fullBinaryTreeArrayToTree = fullBinaryTreeArrayToTree;
