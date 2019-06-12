@@ -145,20 +145,18 @@ function isMatch3(s, p) {
 function isMatch(s, p) {
     // initialize memory
     let memo = new Array(s.length);
-    let hitCache = 0;
     for (let i = 0; i < s.length + 1; i++) {
         memo[i] = new Array(p.length + 1);
     }
 
     let ret = dp(0, 0, s, p);
-    // console.log(`hitcache: ${hitCache}`);
     return ret;
 
     function dp(i, j, s, p) {
         // console.log(`s: ${s}, p: ${p}`)
         // console.log(`i: ${i}, j: ${j}`)
         if (memo[i][j] != null) {
-            hitCache++;
+            console.log('hit', i, j)
             return memo[i][j];
         }
 
@@ -187,8 +185,8 @@ function isMatch(s, p) {
 // let str = "mississippi";
 // let pattern = "mis*is*p*.";
 // let pattern = "mis*is*ip*.";
-let str = "aab";
-let pattern = "c*a*b";
+// let str = "aab";
+// let pattern = "c*a*b";
 // let str = "";
 // let pattern = ".*";
 // let str = "aab";
