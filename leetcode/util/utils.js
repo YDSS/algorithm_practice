@@ -31,14 +31,14 @@ exports.printLinkedList = function (head) {
     console.log(str.slice(0, str.length - 4));
 }
 
-exports.printBinaryTree = function (root) {
+exports.printBinaryTree = function (root, attrs) {
     const OFFSET = 4;
     let printR = (node, offset) => {
         if (node == null) {
             return;
         }
 
-        console.log(" ".repeat(offset) + node.val);
+        console.log(" ".repeat(offset) + node.val + (attrs ? `(${attrs.map(attr => node[attr]).join(',')})` : ""));
         if (!node.left && node.right) {
             console.log(`${" ".repeat(offset + OFFSET)}null`);
         }
