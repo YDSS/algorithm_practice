@@ -40,7 +40,7 @@ function findMin(root) {
  * @param {TreeNode} root
  * @return {boolean}
  */
-function isValidBST(root) {
+function isValidBST2(root) {
     if (root == null) {
         return true;
     }
@@ -79,6 +79,52 @@ function isValidBST(root) {
     return true;
 }
 
+// function TreeNode(val) {
+//     this.val = val;
+//     this.left = this.right = null;
+//     // minium val in the tree which current node is its root
+//     this.min = Number.POSITIVE_INFINITY;
+//     // maxium val in the tree which current node is its root
+//     this.max = Number.NEGATIVE_INFINITY;
+// }
+
+/**
+ * record the min and max val of current tree, which cost extra O(n) space
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+function isValidBST(root) {
+    if (root == null) {
+        return true;
+    }
+    // check if left subtree is valid BST
+    // if left subtree is not existed, then the min val is root itself
+    if (!root.left) {
+        root.min = root.val;
+    }
+    else {
+        // val of root must greater than the maxium of its left subtree
+        if (!isValidBST(root.left) || root.val <= root.left.max) {
+            return false;
+        }
+        root.min = root.left.min;
+    }
+    // check if right subtree is valid BST
+    // if right subtree is not existed, then the max val is root itself
+    if (!root.right) {
+        root.max = root.val;
+    }
+    else {
+        // val of root must smaller than the minium of its right subtree
+        if (!isValidBST(root.right) || root.val >= root.right.min) {
+            return false;
+        }
+        root.max = root.right.max;
+    }
+
+    return true;
+}
+
 // [2, 1, 3]
 // let arr = [2, 1, 3]
 // let root = fullBinaryTreeArrayToTree(arr);
@@ -99,7 +145,12 @@ function isValidBST(root) {
 // let root = fullBinaryTreeArrayToTree(arr);
 // printBinaryTree(root);
 
-let arr = [3,1,5,0,2,4,6,null,null,null,3]
+// let arr = [3,1,5,0,2,4,6,null,null,null,3]
+// let root = fullBinaryTreeArrayToTree(arr);
+// printBinaryTree(root);
+
+let arr = [];
 let root = fullBinaryTreeArrayToTree(arr);
 printBinaryTree(root);
 console.log(isValidBST(root));
+printBinaryTree(root, ['min', 'max']);

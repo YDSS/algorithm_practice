@@ -57,10 +57,10 @@ function multiply(num1, num2) {
             return 0;
         }
         if (num1 == 1) {
-            return num2;
+            return +num2; 
         }
         if (num2 == 1) {
-            return num1;
+            return +num1;
         }
 
         if (typeof num1 === "number" && typeof num2 === "number") {
@@ -101,8 +101,8 @@ function multiply(num1, num2) {
 //     num2 = "45";
 // let num1 = "200", num2 = "400";
 // let num1 = "2002", num2 = "4002";
-// let num1 = "123456789"
-// let num2 = "987654321"
-let num1 = "123456"
-let num2 = "987651"
+let num1 = "123456789"
+let num2 = "987654321"
+// let num1 = "123456"
+// let num2 = "987651"
 console.log(multiply(num1, num2));
