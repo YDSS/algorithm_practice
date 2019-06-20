@@ -238,3 +238,20 @@ function fullBinaryTreeArrayToTree(arr) {
     return treeNodeMap[0]; // root
 }
 exports.fullBinaryTreeArrayToTree = fullBinaryTreeArrayToTree;
+
+/**
+ * generate a 2-dimension matrix, cause js has no syntax sugar for it
+ * @param {integer} n row
+ * @param {integer} m column
+ * 
+ * @return {array}
+ */
+function generateTwoDimensionArray(n, m) {
+    let arr = new Array(n);
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = new Array(m)
+    }
+
+    return arr;
+}
+exports.generateTwoDimensionArray = generateTwoDimensionArray;
