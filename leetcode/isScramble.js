@@ -11,30 +11,30 @@
  */
 function isScramble(s1, s2) {
     if (s1 === s2) {
-        return;
+        return true;
     }
     if (s1.length === 1) {
         return false;
     }
-    for (let i = 1; i < s1.length - 1; i++) {
-        let swaped = `${s1.slice(i)}${s1.slice(0, i)}`;
-        if (swaped === s2) {
-            // check swap s1
-            return true;
-        }
-        for (let j = 1; j < swaped.length - 1; j++) {
-            if (
-                isScramble(swaped.slice(0, j), s2.slice(0, j)) &&
-                isScramble(swaped.slice(j), s2.slice(j))
-            ) {
-                return true;
-            }
-        }
+    let len = s1.length;
+    for (let i = 1; i < len; i++) {
+        // check s1's substring
         if (
             isScramble(s1.slice(0, i), s2.slice(0, i)) &&
             isScramble(s1.slice(i), s2.slice(i))
         ) {
-            // check s1's substring
+            return true;
+        }
+        let rotate = `${s1.slice(i)}${s1.slice(0, i)}`;
+        // check s1 when rotated between (0, i - 1) and (i, len)
+        if (rotate === s2) {
+            return true;
+        }
+        let rotateIndex = len - i;
+        if (
+            isScramble(rotate.slice(0, rotateIndex), s2.slice(0, rotateIndex)) &&
+            isScramble(rotate.slice(rotateIndex), s2.slice(rotateIndex))
+        ) {
             return true;
         }
     }
@@ -43,6 +43,7 @@ function isScramble(s1, s2) {
 }
 
 // let s1 = "great", s2 = "rgeat";
-let s1 = "eat", s2 = "tae";
-// let s1 = "eat", s2 = "tea";
+// let s1 = "eat",
+//     s2 = "tae";
+let s1 = "ccabcbabcbabbbbcbb", s2 = "bbbbabccccbbbabcba"
 console.log(isScramble(s1, s2));
