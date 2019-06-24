@@ -7,6 +7,8 @@
  * @author arlenyang
  */
 
+const { printBinaryTree } = require("./util/utils")
+
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -24,6 +26,9 @@ function TreeNode(val) {
  * @return {TreeNode[]}
  */
 function generateTrees2(n) {
+    if (n === 0) {
+        return [];
+    }
     let getSubtreeCombinations = (i, j) => {
         let combinations = [];
         if (i === j) {
@@ -61,6 +66,9 @@ function generateTrees2(n) {
  * @return {TreeNode[]}
  */
 function generateTrees(n) {
+    if (n === 0) {
+        return [];
+    }
     // init dp memory, dp[i][j] means roots of subtrees those contain numbers range from i to j
     let dp = new Array(n);
     for (let i = 0; i < n; i++) {
@@ -68,7 +76,7 @@ function generateTrees(n) {
     }
     // init stats those has 1 element between i and j
     for (let i = 0; i < n; i++) {
-        dp[i][i] = new TreeNode(i + 1); // value of node is start from 1
+        dp[i][i] = [new TreeNode(i + 1)]; // value of node is start from 1
     }
     // start from length equals 2 between i and j 
     for (let len = 2; len <= n; len++) {
@@ -91,3 +99,12 @@ function generateTrees(n) {
     }
     return dp[0][n - 1];
 }
+
+let n = 3;
+// let n = 0;
+// let n = 2;
+let roots = generateTrees(n);
+roots.map(r => {
+    printBinaryTree(r)
+    console.log('-------')
+});
