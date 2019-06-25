@@ -99,7 +99,12 @@ function maxSubArray3(nums) {
 }
 
 /**
- * dp
+ * dp solution. dp[i] means maximal sum of continuous numbers in nums whose index from 0 to i,
+ *  dp[i] has two ways to reach, pick the larger one
+ *  1. dp[i - 1] + num[i]
+ *  2. nums[i]
+ * 
+ * the solution below is a brief one of this thought
  * T(n) = O(n), S(n) = O(1)
  * @param {number[]} nums
  * @return {number}
