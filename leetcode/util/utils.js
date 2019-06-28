@@ -5,7 +5,7 @@ function ListNode(val) {
 exports.ListNode = ListNode;
 
 exports.createLinkedList = function(arr) {
-    let prev; 
+    let prev;
     let head;
     arr.map((num, i) => {
         if (i === 0) {
@@ -16,40 +16,43 @@ exports.createLinkedList = function(arr) {
         let cur = new ListNode(num);
         prev.next = cur;
         prev = cur;
-    }) 
+    });
 
     return head;
-}
-exports.printLinkedList = function (head) {
+};
+exports.printLinkedList = function(head) {
     let item = head;
-    let str = '';
+    let str = "";
     while (item) {
         str += `${item.val} -> `;
         item = item.next;
     }
 
     console.log(str.slice(0, str.length - 4));
-}
+};
 
-exports.printBinaryTree = function (root, attrs) {
+exports.printBinaryTree = function(root, attrs) {
     const OFFSET = 4;
     let printR = (node, offset) => {
         if (node == null) {
             return;
         }
 
-        console.log(" ".repeat(offset) + node.val + (attrs ? `(${attrs.map(attr => node[attr]).join(',')})` : ""));
+        console.log(
+            " ".repeat(offset) +
+                node.val +
+                (attrs ? `(${attrs.map(attr => node[attr]).join(",")})` : "")
+        );
         if (!node.left && node.right) {
             console.log(`${" ".repeat(offset + OFFSET)}null`);
-        }
-        else {
-            printR(node.left, offset + OFFSET) 
+        } else {
+            printR(node.left, offset + OFFSET);
         }
         printR(node.right, OFFSET + offset);
-    } 
+    };
 
     printR(root, 0);
-}
+};
 
 exports.printNaryTree = (root, n) => {
     let OFFSETS = 4;
@@ -64,9 +67,9 @@ exports.printNaryTree = (root, n) => {
                 printR(root.children[i], n, offset + OFFSETS);
             }
         }
-    }
+    };
     printR(root, n, 0);
-}
+};
 
 exports.arrayToNaryTree = function(arr, n, TreeNode) {
     let treeMap = {};
@@ -96,7 +99,7 @@ exports.arrayToNaryTree = function(arr, n, TreeNode) {
     }
 
     return treeMap[arr[0]];
-}
+};
 
 function swap(arr, i, j) {
     let tmp = arr[i];
@@ -116,7 +119,7 @@ class Stack {
 
     pop() {
         if (this.isEmpty()) {
-            return -1; 
+            return -1;
         }
 
         let deleted = this._list.splice(this._list.length - 1, 1);
@@ -134,14 +137,13 @@ class Stack {
 }
 exports.Stack = Stack;
 
-
 class Queue {
     constructor(maxSize) {
         if (!maxSize) {
             throw new Error("maxSize can not be null");
         }
         this.maxSize = maxSize;
-        // there wiil be lack of one space compare with maxSize 
+        // there wiil be lack of one space compare with maxSize
         // in circular sequence queue, so add 1 to make the queue right
         this._realMaxSize = maxSize + 1;
         this._queue = [];
@@ -156,14 +158,14 @@ class Queue {
     }
     enter(item) {
         if (this.isFull()) {
-            throw new Error('the queue is full');
+            throw new Error("the queue is full");
         }
         this._queue[this.rear] = item;
         this.rear = (this.rear + 1) % this._realMaxSize;
     }
     leave() {
         if (this.isEmpty()) {
-            throw new Error('the queue is empty');
+            throw new Error("the queue is empty");
         }
         let item = this._queue[this.front];
         delete this._queue[this.front];
@@ -207,17 +209,17 @@ function fullBinaryTreeArrayToTree(arr) {
     function TreeNode(val) {
         this.val = val;
         this.left = this.right = null;
-    } 
+    }
 
     // key is index of treenode in the arr, value is the treenode object
     let treeNodeMap = [];
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] == null) {
-            continue; 
+            continue;
         }
         if (!treeNodeMap[i]) {
-            treeNodeMap[i] = new TreeNode(arr[i]); 
-        } 
+            treeNodeMap[i] = new TreeNode(arr[i]);
+        }
         // find its children
         let left = 2 * i + 1;
         if (arr[left] != null) {
@@ -243,15 +245,14 @@ exports.fullBinaryTreeArrayToTree = fullBinaryTreeArrayToTree;
  * generate a 2-dimension matrix, cause js has no syntax sugar for it
  * @param {integer} n row
  * @param {integer} m column
- * 
+ * @param {any?} intialVal assign to every element in the array
+ *
  * @return {array}
  */
-function generateTwoDimensionArray(n, m) {
-    let arr = new Array(n);
-    for (let i = 0; i < arr.length; i++) {
-        arr[i] = new Array(m)
-    }
-
-    return arr;
+function generateTwoDimensionArray(n, m, intialVal) {
+    let loop = function (){};
+    return Array.from({ length: n }, x =>
+        Array.from({ length: m }, intialVal != null ? y => intialVal : loop)
+    );
 }
 exports.generateTwoDimensionArray = generateTwoDimensionArray;
