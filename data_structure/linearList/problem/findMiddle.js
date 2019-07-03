@@ -5,6 +5,10 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const singleLinkedList_1 = require("../singleLinkedList");
+/**
+ * T(n) = O(n/2), S(n) = O(1)
+ * @param list
+ */
 function findMiddle(list) {
     // empty list 
     if (list.head.next == null) {
