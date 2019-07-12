@@ -36,13 +36,13 @@ function radixSort(arr: number[]) {
 
     for (let i = 0; i < d; i++) {
         // distribute
-        arr.map(num => {
+        arr.map(num => { // O(n)
             let bit = findBit(num, Math.pow(10, i), 10);
             bucket[bit].insert(num, 'tail');
         })
         // collect
         let count = -1; // pair to index of arr from starting
-        bucket.map(buc => {
+        bucket.map(buc => { // O(m)
             let item;
             while (item = buc.delete()) {
                 item = item[0];
