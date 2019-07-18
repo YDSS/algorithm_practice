@@ -1,6 +1,11 @@
 /**
- * @file Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
- * @author
+ * @file 5. Longest Palindromic Substring
+ * @author arlenyang
+ * 
+ * @solution
+ * 1. brute force, find all the combinations of substrings, check it's palidromic or not, T(n) = O(n^3), S(n) = O(1) (not recursion)
+ * 2. find the center, solution 3 below, T(n) = O(n^2), S(n) = O(1)
+ * 3. dp, solution 2 below, T(n) = o(n^2), S(n) = O(n^2)
  */
 /**
  * find the center char of a palindrome substring, which is the symetry of the str

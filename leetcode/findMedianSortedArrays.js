@@ -1,6 +1,9 @@
 /**
- * find median of two sorted arrays, T(n) = O(log(m + n)) m, n are the length of the two arrays
- *
+ * @file 4. Median of Two Sorted Arrays
+ * @author arlenyang
+ */
+
+/**
  * @param {number[]} A
  * @param {number[]} B
  * @return {number}
