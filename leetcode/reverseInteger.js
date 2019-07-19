@@ -13,6 +13,7 @@ let reverse = function(x) {
     let nums = ( '' + abs ).split('');
 
     // reverse an array of integers
+    //  or using array.reverse()
     let i = 0;
     let j = nums.length - 1;
     let swap;
