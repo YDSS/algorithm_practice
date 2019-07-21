@@ -156,7 +156,7 @@ function isMatch(s, p) {
         // console.log(`s: ${s}, p: ${p}`)
         // console.log(`i: ${i}, j: ${j}`)
         if (memo[i][j] != null) {
-            console.log('hit', i, j)
+            console.log("hit", i, j);
             return memo[i][j];
         }
 
@@ -170,18 +170,55 @@ function isMatch(s, p) {
 
         let firstMatch = p[0] === s[0] || (s[0] != null && p[0] === ".");
         if (p[1] === "*") {
-            return (memo[i][j] = (
+            return (memo[i][j] =
                 (firstMatch && dp(i + 1, j, s.slice(1), p)) || // * as a repeat
-                dp(i, j + 2, s, p.slice(2)) // ignore *
-            )); 
+                dp(i, j + 2, s, p.slice(2))); // ignore *
         } else {
-            return (memo[i][j] = firstMatch && dp(i + 1, j + 1, s.slice(1), p.slice(1)));
+            return (memo[i][j] =
+                firstMatch && dp(i + 1, j + 1, s.slice(1), p.slice(1)));
         }
     }
 }
 
+// dp solution
+function isMatch4(s, p) {
+    // TODO: edge cases
+    // init dp memory, (p.len + 1, s.len +1)
+    let dp = Array.from({ length: s.length + 1 }, x =>
+        Array.from({ length: p.length + 1 }, y => false)
+    );
+    // assume that it's matching when s is empty and so is p
+    dp[0][0] = true;
+    // init the first row and column
+    // the first row means p is empty, which is absolutely false, so no need to init
+    // the first column means s is empty, only 'x*x*...' can match empty s, so
+    for (let j = 2; j <= p.length; j++) {
+        if (p[j - 1] === "*") {
+            dp[0][j] = dp[0][j - 2];
+        }
+    }
+    for (let i = 1; i <= s.length; i++) {
+        for (let j = 1; j <= p.length; j++) {
+            // if one of status transfer to current status is true, then current is true
+            if (s[i - 1] === p[j - 1] || p[j - 1] === ".") {
+                dp[i][j] = dp[i - 1][j - 1];
+            }
+            else {
+                if (p[j - 1] === "*") {
+                    // because p[0] can not be *, so p[j - 2] == p[-1] will never occur
+                    dp[i][j] = dp[i][j - 2]; // ignore * and char preceding *
+                    if (s[i - 1] === p[j - 2] || p[j - 2] === '.') {
+                        dp[i][j] = dp[i][j] || dp[i - 1][j];
+                    }
+                }
+            }
+        }
+    }
+    return dp[s.length][p.length];
+}
+
 // let str = 'aab';
-// let pattern = 'a*';
+// let pattern = 'a*b';
 // let str = "mississippi";
 // let pattern = "mis*is*p*.";
 // let pattern = "mis*is*ip*.";
@@ -194,4 +231,4 @@ function isMatch(s, p) {
 // let str = "aaa";
 // let pattern = "ab*a*c*a";
 
-console.log(isMatch(str, pattern));
+console.log(isMatch4(str, pattern));
