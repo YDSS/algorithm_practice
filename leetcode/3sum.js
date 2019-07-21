@@ -63,7 +63,9 @@ function threeSum2(nums) {
 }
 
 /**
- * hashtable solution, T(n) = O(i * j), i + j = n,
+ * hashtable solution,
+ * observe that if 3 nums sum to 0, it must have one positive number and one negative number
+ * T(n) = O(i * j), i + j = n,
  * S(n) = O(n)
  * @param {Array} nums
  */
