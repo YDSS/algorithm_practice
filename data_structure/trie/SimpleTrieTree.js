@@ -1,50 +1,39 @@
+"use strict";
 /**
  * @file trie tree node, the char set is a-z, and the children of node is an array with 26 elements, every index represents a char,and the value is a pointer pointing a child
  * @author arlenyang
  */
-
-const CharSetLen: number = 26;
-const StartCode: number = "a".charCodeAt(0);
-
-export class SimpleTrieTreeNode {
-    data: any;
-    // the node is an end of a string or not
-    isEnd: boolean;
-    children: SimpleTrieTreeNode[];
-
-    constructor(data?: any) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const CharSetLen = 26;
+const StartCode = "a".charCodeAt(0);
+class SimpleTrieTreeNode {
+    constructor(data) {
         this.data = data;
         this.isEnd = false;
         this.children = new Array(CharSetLen);
     }
 }
-
-export class SimpleTrieTree {
-    // root is the root of tree, whose data is `null`
-    public root: SimpleTrieTreeNode;
-
-    constructor(strs?: string[]) {
+exports.SimpleTrieTreeNode = SimpleTrieTreeNode;
+class SimpleTrieTree {
+    constructor(strs) {
         this.root = new SimpleTrieTreeNode(null);
         if (strs && strs.length > 0) {
             this.build(strs);
         }
     }
-
-    private build(strs: string[]): void {
+    build(strs) {
         for (let i = 0; i < strs.length; i++) {
             this.insert(strs[i]);
         }
     }
-
     /**
      * insert a string into tree
      * @param str
      */
-    public insert(str: string): void {
+    insert(str) {
         this.insertR(str, this.root);
     }
-
-    public insertR(str: string, parent: SimpleTrieTreeNode) {
+    insertR(str, parent) {
         if (str.length === 0) {
             // to the end
             parent.isEnd = true;
@@ -58,33 +47,29 @@ export class SimpleTrieTree {
         }
         this.insertR(str.slice(1), parent.children[index]);
     }
-
     /**
      * find the str in the tree, return if it's in the tree or not
      * @param str str need find in the tree
      */
-    public find(str: string): boolean {
+    find(str) {
         return this.findR(str, this.root);
     }
-
-    public findR(str: string, parent: SimpleTrieTreeNode): boolean {
+    findR(str, parent) {
         if (str.length === 0) {
             return parent.isEnd;
         }
-
         let char = str[0];
         let index = char.charCodeAt(0) - StartCode;
         let child = parent.children[index];
-
-        if (child == null) return false;
+        if (child == null)
+            return false;
         return this.findR(str.slice(1), child);
     }
-
     /**
-     * delete a string in the tree 
+     * delete a string in the tree
      * @param str the string need to be deleted
      */
-    public delete(str: string): void {
+    delete(str) {
         let parent = this.root;
         for (let i = 0; i < str.length; i++) {
             let char = str[i];
@@ -99,19 +84,17 @@ export class SimpleTrieTree {
             }
             parent = child;
         }
-    } 
-
+    }
     /**
      * print the tree
      * @param OFFSET offset between parent node and child node when print
      */
-    public print(): void {
+    print() {
         const OFFSET = 4;
-        let printR = (tree: SimpleTrieTreeNode, offset) => {
+        let printR = (tree, offset) => {
             if (tree == null) {
                 return;
             }
-
             console.log(`${" ".repeat(offset)}${tree.data === null ? 'root' : tree.data}${tree.isEnd ? "($)" : ""}`);
             for (let i = 0; i < tree.children.length; i++) {
                 if (tree.children[i] != null) {
@@ -119,11 +102,10 @@ export class SimpleTrieTree {
                 }
             }
         };
-
         printR(this.root, 0);
     }
 }
-
+exports.SimpleTrieTree = SimpleTrieTree;
 let strs = ['hello', 'hi', 'here', 'saying', 'dog'];
 let tree = new SimpleTrieTree(strs);
 tree.print();
@@ -136,7 +118,8 @@ tree.print();
 // console.log(tree.find('helloo'))
 // console.log(tree.find('sayin'))
 // test delete
-tree.delete('hello')
-tree.delete('hel')
+tree.delete('hello');
+tree.delete('hel');
 tree.print();
 console.log(tree.find('hello'));
+//# sourceMappingURL=SimpleTrieTree.js.map
