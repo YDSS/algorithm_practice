@@ -122,10 +122,40 @@ function maxSubArray(nums) {
     return max;
 }
 
+function maxSubArray5(nums) {
+	let dp = new Array(nums.length);
+    dp[0] = nums[0];
+    let subArr = [[dp[0]]];
+	
+	for (let i = 1; i < nums.length; i++) {
+		if (dp[i - 1] + nums[i] > nums[i]) {
+            dp[i] = dp[i - 1] + nums[i]; // join num[i] into the current maximum subarray
+            subArr.push([...subArr[i - 1], nums[i]])
+		}
+		else {
+            dp[i] = nums[i]; // set new begining of maximum subarray
+            subArr.push([nums[i]])
+		}
+    }
+    // find the maximum in the array
+    let max = Number.NEGATIVE_INFINITY;
+    for (let i = 0; i < dp.length; i++) {
+        if (max < dp[i]) {
+            max = dp[i]
+        }
+    }
+    let maxIndex = dp.findIndex(item => item === max)
+    console.log(subArr)
+    console.log(subArr[maxIndex])
+	return max;
+}
+
+
 let nums = [-2,1,-3,4,-1,2,1,-5,4]
 // let nums =[8,-2,-4,-1,-8,3,8,8,3,4,2,-9,-1,-3,-6,8,-3,9] 
 // let nums = [1, 2];
 // let nums = [-2, -1];
 // let nums = [-1,0,-2]
 
-console.log(maxSubArray(nums));
+console.log(maxSubArray5(nums));
+// console.log(maxSubArray(nums));

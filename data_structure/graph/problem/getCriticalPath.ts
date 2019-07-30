@@ -10,6 +10,7 @@ import Queue from "../../queue/SequenceQueue";
 import { eventNodeGraph } from "../mock/AdjacencyListData"
 
 // T(n) = O(|V| + 3|E|)
+// BFS is enough
 function getCriticalPath(
     graph: {
         vertexes: string[];
@@ -33,7 +34,7 @@ function getCriticalPath(
         table[v] = {
             ec: Number.NEGATIVE_INFINITY,
             lc: Number.POSITIVE_INFINITY,
-            processors: [],
+            precursors: [],
         }
     }) 
     // init the start vertex
@@ -56,8 +57,8 @@ function getCriticalPath(
                     queue.enter(to);
                 }
             }
-            // save v to processors of it's adjacent vertex
-            table[to].processors.push({from: v, dist});
+            // save v to precursors of it's adjacent vertex
+            table[to].precursors.push({from: v, dist});
         }
     }
     //calc lc of vertex
@@ -66,9 +67,9 @@ function getCriticalPath(
     queue.enter(end);
     while (!queue.isEmpty()) { // T(n) = O(|E|)
         let v = queue.leave();
-        let { processors } = table[v];
-        if (processors && processors.length) {
-            processors.map(edge => {
+        let { precursors } = table[v];
+        if (precursors && precursors.length) {
+            precursors.map(edge => {
                 let { from, dist } = edge;
                 if (table[from].lc > table[v].lc - dist) {
                     table[from].lc = table[v].lc - dist;
