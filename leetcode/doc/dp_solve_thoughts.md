@@ -12,7 +12,7 @@ feeling the problem has derived relations, which can be a derivation of formula.
 
 the key is to figure out **the derivation of formula**, which defines the derived relationship between two adjacent states, and the memory to derive.
 
-from now on I encountered at most **3-dimension** dp memory, which is a little hard to understand.
+from now on I encountered at most **3-dimension** dp memory, which is little hard to understand.
 
 ## categories
 
@@ -29,6 +29,8 @@ there are several categories of problem:
 1. dp[i] means substring from 0 to i.
 2. dp[i][j] means substring from i to j. leetcode: `5, 32, 95` 
 3. dp[i][j] means substring of s1 from 0 to i, and substring of s2 from 0 to j. leetcode: `10, 44, 72`
+    
+    if i, j only represents index, without length, it's always inspect **char by char**
 4. dp[i][j] means substring of s1 from 0 to i - 1, which means i is length of the substring, s2 is the same.
     
     the benifits are that dp[0][0] means substring of s1 is empty and substring of s2 is empty, and dp[i][j] is the finial result
