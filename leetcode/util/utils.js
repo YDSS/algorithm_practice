@@ -256,3 +256,8 @@ function generateTwoDimensionArray(n, m, intialVal) {
     );
 }
 exports.generateTwoDimensionArray = generateTwoDimensionArray;
+
+function printBits(bits) {
+    let str = "";
+    
+}

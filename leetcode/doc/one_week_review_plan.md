@@ -480,6 +480,18 @@ Eular Circular
 
     keep doing that, when all the elems deleted, the arr will be sorted. (**min heap will become a descend ordered array**)
 
+tricks:
+
+1. sort linked list
+    
+    merge sort in linked list, using slow and fast pointers to get middle.
+    So divide and conquar can be used in linked list
+
+2. sort with swap
+
+    we know that the fastest normal sort is O(nlogn), but with swapping in special situations, it can be O(n). e.g. `#75 leetcode`
+
+
 #### Combinatorics&Possibilties
 
 A(n, m) represents permutation num,  how many permutations when pick non-repeatedly `m` nums from a set with `n` nums.
