@@ -529,6 +529,29 @@ how to create permutations:
     }
 ```
 
+2. C(n, m):
+
+```js
+    function getCombinations(nums, m) {
+        let n = nums.length;
+        let combinations = [];
+        let bt = (remain, curC) => {
+            if (remain.length === 0) {
+                combinations.push([...curC]);
+                return;
+            }
+
+            for (let i = 0; i < remain.length; i++) {
+                bt(remain.slice(0, i).concat(remain.slice(i)), curC.concat([remain[i]]))
+            }
+        } 
+
+        bt(nums, []);
+
+        return combinations;
+    }
+```
+
 #### Binary search
 
 1. implementation smoothly
