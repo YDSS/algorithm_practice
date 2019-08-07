@@ -532,23 +532,39 @@ how to create permutations:
 2. C(n, m):
 
 ```js
-    function getCombinations(nums, m) {
-        let n = nums.length;
-        let combinations = [];
-        let bt = (remain, curC) => {
-            if (remain.length === 0) {
-                combinations.push([...curC]);
+    /**
+     * bactracing
+     * T(n) = O(n!)
+     * S(n) = O(n)
+     * @param {number} n
+     * @param {number} k
+     * @return {number[][]}
+     */
+    function combine(n, k) {
+        let ans = [];
+        if (k > n) {
+            return ans
+        }
+
+        let bt = (i, combinations) => {
+            combinations.push(i);
+            if (combinations.length === k) {
+                ans.push([...combinations])
+                combinations.pop();
                 return;
             }
 
-            for (let i = 0; i < remain.length; i++) {
-                bt(remain.slice(0, i).concat(remain.slice(i)), curC.concat([remain[i]]))
+            for (let j = i + 1; j <= n; j++) {
+                bt(j, combinations);
             }
-        } 
+            combinations.pop();
+        }
+        let tmp = []; // s = O(n);
+        for (let i = 1; i <= n - k + 1; i++) {
+            bt(i, tmp);
+        }
 
-        bt(nums, []);
-
-        return combinations;
+        return ans;
     }
 ```
 

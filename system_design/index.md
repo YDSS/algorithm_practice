@@ -31,11 +31,22 @@
 
 ## common metrics of large system
 
+- VPS read/write speed
+    - SSD, 200MB/s
+    - HHD, 60MB/s
+
 ## common bottlenecks in scalable system
 
 - network traffic
 - a lot of users (requests?)
 - a lot of data (how to store and retrieve)
+
+## how to learn a new technology
+
+1. what the problems it solved?
+2. what its alternatives are?
+3. what some common pros and cons are may be?
+4. what common usage scenarios are?
 
 ## weakness
 
