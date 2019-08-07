@@ -1,6 +1,6 @@
 # system design
 
-## knowledge
+## Concepts 
 
 - caching
 - mapReduce
@@ -14,6 +14,9 @@
 - Nosql
 - consistent hashing
 - networking
+- vertical scaling vs horizontal scaling
+    - vertical means add resources in one machine, like hard drive, RAM, CPU
+    - horizontal means add more same type of machines
 
 ## steps to solve
 
@@ -23,6 +26,13 @@
 4. try design a non-scalable system first
 5. analyze key issues and bottlenecks of the naive one
 6. up to large scale, optimize the naive one
+    - load test, also means stress test
+
+## when we talk about a technology in scalablity
+
+1. is it mature or new
+2. what its features are, and what it masters at
+3. what its alternatives
 
 ## tricks
 
@@ -34,6 +44,10 @@
 - VPS read/write speed
     - SSD, 200MB/s
     - HHD, 60MB/s
+- QPS (query per second)
+    - QPS = (1 / t) * n, n is how many requests a sever can handle, t is how long the server can finish a request
+    - **400** is a average number of a server right now can handle
+- TPS (throughput) how many requests a system can handle per second
 
 ## common bottlenecks in scalable system
 
@@ -47,6 +61,25 @@
 2. what its alternatives are?
 3. what some common pros and cons are may be?
 4. what common usage scenarios are?
+
+## technologies
+
+### DB
+
+- data shading
+- partition
+- data replication
+- master/slave master/master
+- NoSQL
+
+MySQL:
+
+- widely used
+- mature
+- clear scaling paradigm
+    - sharding
+    - master/slave replication
+    - master/master replication
 
 ## weakness
 
