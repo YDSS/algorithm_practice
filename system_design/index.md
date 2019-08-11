@@ -64,10 +64,16 @@
 
 ## technologies
 
+- load balancer
+- caching
+- db
+- async
+- mapReduce
+
 ### DB
 
 - data shading
-- partition
+- data partition
 - data replication
 - master/slave master/master
 - NoSQL
@@ -80,6 +86,31 @@ MySQL:
     - sharding
     - master/slave replication
     - master/master replication
+
+PostgreSQL:
+
+MongoDB (NoSql):
+
+### Load Balancer
+
+software:
+
+- Nignx
+
+hardware
+
+- F5
+
+### Caching
+
+- Redis
+- Memcached
+
+### async
+
+message queue:
+
+- RabbitMQ
 
 ## weakness
 
