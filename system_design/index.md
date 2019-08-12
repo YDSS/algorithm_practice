@@ -34,6 +34,9 @@
 - VPS read/write speed
     - SSD, 200MB/s
     - HHD, 60MB/s
+- TTL (time to live), 8bit in ipv4, means how many computers/routers a IP packet can pass through. 
+    - `max` 255
+    - `recommended` 64
 
 ## common bottlenecks in scalable system
 
