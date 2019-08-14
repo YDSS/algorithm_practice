@@ -1,17 +1,14 @@
 /**
- * @file Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
-
-(i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
-
-You are given a target value to search. If found in the array return its index, otherwise return -1.
-
-You may assume no duplicate exists in the array.
-
-Your algorithm's runtime complexity must be in the order of O(log n).
+ * @file 81. Search in Rotated Sorted Array II
  * @author arlenyang
+ * @solution it's easy to observe that part of array is still sorted after rotate, then we can observe that inspect every element, it's left or right sequence is sorted, e.g
+ *  4,5,6,1,2,3  left of 6 is sorted, right is not by compare it with low and high pointers (binary search) of array
+ * 
+ * so we can check the sorted part first, if target is in this part, do binary search. if not, it must be in the other part, just swith to it.
  */
 
 /**
+ * recursive way, with too much comparing
  * @param {number[]} nums
  * @param {number} target
  * @return {number}
@@ -87,6 +84,16 @@ function search(nums, target) {
     }   
 
     return searchR(0, nums.length - 1);
+}
+
+/**
+ * non-recursive way
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+function search2(nums, target) {
+
 }
 
 // let nums = [4,5,6,7,0,1,2];

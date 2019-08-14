@@ -93,6 +93,13 @@ MySQL:
     - sharding
     - master/slave replication
     - master/master replication
+- db => `./db.md`
+
+## typical cases
+
+1. read and write heavy application architecture
+
+![img](./img/read_write_heavy_architecture.png)
 
 PostgreSQL:
 
