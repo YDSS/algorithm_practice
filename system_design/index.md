@@ -71,22 +71,7 @@
 
 ## technologies
 
-### DB
-
-- data shading
-- partition
-- data replication
-- master/slave master/master
-- NoSQL
-
-MySQL:
-
-- widely used
-- mature
-- clear scaling paradigm
-    - sharding
-    - master/slave replication
-    - master/master replication
+- db => `./db.md`
 
 ## weakness
 
