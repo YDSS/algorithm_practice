@@ -29,3 +29,6 @@ replication:
     - master is also responsible for reading
 
     ![img](./img/mysql_master_master_replication.png)
+
+### MongoDB
+

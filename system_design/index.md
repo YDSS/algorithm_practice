@@ -73,6 +73,12 @@
 
 - db => `./db.md`
 
+## typical cases
+
+1. read and write heavy application architecture
+
+![img](./img/read_write_heavy_architecture.png)
+
 ## weakness
 
 - lack of general knowledges of large system, how many data, some like that
