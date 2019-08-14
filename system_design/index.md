@@ -38,12 +38,19 @@
 
 1. knowning **the common scale** of some kind of data, e.g. a regular URL takes 100byte, some like that. That is very useful for estimating the scale of data you'll handle
     1. 2/8 law for estimating metrics
+2. in relational db, we can create connective tables to connect 2 or more tables, like `user` with `tweet`, cause it's relationship is **many-to-many**
+## some common ops
+
+1. how to encrypt/decrypt important infos?
 
 ## common metrics of large system
 
 - VPS read/write speed
     - SSD, 200MB/s
     - HHD, 60MB/s
+- TTL (time to live), 8bit in ipv4, means how many computers/routers a IP packet can pass through. 
+    - `max` 255
+    - `recommended` 64
 - QPS (query per second)
     - QPS = (1 / t) * n, n is how many requests a sever can handle, t is how long the server can finish a request
     - **400** is a average number of a server right now can handle
