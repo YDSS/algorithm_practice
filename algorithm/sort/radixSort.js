@@ -6,8 +6,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const singleLinkedList_1 = require("../../data_structure/linearList/singleLinkedList");
 /**
- * T(n) = O(d * (n + m)), d is the max length of these nums,
+ * T(n) = O(d * (n + m)) ~= O(n), d is the max length of these nums,
  *  n is arr.length, m is the size of bucket, here is 10
+ *
+ * S(n) = O(n)
  * @param arr array of unordered nums
  */
 function radixSort(arr) {

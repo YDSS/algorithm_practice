@@ -88,12 +88,55 @@ function search(nums, target) {
 
 /**
  * non-recursive way
+ *  there is always at least one part is sorted besides every elem, left or right,
+ *  so the solution is that find the sorted part, check if the target is in it, 
+ *  if not, find in another part
  * @param {number[]} nums
  * @param {number} target
  * @return {number}
  */
 function search2(nums, target) {
+    if (nums.length === 0) {
+        return -1; 
+    }
+    if (nums.length === 1) {
+        return target === nums[0] ? 0 : -1;
+    }
 
+    let low = 0;
+    let high = nums.length - 1;
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+        if (nums[mid] === target) {
+            return mid;
+        }
+        if (nums[low] === target) {
+            return low
+        }
+        if (nums[high] === target) {
+            return high 
+        }
+        // the left part is sorted
+        if (nums[low] <= nums[mid]) {
+            if (target > nums[low] && target < nums[mid]) {
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+        // right part is sorted
+        else if (nums[mid] <= nums[high]) {
+            if (target > nums[mid] && target < nums[high]) {
+                low = mid + 1;
+            } 
+            else {
+                high = mid - 1;
+            }
+        }
+    }
+
+    return -1;
 }
 
 // let nums = [4,5,6,7,0,1,2];
@@ -106,4 +149,4 @@ function search2(nums, target) {
 // let target = 2
 let nums = [1]
 let target = 2
-console.log(search(nums, target));
+console.log(search2(nums, target));

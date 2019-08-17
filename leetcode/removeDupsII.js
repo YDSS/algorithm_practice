@@ -51,8 +51,57 @@ function removeDuplicates(nums) {
     return j + 1;
 }
 
+/**
+ * override interval pos solution
+ *  one pass to iterate
+ *  1. set interval = 0, it's the interval we swap i with i - interval, 
+ *   when encounter duplicates, make interval++, this will create 1 interval, 
+ *   after that, we always move the interval forward.
+ *  2. when reaching the end, the intervals will be in the end of array
+ * 
+ * T(n) = O(n)
+ * S(n) = O(1)
+ * @param {number[]} nums
+ * @return {number}
+ */
+// 0,0,0,0,1,2,2,2,3,4
+// 0,0,1,2,2,2,0,0,3,4
+// 0,0,1,2,2,3,0,0,2,4
+function removeDuplicates2(nums) {
+    if (nums.length < 2) {
+        return nums.length;
+    }
+
+    let interval = 0;
+    let count = 1;
+    let prev = nums[0];
+    for (let i = 1; i < nums.length; i++) {
+        if (count > 2) {
+            interval++;            
+        }
+
+        nums[i - interval] = nums[i];
+
+        if (nums[i] !== prev) {
+            prev = nums[i];
+            count = 1;
+        }
+        else {
+            count++;
+        }
+    }
+
+    if (count > 2) {
+        interval++;
+    }
+
+    return nums.length - interval;
+}
+
 // nums = [1,1,1,2,2,3]
-nums = [0, 0, 1, 1, 1, 1, 2, 3, 3];
+// nums = [0, 0, 1, 1, 1, 1, 2, 3, 3];
+// nums = [0,0,0,0,1,2,2,2,3,4]
+nums = [0,0,0]
 // nums = [0,0]
 
-console.log(nums.slice(0, removeDuplicates(nums)));
+console.log(nums.slice(0, removeDuplicates2(nums)));
