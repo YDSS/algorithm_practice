@@ -5,6 +5,7 @@
 
 import BinaryTreeNode from "../BinaryTreeNode";
 import { fullBinaryTreeArrayToTree, printBinaryTree } from "../../utils/utils"
+import Stack from "../../stack/Stack"
 
 /**
  * post order way
@@ -41,8 +42,53 @@ function getHeight2(root: BinaryTreeNode): number {
     return max;
 }
 
-// let arr = [1,2,3,4,5,null,null,null,null,6];
-let arr = [1,2,3,4,5]
+/**
+ * non-recursive way
+ * @param root 
+ */
+function getHeight3(root) {
+    if (root == null) {
+        return -1;
+    }
+    let stack = new Stack(100);
+    let node = root;
+    while (node != null || !stack.isEmpty()) {
+        if (node != null) {
+            // check itself
+            if (
+                (node.left == null || node.left.height != null) &&
+                (node.right == null || node.right.height != null)
+            ) {
+                node.height =
+                    Math.max(
+                        node.left == null ? -1 : node.left.height,
+                        node.right == null ? -1 : node.right.height
+                    ) + 1;
+                node = null;
+            }
+            else if (node.left != null && node.left.height == null) {
+                stack.push(node);
+                node = node.left;
+            } else if (node.right != null && node.right.height == null) {
+                stack.push(node);
+                node = node.right;
+            } 
+            // leaf node
+            else {
+                node.height = 0;
+                node = null;
+            }
+        }
+        else {
+            node = stack.pop();
+        }
+    }
+
+    return root.height;
+}
+
+let arr = [1,2,3,4,5,null,null,null,null,6];
+// let arr = [1,2,3,4,5]
 let root = fullBinaryTreeArrayToTree(arr);
 printBinaryTree(root);
-console.log(getHeight2(root))
+console.log(getHeight3(root))
