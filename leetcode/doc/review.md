@@ -17,11 +17,22 @@ notice:
 
 tricks:
 
-- slide window
+- slide window, or it's called left & right collision pointers, cause it has two pointers i, j, between them is the window
 - sorted and skip to remove duplicates
-- left & right collision pointers
 - dp
 - using index of array as hashmap, `#41 in leetcode`
+- swap between interval `#80 in leetcode`
+
+    it's like we want remove a num but you know, remove a num is expensive(O(n) at worst). the first thought is swap it with end of array, but sometime you also need adjust after swapping, just like in `#80`
+
+    the interval is like when we have a num need to remove, we make interval = 1, then when we iterate next num, swap it with its (index - 1), .e.g.
+
+    1,2,3,4,5  we want remove 3, let's simulate the process
+
+    1. iterate to i = 2, nums[i] is 3, we know it should be delete
+    2. set interval = 1, tmp = 3, and just move forward
+    3. i = 3, set nums[i - interval] = nums[i], nums[i] = tmp
+    4. when the iterating is over, we find 3 is in the end
 
 #### Linked List
 
@@ -182,6 +193,14 @@ resolve conflict function:
 
 #### Tree
 
+concepts:
+
+1. depth
+2. height
+3. null node
+
+type: 
+
 1. BST
 2. AVL
 3. Red Black 
@@ -316,7 +335,7 @@ BFS:
             }
         }
 
-        queue.enqueu(start);
+        queue.enqueue(start);
         bfs();
     }
 ```
@@ -459,10 +478,12 @@ Eular Circular
 
         ```js
         function mergeSort(low, high, tmp) {
-            let mid = ...
-            mergeSort(low, mid, tmp);
-            mergeSort(mid, high, tmp);
-            mergeOnce(low, mid, high, tmp);
+            if (low < high) {
+                let mid = ...
+                mergeSort(low, mid, tmp);
+                mergeSort(mid, high, tmp);
+                mergeOnce(low, mid, high, tmp);
+            }
         }
         ```
 
@@ -579,10 +600,10 @@ how to create permutations:
             while (low <= high) {
                 let mid = Math.floor((low + high) / 2);
                 if (...) { // in some condition, move forward to right part
-                    low = mid;
+                    low = mid + 1;
                 }
                 if (...) {// in some condition, move forward to left part
-                    high = mid
+                    high = mid - 1
                 } 
             }
         }
