@@ -1,6 +1,8 @@
 /**
  * @file 105. Construct Binary Tree from Preorder and Inorder Traversal
  * @author arlenyang
+ * @solution in preorder, the first node is the root, and in inorder, the left of root is the left tree, so is the right.
+ *  with this observation, we can always find the root of subtree and split into two parts, recursively.
  */
 const { printBinaryTree } = require('./util/utils')
 /**

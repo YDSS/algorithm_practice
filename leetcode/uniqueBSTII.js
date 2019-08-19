@@ -62,6 +62,12 @@ function generateTrees2(n) {
 
 /**
  * dp solution
+ *  dp[i][j] means combinations of roots those contain numbers range from i to j
+ *  set p belong [i, j], dp[i][j] = root(p)
+ *                                 /       \
+ *        each root in it dp[i][p - 1]   dp[p + 1][j] each root in it
+ *       so it's a Cartesian product of dp[i][p - 1] and dp[p + 1][j]
+ *                           
  * @param {number} n
  * @return {TreeNode[]}
  */
@@ -69,7 +75,7 @@ function generateTrees(n) {
     if (n === 0) {
         return [];
     }
-    // init dp memory, dp[i][j] means roots of subtrees those contain numbers range from i to j
+    // init dp memory, 
     let dp = new Array(n);
     for (let i = 0; i < n; i++) {
         dp[i] = new Array(n);
@@ -86,6 +92,7 @@ function generateTrees(n) {
             for (let p = i; p <= j; p++) {
                 let lefts = p === i ? [null] : dp[i][p - 1];
                 let rights = p === j ? [null] : dp[p + 1][j];
+                // Cartesian product of left and right
                 for (let h = 0; h < lefts.length; h++) {
                     for (let k = 0; k < rights.length; k++) {
                         let root = new TreeNode(p + 1);

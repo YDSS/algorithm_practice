@@ -1,5 +1,5 @@
 /**
- * @file Given a binary tree, return the inorder traversal of its nodes' values.
+ * @file 94. Binary Tree Inorder Traversal
  * @author arlenyang
  */
 

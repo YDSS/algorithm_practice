@@ -193,17 +193,7 @@ resolve conflict function:
 
 #### Tree
 
-concepts:
-
-1. depth
-2. height
-3. null node
-
-type: 
-
-1. BST
-2. AVL
-3. Red Black 
+`./tree.md`
 
 #### Tries
 

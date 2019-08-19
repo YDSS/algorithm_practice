@@ -21,11 +21,12 @@ const {
 /**
  * inorder without recursion
  * T(n) = O(n)
- * S(n) = O(H), H is the height of tree, which is the cost of space by recursion
+ * S(n) = O(H), H is the height of tree, which is also the max size of stack
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
 function recoverTree2(root) {
+    // pred is previous node in inorder traversal to root
     let pred, x, y;
     let stack = new Stack();
 
