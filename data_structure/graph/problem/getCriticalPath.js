@@ -9,6 +9,7 @@ const SequenceQueue_1 = require("../../queue/SequenceQueue");
 // mock
 const AdjacencyListData_1 = require("../mock/AdjacencyListData");
 // T(n) = O(|V| + 3|E|)
+// BFS is enough
 function getCriticalPath(graph, start, end) {
     let n = graph.vertexes.length;
     // init adjacency list
@@ -25,7 +26,7 @@ function getCriticalPath(graph, start, end) {
         table[v] = {
             ec: Number.NEGATIVE_INFINITY,
             lc: Number.POSITIVE_INFINITY,
-            processors: [],
+            precursors: [],
         };
     });
     // init the start vertex
@@ -47,8 +48,8 @@ function getCriticalPath(graph, start, end) {
                     queue.enter(to);
                 }
             }
-            // save v to processors of it's adjacent vertex
-            table[to].processors.push({ from: v, dist });
+            // save v to precursors of it's adjacent vertex
+            table[to].precursors.push({ from: v, dist });
         }
     }
     //calc lc of vertex
@@ -57,9 +58,9 @@ function getCriticalPath(graph, start, end) {
     queue.enter(end);
     while (!queue.isEmpty()) { // T(n) = O(|E|)
         let v = queue.leave();
-        let { processors } = table[v];
-        if (processors && processors.length) {
-            processors.map(edge => {
+        let { precursors } = table[v];
+        if (precursors && precursors.length) {
+            precursors.map(edge => {
                 let { from, dist } = edge;
                 if (table[from].lc > table[v].lc - dist) {
                     table[from].lc = table[v].lc - dist;

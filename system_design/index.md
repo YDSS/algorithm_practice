@@ -39,6 +39,13 @@
 1. knowning **the common scale** of some kind of data, e.g. a regular URL takes 100byte, some like that. That is very useful for estimating the scale of data you'll handle
     1. 2/8 law for estimating metrics
 2. in relational db, we can create connective tables to connect 2 or more tables, like `user` with `tweet`, cause it's relationship is **many-to-many**
+
+## trade-off
+
+1. handle peaks in traffic
+    1. horizontal scaling before predictable traffic peak, like double 11
+    2. quickly drop requests when overload and redirect to a friendly loading page
+
 ## some common ops
 
 1. how to encrypt/decrypt important infos?
@@ -71,6 +78,28 @@
 
 ## technologies
 
+- load balancer
+- caching
+- db
+- async
+- mapReduce
+
+### DB
+
+- data shading
+- data partition
+- data replication
+- master/slave master/master
+- NoSQL
+
+MySQL:
+
+- widely used
+- mature
+- clear scaling paradigm
+    - sharding
+    - master/slave replication
+    - master/master replication
 - db => `./db.md`
 
 ## typical cases
@@ -78,6 +107,34 @@
 1. read and write heavy application architecture
 
 ![img](./img/read_write_heavy_architecture.png)
+
+PostgreSQL:
+
+MongoDB (NoSql):
+
+### Load Balancer
+
+DNS load balancer, which can distribute requests from specific territory to specific server rooms
+
+software
+
+- Nignx
+
+hardware
+
+- F5
+
+
+### Caching
+
+- Redis
+- Memcached
+
+### async
+
+message queue:
+
+- RabbitMQ
 
 ## weakness
 

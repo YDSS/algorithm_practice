@@ -13,7 +13,7 @@ function prim(graph, start) {
     let matrix = adjacencyMatrix.matrix;
     // init table
     let table = {};
-    for (let i = 0; i < graph.vertexes.length; i++) {
+    for (let i = 0; i < graph.vertexes.length; i++) { // O(|V|)
         table[graph.vertexes[i]] = {
             known: false,
             dist: Number.POSITIVE_INFINITY,
