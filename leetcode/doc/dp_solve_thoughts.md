@@ -44,3 +44,15 @@ there are several categories of problem:
 ### abstract
 
 these problems usually come from real world, we pick the variables of them as dimensions of dp. like `knapsack` and `least coins`
+
+### problem summary
+
+1. string collapse in one pivot
+    1. examples:
+        - `leetcode #87. Scramble String`
+        - `leetcode #95. Unique Binary Search Trees II`
+    2. imagine picking a pivot in the string, and its left and right collapse down to lower level, e.g.
+
+        `1,2,3,4,5,6,7` collapse in `4`=>
+                `4`
+          `1,2,3`  `5,6,7`
