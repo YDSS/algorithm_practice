@@ -80,5 +80,5 @@ let arr = [1, 2, 3, 4, 5, null, null, null, null, 6];
 // let arr = [1,2,3,4,5]
 let root = utils_1.fullBinaryTreeArrayToTree(arr);
 utils_1.printBinaryTree(root);
-console.log(getHeight2(root));
+console.log(getHeight3(root));
 //# sourceMappingURL=getHeight.js.map
