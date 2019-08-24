@@ -42,14 +42,14 @@ function maximumGap(nums) {
             min = nums[i];
         }
     }
-    // calc average gap value
-    let t = Math.floor((max - min) / (n - 1));
+    // calc average gap value, at least 1, cause a bucket at least have 1 elem
+    let t = Math.max(1, Math.floor((max - min) / (n - 1)));
     let bucketNum = Math.floor((max - min) / t);
     let buckets = Array.from(
         {
             length: bucketNum + 1
         },
-        x => {
+        () => {
             return {
                 used: false,
                 min: Number.POSITIVE_INFINITY,

@@ -113,7 +113,7 @@ function maxSubArray(nums) {
     let max = Number.NEGATIVE_INFINITY;
     let curMax = 0;
     nums.map(n => {
-        curMax = curMax > 0 ? (curMax + n) : n;
+        curMax = Math.max(n, curMax + n);
         if (curMax > max) {
             max = curMax;
         }
