@@ -56,3 +56,15 @@ these problems usually come from real world, we pick the variables of them as di
         `1,2,3,4,5,6,7` collapse in `4`=>
                 `4`
           `1,2,3`  `5,6,7`
+2. subarray
+    1. there is a very important feature of contiguous subarray: 
+        
+        when it comes to nums[i], it has two ways to summary the result before
+
+        1. concat with former subarray, dp[i - 1] + nums[i]
+        2. discard former sequence, and start a new subarray with itself, nums[i]
+
+        samples:
+        
+        1. `#53. Maximum Subarray, leetcode`
+        2. `#152. Maximum Product Subarray, leetcode`
