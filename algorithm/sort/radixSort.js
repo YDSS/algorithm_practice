@@ -103,6 +103,6 @@ function radixSort2(arr) {
     return arr;
 }
 let arr = [0, 1, 512, 343, 134, 64, 64, 216];
-console.log(radixSort(arr));
+// console.log(radixSort(arr));
 console.log(radixSort2(arr));
 //# sourceMappingURL=radixSort.js.map

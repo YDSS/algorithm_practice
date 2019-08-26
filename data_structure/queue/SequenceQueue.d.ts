@@ -28,6 +28,7 @@ export default class SequenceQueue {
     front: number;
     rear: number;
     constructor(maxSize: any);
+    size(): number;
     isEmpty(): boolean;
     isFull(): boolean;
     enter(item: any): void;

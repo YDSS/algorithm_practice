@@ -31,6 +31,8 @@ DFS can be used in many ways. And in the most scenarios, **visited map** should 
 
 ### BFS
 
+**simple implementation:**
+
 ```js
     // can not work in a graph with circular
     function BFS(adj, start) {
@@ -51,6 +53,35 @@ DFS can be used in many ways. And in the most scenarios, **visited map** should 
         bfs();
     }
 ```
+
+**level order traversal with only one queue:**
+
+if we only have on queue, how to distinguish where is the end of last level? Cause we keep enqueue nodes, they will merge with previous nodes. 
+
+if we have two queues, one is for current nodes, one is for next nodes, when current queue is empty, `curQueue = nextQueue`
+
+with one queue, there are two ways:
+
+1. counting number of current nodes and next nodes, `curB` and `nextB`, respectively. when we dequeue a current node, `curB--`. when curB === 0, we know current nodes had all visited.
+
+2. store node with its level. e.g. `<node1, 1>`, `<node2, 4>`
+
+example:
+
+1. `#127. Word Ladder, in leetcode`
+
+**bidirectional BFS**
+
+if we know the end node that we need find, then we can start from **begin node** and **end node** parallelly. In every turn(level), if found nodes from begin node has same nodes in nodes from end node, then we found a path from begin node to end node.
+
+steps:
+
+1. prepare two queues, one for begin node, one for end node
+2. in every turn, find next level of begin node and end node
+3. then check if there are any node both in next level of begin node and end node
+    1. if has, stop the loop
+    2. if not, start next level
+4. if one of queue is empty, stop loop and return not found a path between begin node and end node
 
 ### top sorting
 

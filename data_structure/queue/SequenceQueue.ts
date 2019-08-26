@@ -43,6 +43,14 @@ export default class SequenceQueue {
         this.rear = 0;
     }
 
+    size() {
+        if (this.front < this.rear) {
+            return this.rear - this.front;
+        } else {
+            return this.maxSize - this.front + this.rear + 1;
+        }
+    }
+
     isEmpty() {
         return this.front === this.rear;
     }
@@ -107,5 +115,12 @@ export default class SequenceQueue {
     }
 }
 
-let q = new SequenceQueue(10);
-console.log(q.isEmpty())
+let q = new SequenceQueue(3);
+q.enter(1)
+q.enter(2)
+q.enter(3)
+q.leave()
+q.leave()
+q.enter(3)
+q.enter(3)
+console.log(q.size())
