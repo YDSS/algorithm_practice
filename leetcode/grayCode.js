@@ -54,6 +54,44 @@ function isPowBy2(num) {
     return i === num;
 }
 
+/**
+ * dfs,
+ *  in every loop, only change 1 bit from last number, by xor 1
+ * @param {number} n
+ * @return {number[]}
+ */
+function grayCode2(n) {
+    let total = Math.pow(2, n);
+    let ans;
+    let found = false;
+    let visited = new Set();
+    visited.add(0);
+    let dfs = (n, total, visited, col) => {
+        if (col.length === total) {
+            ans = col;
+            found = true;
+            return;
+        }
+        // xor the last elem with every digit to make only one bit change
+        for (let i = 0; i < n; i++) {
+            let num = col[col.length - 1] ^ (1 << i);
+            if (!visited.has(num)) {
+                visited.add(num);
+                col.push(num);
+                dfs(n, total, visited, col);
+                if (found) {
+                    return;
+                }
+                col.pop();
+                visited.delete(num);
+            }
+        }
+    } 
+    dfs(n, total, visited, [0]);
+    
+    return ans;
+}
+
 // let n = 2;
 // let n = 1;
 // let n = 0;
@@ -61,5 +99,5 @@ function isPowBy2(num) {
 // let n = 3;
 let n = 10;
 // let n = 6;
-console.log(grayCode(n));
+console.log(grayCode2(n));
 // console.log(isPowBy2(1))

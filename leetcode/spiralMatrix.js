@@ -1,4 +1,5 @@
 // spiral matrix
+// simulate the spiral traversal, but without visited map, the logic is very complicated
 function spiralOrder2(matrix) {
     // TODO: edge cases
     let m = matrix.length;
@@ -89,6 +90,9 @@ function spiralOrder2(matrix) {
 }
 
 /**
+ * think about the matrix like many square edges with four lines(top, right, bottom,left), maybe have one edge only has one line. 
+ * we can just traverse these line by spiral order
+ * 
  * @param {number[][]} matrix
  * @return {number[]}
  */
@@ -108,7 +112,9 @@ function spiralOrder(matrix) {
         return ret;
     }
 
-    for (let r = 0; r < Math.ceil(m / 2); r++) {
+    // if m > n, r is m / 2
+    // if n > m, r is n / 2 
+    for (let r = 0; r < Math.min(Math.ceil(m / 2), Math.ceil(n / 2)); r++) {
         let rowEnd = r + m - r * 2;
         let columnEnd = r + n - r * 2;
         // top row
@@ -138,6 +144,15 @@ function spiralOrder(matrix) {
     return ret;
 }
 
+/**
+ * iterate from left-top ceil to right-bottom ceil
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+function spiralOrder3(matrix) {
+
+}
+
 // let matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 // let matrix = [
 //     [1, 2, 3, 4],
@@ -155,5 +170,6 @@ function spiralOrder(matrix) {
 // ]
 // let matrix = []
 // let matrix = [[2, 3, 4], [5, 6, 7], [8, 9, 10], [11, 12, 13], [14, 15, 16]];
-let matrix = [[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]];
+// let matrix = [[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]];
+let matrix = [[1,11],[2,12],[3,13],[4,14],[5,15],[6,16],[7,17],[8,18],[9,19],[10,20]]
 console.log(spiralOrder(matrix));
