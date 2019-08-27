@@ -4,6 +4,11 @@
     
     one way of partitioning, also named horizontal partitioning, which is spliting a table or rows in a table into several servers
 
+    [1](https://www.cnblogs.com/jshen/p/7682502.html)
+    [2](https://yq.aliyun.com/articles/284561?spm=a2c4e.11155472.0.0.72f3626bkDAMPJ)
+    [3](https://www.jianshu.com/p/2b75742e9941)
+    [4](https://blog.csdn.net/qq_28289405/article/details/80576614)
+
 - partitioning
 
     split a table into several when the table has too much data
@@ -71,3 +76,9 @@ replication:
 
 - data may be stale
 - update a document may cause many documents update, which is not suit for write-heavy application
+
+## optimization
+
+1. create index
+2. separate write with read
+3. partitioning and sharding 
