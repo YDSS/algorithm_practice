@@ -17,3 +17,15 @@ message queue is kind of **queue** in data structure, but with far more features
 ### RabbitMQ
 
 [RabbitMQ](https://www.rabbitmq.com/getstarted.html)
+
+1. simple model:
+
+![img](./img/mq_simple.png)
+
+2. multiple consumers model:
+
+![img](./img/mq_multiple.png)
+
+3. publish/subscribe model:
+
+![img](./img/mq_publish_subscribe.png)

@@ -20,7 +20,9 @@
 
     **cons**:
 
-    1. if need aggregation, querying will be way slower than in one table, cause there're many tables may all store the data you need
+    1. hard to pagination
+    2. hard to op: `order by`, `join`
+    3. consistent id => [Twitter的分布式自增ID算法Snowflake](http://blog.sina.com.cn/s/blog_6b7c2e660102vbi2.html)
 
 ### MySQL (relational DB)
 

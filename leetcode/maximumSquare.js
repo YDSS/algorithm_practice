@@ -36,13 +36,13 @@ function maximalSquare(matrix) {
     for (let i = 0; i < n; i++) {
         dp[i][0] = matrix[i][0];
         if (max < dp[i][0]) {
-            max = dp[i][0]
+            max = dp[i][0];
         }
     }
     for (let i = 0; i < m; i++) {
         dp[0][i] = matrix[0][i];
         if (max < dp[0][i]) {
-            max = dp[0][i]
+            max = dp[0][i];
         }
     }
     for (let i = 1; i < n; i++) {
@@ -66,7 +66,7 @@ function maximalSquare(matrix) {
                         dp[i][j] = 1;
                     } else {
                         // check vertical line
-                        let k = i - w; 
+                        let k = i - w;
                         for (; k < i; k++) {
                             if (matrix[k][j] == 0) {
                                 break;
@@ -87,7 +87,43 @@ function maximalSquare(matrix) {
             }
         }
     }
-    console.log(dp)
+    console.log(dp);
+
+    return max;
+}
+
+/**
+ * dp solution
+ *  dp[i][j] is the maximum side length of square which has a right-bottom ceil(i, j),
+ *  dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]), cause only
+ * @param {character[][]} matrix
+ * @return {number}
+ */
+function maximalSquare3(matrix) {
+    let n = matrix.length;
+    if (n === 0) {
+        return 0;
+    }
+    let m = matrix[0].length;
+    let dp = Array.from({ length: n }, _ => Array.from({ length: m }));
+
+    let max = 0;
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+            if (matrix[i][j] == 0) {
+                dp[i][j] = 0;
+            } else {
+                let left = i === 0 ? 0 : dp[i - 1][j];
+                let top = j === 0 ? 0 : dp[i][j - 1];
+                let leftTop = i === 0 || j === 0 ? 0 : dp[i - 1][j - 1];
+
+                dp[i][j] = Math.min(left, Math.min(top, leftTop)) + 1;
+            }
+            if (max < Math.pow(dp[i][j], 2)) {
+                max = Math.pow(dp[i][j], 2);
+            }
+        }
+    }
 
     return max;
 }
@@ -96,10 +132,14 @@ function maximalSquare(matrix) {
 // matrix = []
 // matrix = [[], []]
 // matrix = [[1]]
-matrix = [
-    ["0","0","0","1"],
-    ["1","1","0","1"],
-    ["1","1","1","1"],
-    ["0","1","1","1"],
-    ["0","1","1","1"]]
-console.log(maximalSquare(matrix));
+// matrix = [
+//     ["0", "0", "0", "1"],
+//     ["1", "1", "0", "1"],
+//     ["1", "1", "1", "1"],
+//     ["0", "1", "1", "1"],
+//     ["0", "1", "1", "1"]
+// ];
+// matrix = []
+// matrix = [[]]
+matrix = [[1]]
+console.log(maximalSquare3(matrix));
