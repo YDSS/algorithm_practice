@@ -90,6 +90,8 @@ it's hard to do something which is easy like `join` when all data in one table, 
     
     **solution**: orderby in every table, and then merge the result. 
 
+4. consistent id => [Twitter的分布式自增ID算法Snowflake](http://blog.sina.com.cn/s/blog_6b7c2e660102vbi2.html)
+
 #### reference
 
 - [1](https://www.cnblogs.com/jshen/p/7682502.html)
