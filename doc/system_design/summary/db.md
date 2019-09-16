@@ -47,6 +47,22 @@ replication:
 
     ![img](./img/mysql_master_master_replication.png)
 
+separate write and read:
+
+very much like master/slave replication:
+
+![img](./img/separate_write_read.webp)
+
+1. insert/update/delete op by **master**
+2. select op by **slave**
+3. master replicate data to slave to keep consistence of data
+
+composite indexes:
+
+1. far left prefix rule
+
+
+
 **cons**
 
 - predefine schema (table), not easy when need alter some columns. strict table has pros too, the data is solid, but less flexible
