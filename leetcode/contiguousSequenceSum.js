@@ -28,11 +28,15 @@
  */
 function contiguousSum(arr, sum) {
     let n = arr.length;
+    if (n === 0) {
+        return null;
+    }
+
     let i = 0;
     let j = 1;
     let curSum = arr[0];
 
-    while (true) {
+    while (i < j) {
         // move j until curSum > sum
         while (j < n && curSum < sum) {
             curSum += arr[j]; 
@@ -40,12 +44,8 @@ function contiguousSum(arr, sum) {
         }
         console.log(i, j, curSum)
         if (curSum === sum) {
-            return [i, j];
+            return [i, j - 1];
         }
-        if (j === n) {
-            break;
-        }
-
         // curSum will be larger than sum if j move forward one step,
         // in this case i should move to reduce curSum
         curSum -= arr[i];
@@ -57,7 +57,7 @@ function contiguousSum(arr, sum) {
 
 // arr = [1, 4, 20, 3, 10, 5], sum = 33;
 // arr = [1], sum = 33;
-// arr = [1, 4, 0, 0, 3, 10, 5], sum = 7
-arr = [1, 4], sum = 0
+arr = [1, 4, 0, 0, 3, 10, 5], sum = 7
+// arr = [1, 4], sum = 0
 
 console.log(contiguousSum(arr, sum))
